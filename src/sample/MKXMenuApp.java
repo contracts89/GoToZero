@@ -2,19 +2,15 @@ package com.almasb.tutorial26;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,6 +22,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.SinglePlayerState;
 
 public class MKXMenuApp extends Application {
 
@@ -246,6 +243,10 @@ public class MKXMenuApp extends Application {
 
             if (event.getCode() == KeyCode.ENTER) {
                 getMenuItem(currentItem).activate();
+                if(currentItem==0){
+                    SinglePlayerState playState = new SinglePlayerState();
+                    primaryStage.close();
+                }
             }
         });
 
@@ -255,6 +256,7 @@ public class MKXMenuApp extends Application {
         });
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);
