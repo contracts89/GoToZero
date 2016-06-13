@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class SinglePlayerState {
 
-    Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
+    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     Player player;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
