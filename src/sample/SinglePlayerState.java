@@ -26,10 +26,13 @@ public class SinglePlayerState {
             player.isMovingRight=true;
             player.move();
 
-        }
-        if (isPressed(KeyCode.LEFT)) {
+        }else if (isPressed(KeyCode.LEFT)) {
             player.animation.play();
             player.isMovingRight=false;
+            player.move();
+        }else {
+
+            player.animation.play();
             player.move();
         }
     }

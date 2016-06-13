@@ -23,16 +23,22 @@ public class Player extends Pane {
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-        animation = new SpriteAnimation(this.imageView, Duration.millis(500), count-1, columns, offsetX+60, offsetY, width, height);
+
+
         getChildren().addAll(this.imageView);
+        animation = new SpriteAnimation(this.imageView,Duration.millis(500), count-1, columns, offsetX, offsetY+180, width, height);
+
     }
 
+
     public void move() {
+        boolean isBeginning;
+        if (isBeginning)
         if(isMovingRight){
-            this.setTranslateX(this.getTranslateX()+1);
+            this.setTranslateX(this.getTranslateX()+2);
            animation=new SpriteAnimation(this.imageView,Duration.millis(500),count-1,columns,offsetX,offsetY+120,width,height);
         }else{
-            this.setTranslateX(this.getTranslateX()-1);
+            this.setTranslateX(this.getTranslateX()-2);
             animation=new SpriteAnimation(this.imageView,Duration.millis(500),count-1,columns,offsetX,offsetY+60,width,height);
         }
     }
