@@ -12,26 +12,28 @@ public class Player extends Pane {
     ImageView imageView = new ImageView(playerImg);
     int count = 4;
     int columns = 4;
-    int offsetX = 0;
+    int offsetX = 60;
     int offsetY = 0;
-    int width = 40;
-    int height = 40;
+    int width = 60;
+    int height = 60;
     public SpriteAnimation animation;
     boolean isMovingRight ;
 
     public Player() {
-        imageView.setFitHeight(40);
-        imageView.setFitWidth(40);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-        animation = new SpriteAnimation(this.imageView, Duration.millis(500), count-1, columns, offsetX, offsetY, width, height);
+        animation = new SpriteAnimation(this.imageView, Duration.millis(500), count-1, columns, offsetX+60, offsetY, width, height);
         getChildren().addAll(this.imageView);
     }
 
     public void move() {
         if(isMovingRight){
             this.setTranslateX(this.getTranslateX()+1);
+           animation=new SpriteAnimation(this.imageView,Duration.millis(500),count-1,columns,offsetX,offsetY+120,width,height);
         }else{
             this.setTranslateX(this.getTranslateX()-1);
+            animation=new SpriteAnimation(this.imageView,Duration.millis(500),count-1,columns,offsetX,offsetY+60,width,height);
         }
     }
 }
