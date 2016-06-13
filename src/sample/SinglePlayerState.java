@@ -22,19 +22,17 @@ public class SinglePlayerState {
     private void update(){
 
         if (isPressed(KeyCode.RIGHT)) {
-            player.animation.play();
             player.isMovingRight=true;
+            player.isMovingLeft=false;
             player.move();
 
         }else if (isPressed(KeyCode.LEFT)) {
-            player.animation.play();
+            player.isMovingLeft=true;
             player.isMovingRight=false;
             player.move();
-        }else {
-
-            player.animation.play();
-            player.move();
         }
+
+        player.render();
     }
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
@@ -45,12 +43,11 @@ public class SinglePlayerState {
         pane.setPrefSize(900, 600);
         player = new Player();
         player.setTranslateX(400);
-        player.setTranslateY(300);
+        player.setTranslateY(485);
         ImageView imageView = new ImageView(background);
         pane.getChildren().addAll(imageView,player);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
-
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         scene.setOnKeyReleased(event -> {
             keys.put(event.getCode(), false);

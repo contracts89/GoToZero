@@ -10,34 +10,44 @@ import javafx.util.Duration;
 public class Player extends Pane {
     private Image playerImg = new Image(getClass().getResourceAsStream("resources/playerSprite.png"));
     private ImageView imageView = new ImageView(playerImg);
-    private int count = 4;
-    private int columns = 4;
+    private int count = 1;
+    private int columns = 1;
     private int offsetX = 60;
     private int offsetY = 0;
     private int width = 60;
     private int height = 60;
     public SpriteAnimation animation;
-    boolean isMovingRight;
+    boolean isMovingRight, isMovingLeft;
 
     public Player() {
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-
-
+        render();
         getChildren().addAll(this.imageView);
-        animation = new SpriteAnimation(this.imageView, Duration.millis(500), count - 1, columns, offsetX, offsetY + 180, width, height);
-
     }
 
 
     public void move() {
         if (isMovingRight) {
-            this.setTranslateX(this.getTranslateX() + 2);
-            animation = new SpriteAnimation(this.imageView, Duration.millis(500), count - 1, columns, offsetX, offsetY + 120, width, height);
-        } else {
-            this.setTranslateX(this.getTranslateX() - 2);
-            animation = new SpriteAnimation(this.imageView, Duration.millis(500), count - 1, columns, offsetX, offsetY + 60, width, height);
+            this.offsetY = height * 2;
+            this.setTranslateX(this.getTranslateX() + 6);
+        } else if (isMovingLeft) {
+            this.offsetY = height;
+            this.setTranslateX(this.getTranslateX() - 6);
         }
+
+        this.columns++;
+        this.count++;
+        this.offsetX += width;
+
+        if (offsetX == width * 8) {
+            offsetX = width;
+        }
+    }
+
+    public void render() {
+        animation = new SpriteAnimation(this.imageView, Duration.INDEFINITE, count - 1, columns, offsetX, offsetY, width, height);
+        animation.play();
     }
 }
