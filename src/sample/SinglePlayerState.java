@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class SinglePlayerState {
 
-    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
+//    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     private Player player;
     private Numbers fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
@@ -50,8 +50,8 @@ public class SinglePlayerState {
         player.setTranslateX(400);
         player.setTranslateY(485);
         player.render();
-        ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll(imageView, player, fallingNumbers);
+//        ImageView imageView = new ImageView(background);
+        pane.getChildren().addAll( player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));

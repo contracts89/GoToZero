@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Player extends Pane {
+    private final static int SPEED = 10;
     private final static int LEFT_WALL_BOUNDARY = -10;
     private final static int RIGHT_WALL_BOUNDARY = 850;
     private Image playerImg = new Image(getClass().getResourceAsStream("resources/playerSprite.png"));
@@ -34,12 +35,12 @@ public class Player extends Pane {
         if (isMovingRight) {
             this.offsetY = height * 2;
             if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
-                this.setTranslateX(this.getTranslateX() + 5);
+                this.setTranslateX(this.getTranslateX() + SPEED);
             }
         } else if (isMovingLeft) {
             this.offsetY = height;
             if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
-                this.setTranslateX(this.getTranslateX() - 5);
+                this.setTranslateX(this.getTranslateX() - SPEED);
             }
         }
         this.columns++;
