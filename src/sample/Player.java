@@ -8,8 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Player extends Pane {
-    final static int LEFT_WALL_BOUNDARY = -10;
-    final static int RIGHT_WALL_BOUNDARY = 850;
+    private final static int LEFT_WALL_BOUNDARY = -10;
+    private final static int RIGHT_WALL_BOUNDARY = 850;
     private Image playerImg = new Image(getClass().getResourceAsStream("resources/playerSprite.png"));
     private ImageView imageView = new ImageView(playerImg);
     private int count = 1;
@@ -18,7 +18,7 @@ public class Player extends Pane {
     private int offsetY = 0;
     private int width = 60;
     private int height = 60;
-    SpriteAnimation animation;
+    private SpriteAnimation animation;
     boolean isMovingRight, isMovingLeft;
 
     public Player() {
@@ -30,19 +30,18 @@ public class Player extends Pane {
     }
 
 
-     void move() {
+    void move() {
         if (isMovingRight) {
             this.offsetY = height * 2;
-            if(this.getTranslateX()<RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
+            if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() + 5);
             }
         } else if (isMovingLeft) {
             this.offsetY = height;
-            if(this.getTranslateX()>LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
+            if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() - 5);
             }
         }
-
         this.columns++;
         this.count++;
         this.offsetX += width;
@@ -51,8 +50,10 @@ public class Player extends Pane {
             offsetX = width;
         }
     }
-
-     void render() {
+    void stayAtPos(){
+        this.offsetY=0;
+    }
+    void render() {
         animation = new SpriteAnimation(this.imageView, Duration.INDEFINITE, count - 1, columns, offsetX, offsetY, width, height);
         animation.play();
     }

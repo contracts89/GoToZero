@@ -13,28 +13,29 @@ import java.util.HashMap;
 public class SinglePlayerState {
 
     private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
-    Player player;
-    Numbers fallingNumbers;
+    private Player player;
+    private Numbers fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
     public SinglePlayerState() {
         this.createPlayScene();
     }
-    private void update(){
 
+    private void update() {
+        player.stayAtPos();
         if (isPressed(KeyCode.RIGHT)) {
-            player.isMovingRight=true;
-            player.isMovingLeft=false;
+            player.isMovingRight = true;
+            player.isMovingLeft = false;
             player.move();
 
-        }else if (isPressed(KeyCode.LEFT)) {
-            player.isMovingLeft=true;
-            player.isMovingRight=false;
+        } else if (isPressed(KeyCode.LEFT)) {
+            player.isMovingLeft = true;
+            player.isMovingRight = false;
             player.move();
         }
-
         player.render();
     }
+
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
     }
@@ -50,7 +51,7 @@ public class SinglePlayerState {
         player.setTranslateY(485);
         player.render();
         ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll(imageView,player,fallingNumbers);
+        pane.getChildren().addAll(imageView, player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
