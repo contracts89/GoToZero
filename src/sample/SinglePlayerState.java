@@ -22,18 +22,17 @@ public class SinglePlayerState {
     }
 
     private void update() {
-        player.stayAtPos();
+        player.useTheAnimation();
         if (isPressed(KeyCode.RIGHT)) {
-            player.isMovingRight = true;
-            player.isMovingLeft = false;
+            player.isMovingRight=true;
+            player.setScaleX(1);
             player.move();
 
         } else if (isPressed(KeyCode.LEFT)) {
-            player.isMovingLeft = true;
-            player.isMovingRight = false;
+            player.isMovingRight=false;
+            player.setScaleX(-1);
             player.move();
         }
-        player.render();
     }
 
     private boolean isPressed(KeyCode key) {
@@ -49,7 +48,6 @@ public class SinglePlayerState {
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
-        player.render();
 //        ImageView imageView = new ImageView(background);
         pane.getChildren().addAll( player, fallingNumbers);
         Stage stage = new Stage();
