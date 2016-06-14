@@ -41,9 +41,13 @@ public class Player extends Pane {
             if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() + SPEED);
             }
-        } if (isMovingLeft) {
+        } else if (isMovingLeft) {
             if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() - SPEED);
+            }
+        }else{
+            if (this.getTranslateX() == RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
+                this.setTranslateX(this.getTranslateX() +- SPEED);
             }
         }
     }
