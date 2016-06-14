@@ -48,7 +48,7 @@ public class SinglePlayerState {
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
-
+        player.render();
         ImageView imageView = new ImageView(background);
         pane.getChildren().addAll(imageView,player,fallingNumbers);
         Stage stage = new Stage();
@@ -56,7 +56,6 @@ public class SinglePlayerState {
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         scene.setOnKeyReleased(event -> {
             keys.put(event.getCode(), false);
-            player.animation.stop();
         });
         stage.setScene(scene);
         stage.show();
