@@ -30,8 +30,14 @@ public class SinglePlayerState {
 
         } else if (isPressed(KeyCode.LEFT)) {
             player.isMovingRight=false;
+            player.isMovingLeft=true;
             player.setScaleX(-1);
             player.move();
+        }else {
+            player.isMovingRight=false;
+            player.setScaleX(-1);
+            player.move();
+            player.isMovingLeft=false;
         }
     }
 

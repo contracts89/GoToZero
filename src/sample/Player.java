@@ -20,13 +20,17 @@ public class Player extends Pane {
     private int width = 60;
     private int height = 60;
     public SpriteAnimation animation;
+    public SpriteAnimation animationOnPlace;
+    private int offsetYOnPlace = 0;
     boolean isMovingRight;
+    boolean isMovingLeft;
 
     public Player() {
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
         animation = new SpriteAnimation(this.imageView, Duration.millis(750), count, columns, offsetX, offsetY, width, height);
+        animationOnPlace = new SpriteAnimation(this.imageView, Duration.millis(500), count, columns, offsetX, offsetYOnPlace, width, height);
         useTheAnimation();
         getChildren().addAll(this.imageView);
     }
@@ -37,7 +41,7 @@ public class Player extends Pane {
             if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() + SPEED);
             }
-        } else {
+        } if (isMovingLeft) {
             if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() - SPEED);
             }
@@ -45,6 +49,10 @@ public class Player extends Pane {
     }
 
     void useTheAnimation() {
-        animation.play();
+        if(isMovingLeft || isMovingRight){
+            animation.play();
+        }else {
+            animationOnPlace.play();
+        }
     }
 }
