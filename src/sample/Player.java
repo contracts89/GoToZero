@@ -19,8 +19,8 @@ public class Player extends Pane {
     private int offsetY = 120;
     private int width = 60;
     private int height = 60;
-    public SpriteAnimation animation;
-    public SpriteAnimation animationOnPlace;
+    private SpriteAnimation animation;
+    private SpriteAnimation animationOnPlace;
     private int offsetYOnPlace = 0;
     boolean isMovingRight;
     boolean isMovingLeft;
@@ -44,10 +44,6 @@ public class Player extends Pane {
         } else if (isMovingLeft) {
             if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
                 this.setTranslateX(this.getTranslateX() - SPEED);
-            }
-        }else{
-            if (this.getTranslateX() == RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
-                this.setTranslateX(this.getTranslateX() +- SPEED);
             }
         }
     }
