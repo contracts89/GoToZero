@@ -52,6 +52,7 @@ public class Player extends Pane {
         if(isMovingLeft || isMovingRight){
             animation.play();
         }else {
+            animation.stop();
             animationOnPlace.play();
         }
     }

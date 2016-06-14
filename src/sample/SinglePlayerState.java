@@ -27,7 +27,7 @@ public class SinglePlayerState {
             player.isMovingRight=true;
             player.setScaleX(1);
             player.move();
-
+            player.isMovingLeft=false;
         } else if (isPressed(KeyCode.LEFT)) {
             player.isMovingRight=false;
             player.isMovingLeft=true;
@@ -35,8 +35,6 @@ public class SinglePlayerState {
             player.move();
         }else {
             player.isMovingRight=false;
-            player.setScaleX(-1);
-            player.move();
             player.isMovingLeft=false;
         }
     }
