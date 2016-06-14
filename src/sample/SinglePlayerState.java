@@ -14,6 +14,7 @@ public class SinglePlayerState {
 
     private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     Player player;
+    Numbers fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
     public SinglePlayerState() {
@@ -41,11 +42,15 @@ public class SinglePlayerState {
     private void createPlayScene() {
         Pane pane = new Pane();
         pane.setPrefSize(900, 600);
+
+        fallingNumbers = new Numbers();
+
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
+
         ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll(imageView,player);
+        pane.getChildren().addAll(imageView,player,fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
