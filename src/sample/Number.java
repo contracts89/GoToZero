@@ -19,14 +19,14 @@ import java.util.Random;
 
 public class Number extends StackPane {
     private Label textLabel = new Label();
-    private Rectangle rectangle = new Rectangle(40,40);
+
 
     public Label getTextLabel() {
         return textLabel;
     }
 
     public Number() {
-        this.getChildren().addAll(this.textLabel, this.rectangle);
+        this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
         int p = randomNumber.nextInt(10) + 1;
 
