@@ -80,7 +80,6 @@ public class SinglePlayerState {
         player.setTranslateY(485);
         ImageView imageView = new ImageView(background);
         text = createText();
-        text.setOpacity(0);
         pane.getChildren().addAll(imageView,text,player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
@@ -112,7 +111,7 @@ public class SinglePlayerState {
         testText.setY(20);
         testText.setX(0);
         testText.setFill(Color.WHITE);
-        testText.setVisible(true);
+        testText.setOpacity(111);
         return testText;
     }
 }
