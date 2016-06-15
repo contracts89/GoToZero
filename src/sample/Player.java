@@ -57,4 +57,5 @@ public class Player extends Pane {
             animationOnPlace.play();
         }
     }
+
 }

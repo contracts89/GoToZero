@@ -1,16 +1,26 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sun.font.TextLabel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static javafx.application.Application.STYLESHEET_MODENA;
 
 public class SinglePlayerState {
 
@@ -21,7 +31,8 @@ public class SinglePlayerState {
     private Pane pane;
     private AnimationTimer timer;
     private List<Number> numberses;
-
+    private Text text ;
+    private LongProperty score = new SimpleLongProperty(500);
     public SinglePlayerState() {
         this.createPlayScene();
     }
@@ -50,7 +61,7 @@ public class SinglePlayerState {
         for (Number numberse : numberses) {
             if (numberse.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
                 pane.getChildren().remove(numberse);
-                System.out.println(numberse.getNumberScore());
+                score.set(score.get() - (numberse.getNumberScore()));
                 return;
             }
         }
@@ -70,7 +81,8 @@ public class SinglePlayerState {
         player.setTranslateX(400);
         player.setTranslateY(485);
         ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll(imageView,player, fallingNumbers);
+        text = createText();
+        pane.getChildren().addAll(text,player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
@@ -83,6 +95,7 @@ public class SinglePlayerState {
             @Override
             public void handle(long now) {
                 update();
+                drawScore();
             }
         };
         timer.start();
@@ -90,4 +103,16 @@ public class SinglePlayerState {
 
     }
 
+    private void drawScore(){
+        text.textProperty().bind(Bindings.createStringBinding(() -> ("Score: " + score.get()), score));
+    }
+
+    private Text createText(){
+        Text testText = new Text();
+        testText.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
+        testText.setY(20);
+        testText.setX(0);
+        testText.setFill(Color.BLUE);
+        return testText;
+    }
 }
