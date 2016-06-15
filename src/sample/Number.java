@@ -36,7 +36,7 @@ public class Number extends StackPane {
     public Number() {
         this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
-        int p = randomNumber.nextInt(10) + 1;
+        int p = randomNumber.nextInt(100) + 1;
 
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
 
