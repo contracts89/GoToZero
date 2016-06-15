@@ -19,7 +19,15 @@ import java.util.Random;
 
 public class Number extends StackPane {
     private Label textLabel = new Label();
+    private int numberScore;
 
+    public int getNumberScore() {
+        return numberScore;
+    }
+
+    public void setNumberScore(int numberScore) {
+        this.numberScore = numberScore;
+    }
 
     public Label getTextLabel() {
         return textLabel;
@@ -28,9 +36,9 @@ public class Number extends StackPane {
     public Number() {
         this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
-        int p = randomNumber.nextInt(10) + 1;
+        int p = randomNumber.nextInt(100) + 1;
 
-
+        this.setNumberScore(p);
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
 
         this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
@@ -55,4 +63,5 @@ public class Number extends StackPane {
         pathAnimObst1.play();
 
     }
+
 }

@@ -25,13 +25,13 @@ public class Player extends Pane {
     private int offsetYOnPlace = 0;
     boolean isMovingRight;
     boolean isMovingLeft;
-    public Rectangle2D boundingBox = new Rectangle2D(this.getTranslateX(),this.getTranslateY(),this.width,this.height);
+
     public Player() {
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
         animation = new SpriteAnimation(this.imageView, Duration.millis(750), count, columns, offsetX, offsetY, width, height);
-        animationOnPlace = new SpriteAnimation(this.imageView, Duration.millis(500), count, columns, offsetX, offsetYOnPlace, width, height);
+        animationOnPlace = new SpriteAnimation(this.imageView, Duration.millis(750), count, columns, offsetX, offsetYOnPlace, width, height);
         useTheAnimation();
         getChildren().addAll(this.imageView);
     }

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SinglePlayerState {
 
-    //    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
+    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     private Player player;
     private Number fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
@@ -50,6 +50,8 @@ public class SinglePlayerState {
         for (Number numberse : numberses) {
             if (numberse.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
                 pane.getChildren().remove(numberse);
+                System.out.println(numberse.getNumberScore());
+                return;
             }
         }
     }
@@ -67,8 +69,8 @@ public class SinglePlayerState {
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
-//        ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll(player, fallingNumbers);
+        ImageView imageView = new ImageView(background);
+        pane.getChildren().addAll(imageView,player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
