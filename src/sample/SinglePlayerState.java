@@ -26,10 +26,8 @@ public class SinglePlayerState {
 
     private Image background = new Image(getClass().getResourceAsStream("resources\\background1.jpg"));
     private Player player;
-    private Number fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Pane pane;
-    private AnimationTimer timer;
     private List<Number> numberses;
     private Text text ;
     private LongProperty score = new SimpleLongProperty(500);
@@ -75,14 +73,15 @@ public class SinglePlayerState {
         pane = new Pane();
         pane.setPrefSize(900, 600);
         numberses = new ArrayList<>();
-        fallingNumbers = new Number();
+        Number fallingNumbers = new Number();
         numberses.add(fallingNumbers);
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
         ImageView imageView = new ImageView(background);
         text = createText();
-        pane.getChildren().addAll(text,player, fallingNumbers);
+        text.setOpacity(0);
+        pane.getChildren().addAll(imageView,text,player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
@@ -91,7 +90,7 @@ public class SinglePlayerState {
         });
         stage.setScene(scene);
         stage.show();
-        timer = new AnimationTimer() {
+        AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
@@ -112,7 +111,8 @@ public class SinglePlayerState {
         testText.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
         testText.setY(20);
         testText.setX(0);
-        testText.setFill(Color.BLUE);
+        testText.setFill(Color.WHITE);
+        testText.setVisible(true);
         return testText;
     }
 }
