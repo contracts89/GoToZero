@@ -25,8 +25,7 @@ public class Player extends Pane {
     private int offsetYOnPlace = 0;
     boolean isMovingRight;
     boolean isMovingLeft;
-
-
+     Rectangle2D boundingBox = new Rectangle2D(this.getTranslateX(),this.getTranslateY(),this.width,this.height);
     public Player() {
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);

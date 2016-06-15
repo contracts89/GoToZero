@@ -42,6 +42,16 @@ public class SinglePlayerState {
             player.isMovingRight=false;
             player.isMovingLeft=false;
         }
+        if(System.nanoTime() % 60 ==0) {
+            Numbers numbers = new Numbers();
+            numberses.add(numbers);
+            pane.getChildren().add(numbers);
+        }
+        for (Numbers numberse : numberses) {
+            if(numberse.intersects(player.getBoundsInParent())){
+                 pane.getChildren().remove(numberse);
+            }
+        }
     }
 
     private boolean isPressed(KeyCode key) {
@@ -71,17 +81,6 @@ public class SinglePlayerState {
             @Override
             public void handle(long now) {
                 update();
-                if(System.nanoTime() % 60 ==0) {
-                    Numbers numbers = new Numbers();
-                    numberses.add(numbers);
-                    pane.getChildren().add(numbers);
-                }
-                for (Numbers numberse : numberses) {
-                    if(numberse.intersects(player.getBoundsInLocal())){
-                       // pane.getChildren().remove(numberse);
-                    }
-                }
-
             }
         };
         timer.start();
