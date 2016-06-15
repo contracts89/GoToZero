@@ -5,6 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Player extends Pane {
@@ -24,6 +25,7 @@ public class Player extends Pane {
     private int offsetYOnPlace = 0;
     boolean isMovingRight;
     boolean isMovingLeft;
+
 
     public Player() {
         imageView.setFitHeight(60);

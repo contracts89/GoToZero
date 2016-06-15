@@ -8,7 +8,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SinglePlayerState {
 
@@ -16,6 +18,9 @@ public class SinglePlayerState {
     private Player player;
     private Numbers fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+    private Pane pane;
+    private AnimationTimer timer;
+    private List<Numbers> numberses;
 
     public SinglePlayerState() {
         this.createPlayScene();
@@ -44,11 +49,11 @@ public class SinglePlayerState {
     }
 
     private void createPlayScene() {
-        Pane pane = new Pane();
+        pane = new Pane();
         pane.setPrefSize(900, 600);
-
+        numberses = new ArrayList<>();
         fallingNumbers = new Numbers();
-
+        numberses.add(fallingNumbers);
         player = new Player();
         player.setTranslateX(400);
         player.setTranslateY(485);
@@ -62,12 +67,26 @@ public class SinglePlayerState {
         });
         stage.setScene(scene);
         stage.show();
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
+                if(System.nanoTime() % 60 ==0) {
+                    Numbers numbers = new Numbers();
+                    numberses.add(numbers);
+                    pane.getChildren().add(numbers);
+                }
+                for (Numbers numberse : numberses) {
+                    if(numberse.intersects(player.getBoundsInLocal())){
+                       // pane.getChildren().remove(numberse);
+                    }
+                }
+
             }
         };
         timer.start();
+
+
     }
+
 }
