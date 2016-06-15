@@ -36,9 +36,8 @@ public class Number extends StackPane {
     public Number() {
         this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
-        int p = randomNumber.nextInt(100) + 1;
+        int p = randomNumber.nextInt(10) + 1;
 
-        this.setNumberScore(p);
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
 
         this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
@@ -46,6 +45,7 @@ public class Number extends StackPane {
 
 
 
+        this.setNumberScore(p);
         falling();
     }
     private void falling() {

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import sun.font.TextLabel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,13 +57,18 @@ public class SinglePlayerState {
             numberses.add(numbers);
             pane.getChildren().add(numbers);
         }
-        for (Number numberse : numberses) {
-            if (numberse.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
-                pane.getChildren().remove(numberse);
-                score.set(score.get() - (numberse.getNumberScore()));
-                return;
+        for(int i =0;i<numberses.size();i++){
+            if(numberses.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())){
+                pane.getChildren().remove(numberses.get(i));
+                score.set(score.get() - (numberses.get(i).getNumberScore()));
+                numberses.removeAll(Collections.singleton(numberses.get(i)));
             }
         }
+//        for (Number numberse : numberses) {
+//            if (numberse.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
+//                return;
+//            }
+//        }
     }
 
     private boolean isPressed(KeyCode key) {
@@ -76,8 +82,8 @@ public class SinglePlayerState {
         Number fallingNumbers = new Number();
         numberses.add(fallingNumbers);
         player = new Player();
-        player.setTranslateX(400);
-        player.setTranslateY(485);
+        player.setTranslateX(500);
+        player.setTranslateY(540);
         ImageView imageView = new ImageView(background);
         text = createText();
         pane.getChildren().addAll(imageView,text,player, fallingNumbers);
