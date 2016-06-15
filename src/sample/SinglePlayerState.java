@@ -24,7 +24,7 @@ import static javafx.application.Application.STYLESHEET_MODENA;
 
 public class SinglePlayerState {
 
-    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
+    private Image background = new Image(getClass().getResourceAsStream("resources\\background1.jpg"));
     private Player player;
     private Number fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();

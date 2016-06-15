@@ -42,7 +42,7 @@ public class Number extends StackPane {
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
 
         this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
-        this.textLabel.setTextFill(Color.BLUE);
+        this.textLabel.setTextFill(Color.WHITESMOKE);
 
 
 
