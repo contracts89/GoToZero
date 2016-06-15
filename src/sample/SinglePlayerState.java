@@ -16,11 +16,11 @@ public class SinglePlayerState {
 
 //    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     private Player player;
-    private Numbers fallingNumbers;
+    private Number fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Pane pane;
     private AnimationTimer timer;
-    private List<Numbers> numberses;
+    private List<Number> numberses;
 
     public SinglePlayerState() {
         this.createPlayScene();
@@ -43,11 +43,11 @@ public class SinglePlayerState {
             player.isMovingLeft=false;
         }
         if(System.nanoTime() % 60 ==0) {
-            Numbers numbers = new Numbers();
+            Number numbers = new Number();
             numberses.add(numbers);
             pane.getChildren().add(numbers);
         }
-        for (Numbers numberse : numberses) {
+        for (Number numberse : numberses) {
             if(numberse.intersects(player.getBoundsInParent())){
                  pane.getChildren().remove(numberse);
             }
@@ -62,7 +62,7 @@ public class SinglePlayerState {
         pane = new Pane();
         pane.setPrefSize(900, 600);
         numberses = new ArrayList<>();
-        fallingNumbers = new Numbers();
+        fallingNumbers = new Number();
         numberses.add(fallingNumbers);
         player = new Player();
         player.setTranslateX(400);
