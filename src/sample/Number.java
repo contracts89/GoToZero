@@ -3,10 +3,13 @@ package sample;
 import javafx.animation.PathTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Border;
+
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.VLineTo;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,21 +17,24 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-public class Number extends Pane {
+public class Number extends StackPane {
     private Label textLabel = new Label();
+    private Rectangle rectangle = new Rectangle(40,40);
 
+    public Label getTextLabel() {
+        return textLabel;
+    }
 
     public Number() {
-        getChildren().addAll(this.textLabel);
-
+        this.getChildren().addAll(this.textLabel, this.rectangle);
         Random randomNumber = new Random();
         int p = randomNumber.nextInt(10) + 1;
 
 
-        textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
+        this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
 
-        textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
-        textLabel.setTextFill(Color.BLUE);
+        this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
+        this.textLabel.setTextFill(Color.BLUE);
 
 
 
@@ -36,18 +42,17 @@ public class Number extends Pane {
     }
     private void falling() {
         PathTransition pathAnimObst1 = new PathTransition();
+
         pathAnimObst1.setNode(textLabel);
 
-        Random randomNumber = new Random();
-        int p = randomNumber.nextInt(600);
-        double startX = p;
+        double startX = Math.random() * 900;
         double startY =-100;
         Path p1 = new Path(new MoveTo(startX, startY));
-        p1.getElements().add(new VLineTo(800));
+        p1.getElements().add(new VLineTo(900));
         pathAnimObst1.setPath(p1);
-        pathAnimObst1.setDuration(Duration.seconds(4.0d));
+        pathAnimObst1.setDuration(Duration.seconds(Math.random() * 10));
         pathAnimObst1.setCycleCount(1);
         pathAnimObst1.play();
-        
+
     }
 }

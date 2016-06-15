@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SinglePlayerState {
 
-//    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
+    //    private Image background = new Image(getClass().getResourceAsStream("resources/background.jpg"));
     private Player player;
     private Number fallingNumbers;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
@@ -29,27 +29,27 @@ public class SinglePlayerState {
     private void update() {
         player.useTheAnimation();
         if (isPressed(KeyCode.RIGHT)) {
-            player.isMovingRight=true;
+            player.isMovingRight = true;
             player.setScaleX(1);
             player.move();
-            player.isMovingLeft=false;
+            player.isMovingLeft = false;
         } else if (isPressed(KeyCode.LEFT)) {
-            player.isMovingRight=false;
-            player.isMovingLeft=true;
+            player.isMovingRight = false;
+            player.isMovingLeft = true;
             player.setScaleX(-1);
             player.move();
-        }else {
-            player.isMovingRight=false;
-            player.isMovingLeft=false;
+        } else {
+            player.isMovingRight = false;
+            player.isMovingLeft = false;
         }
-        if(System.nanoTime() % 60 ==0) {
+        if (System.nanoTime() % 60 == 0) {
             Number numbers = new Number();
             numberses.add(numbers);
             pane.getChildren().add(numbers);
         }
         for (Number numberse : numberses) {
-            if(numberse.intersects(player.getBoundsInParent())){
-                 pane.getChildren().remove(numberse);
+            if (numberse.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
+                pane.getChildren().remove(numberse);
             }
         }
     }
@@ -68,7 +68,7 @@ public class SinglePlayerState {
         player.setTranslateX(400);
         player.setTranslateY(485);
 //        ImageView imageView = new ImageView(background);
-        pane.getChildren().addAll( player, fallingNumbers);
+        pane.getChildren().addAll(player, fallingNumbers);
         Stage stage = new Stage();
         Scene scene = new Scene(pane);
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
