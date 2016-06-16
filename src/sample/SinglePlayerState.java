@@ -30,9 +30,9 @@ public class SinglePlayerState {
     private Text scoreText;
     private Text currentOperationText;
     private LongProperty score = new SimpleLongProperty(500);
-    private String currentOperation ;
+    private String currentOperation = "Add" ;
     private Timer timer = new Timer();
-
+    private Random rnd = new Random();
     public SinglePlayerState() {
         this.createPlayScene();
     }
@@ -111,6 +111,7 @@ public class SinglePlayerState {
                 update();
                 drawScore();
                 drawCurrentOperation();
+                generateOperator();
             }
         };
         timer.start();
@@ -140,6 +141,20 @@ public class SinglePlayerState {
         testText.setOpacity(111);
         return testText;
     }
-
+    private void generateOperator(){
+        int number = genRndNCorrespondingToStringOperation();
+        switch(number){
+            case 1 : currentOperation = "Add";break;
+            case 2 : currentOperation = "Subtract";break;
+            case 3 : currentOperation = "Multiply";break;
+            case 4 : currentOperation = "Divide";break;
+        }
+    }
+    private int genRndNCorrespondingToStringOperation(){
+        if(System.nanoTime()%250==0){
+            return rnd.nextInt(4)+1;
+        }
+        return 0;
+    }
 }
 
