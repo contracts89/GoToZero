@@ -57,20 +57,20 @@ public class MKXMenuApp extends Application {
         menuBox = new VBox(10,
                 new MenuItem("ONE PLAYER"),
                 new MenuItem("TWO PLAYERS"),
+                new MenuItem("HIGHSCORE"),
+                new MenuItem("HELP"),
                 new MenuItem("CREDITS"),
-                new MenuItem("OPTIONS"),
-                new MenuItem("CONTROLS"),
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
         menuBox.setTranslateX(360);
         menuBox.setTranslateY(300);
 
-        Text about = new Text("GoToZero\n\tby\n    Team Ancalogon");
-        about.setTranslateX(50);
-        about.setTranslateY(500);
+        Text about = new Text("GoToZero by Team Ancalogon");
+        about.setTranslateX(320);
+        about.setTranslateY(570);
         about.setFill(Color.GRAY);
         about.setFont(FONT);
-        about.setOpacity(0.2);
+        about.setOpacity(0.5);
 
         getMenuItem(0).setActive(true);
 
@@ -81,7 +81,7 @@ public class MKXMenuApp extends Application {
 
 
     private Node createMiddleContent() {
-        String title = "KEEP RUNNING";
+        String title = "KEEP RUNNING..";
         HBox letters = new HBox(0);
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
@@ -102,7 +102,7 @@ public class MKXMenuApp extends Application {
     }
 
     private Node createRightContent() {
-        String title = "Are you fast enough ;)";
+        String title = "GO TO ZER0 !";
         HBox letters = new HBox(0);
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
@@ -155,7 +155,14 @@ public class MKXMenuApp extends Application {
 
             getChildren().addAll(c1, text, c2);
             setActive(false);
-            setOnActivate(() -> System.out.println(name + " activated"));
+
+            if(name == "ONE PLAYER"){
+                setOnActivate(() -> System.out.println(name + " activated"));
+            } else {
+                setOnActivate(() -> System.out.println(name + " - To be done on next version."));
+            }
+
+
         }
 
         public void setActive(boolean b) {
