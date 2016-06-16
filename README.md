@@ -1,48 +1,76 @@
 Programming Language
+
 JAVA
+
 UI library
+
 JAVA FX
-Game Name: 
-GoToZero
+
+Game Name: GoToZero
+
 Goal of the Game: 
+
 	The goal of the game is through the mathematical operations addition and subtraction to reach a score of 0.
+	
 Objects: 
-ï	Background 
-ï	Background menu ñ background image for menu
-ï	Background game ñ background image for game
+
+‚Ä¢	Background 
+
+‚Ä¢	Background menu ‚Äì background image for menu
+
+‚Ä¢	Background game ‚Äì background image for game
+
 1.1.	Menu
+
 The Main menu gives the player the following options:
+
 Start -  starts the game
-Help ñ describes the goal of the game
-HighScore ñ shows high-scores(TO DO)
-Quit ñ exits the game
+
+Help ‚Äì describes the goal of the game
+
+HighScore ‚Äì shows high-scores(TO DO)
+
+Quit ‚Äì exits the game
+
 1.2.	Falling objects
-Falling object number ñ falling numbers with random value
-Falling object sign ñ falling mathematic signs corresponding to the mathematical operations of addition, subtraction, multiplication and division(TO DO)
-Falling object symbol ñ falling symbols (like $, %, #) which have an unpredictable outcome for the score(TO DO)
+
+Falling object number ‚Äì falling numbers with random value
+
+Falling object sign ‚Äì falling mathematic signs corresponding to the mathematical operations of addition, subtraction, multiplication and
+division
+
+Falling object symbol ‚Äì falling symbols (like $, %, #) which have an unpredictable outcome for the score(TO DO)
+
 1.3.	Main Player
+
 Object controlled by the player, representing a female ninja who runs side to side and collects the falling objects 
+
 1.4.	Static Objects
-Score ñ object, which shows current score
-Timer ñ object, which shows time elapsed since the game has begun(TO DO)
+
+Score ‚Äì object, which shows current score
+
+Timer ‚Äì object, which shows time elapsed since the game has begun(TO DO)
+
 1.5.	Other Objects
-Pause ñ the player can pause the game at any time with the button Pause(TO DO)
-Exit ñ the player can exit the game at any time with the button Exit(TO DO)
+
+Pause ‚Äì the player can pause the game at any time with the button Pause(TO DO)
+
+Exit ‚Äì the player can exit the game at any time with the button Exit(TO DO)
 
 GamePlay:
 When the player starts the game, a game menu is shows with options for Single Player, Multiplayer(TO DO), High Scores, Settings(TO DO) and Quit
-1.6.	»Á·Ó Ì‡ ·ÛÚÓÌ Start
+1.6.	√à√ß√°√Æ√∞ √≠√† √°√≥√≤√Æ√≠ Start
 	- starts a new instance of the game with the background game image
 	- a random three digit number is shown on the screen, which is the score the player has to reach
 	- starts the game timer
 	- a random number of falling objects begin their fall from the top of the screen
-	- each object has its own individual ìfallî lane
+	- each object has its own individual ‚Äúfall‚Äù lane
 	- the player(aka the ninja) is spawned at the bottom of the screen
 	
 1.7.	End Of The Game
 	- the game ends when the current score reaches 0
 	- the timer is stopped and the time elapsed is written on the screen(TO DO)
-	- the playerís score is compared to the High Scores(TO DO)
+	- the player‚Äôs score is compared to the High Scores(TO DO)
 	- the player can enter a username, if his score is within the top 5(TO DO)
 	- through a back button, the player can return to the Main Menu(TO DO)
 
