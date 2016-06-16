@@ -4,6 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sun.font.TextLabel;
 
+import java.io.IOException;
 import java.util.*;
 
 import static javafx.application.Application.STYLESHEET_MODENA;
@@ -29,7 +32,7 @@ public class SinglePlayerState {
     private List<Number> numberList;
     private Text scoreText;
     private Text currentOperationText;
-    private LongProperty score = new SimpleLongProperty(0);
+    private LongProperty score = new SimpleLongProperty(128);
     private String currentOperation = "Subtract";
     private Random randomGenerator = new Random();
 
@@ -76,11 +79,29 @@ public class SinglePlayerState {
                         break;
                 }
                 numberList.removeAll(Collections.singleton(numberList.get(i)));
+                if(score.get() == 0){
+                    Stage stage = new Stage();
+                    String fxmlFile = "winDialog.fxml";
+                    FXMLLoader loader = new FXMLLoader();
+                    Parent rootNode = null;
+                    try {
+                        rootNode = loader.load(getClass().getResourceAsStream(fxmlFile));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    final Scene scene = new Scene(rootNode);
+
+
+                    stage.setTitle("You Win");
+                    stage.setScene(scene);
+                    stage.setResizable(false);
+
+                    stage.show();
+                }
             }
 
-            if(score.get() == 0){
-                
-            }
+
         }
     }
 
@@ -112,24 +133,14 @@ public class SinglePlayerState {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if(score.get()!=0) {
-                    update();
-                    drawScore();
-                    drawCurrentOperation();
-                    generateOperator();
-                }
+                update();
+                drawScore();
+                drawCurrentOperation();
+                generateOperator();
             }
         };
         timer.start();
-        if(score.get()==0){
-            timer.stop();
-            WinController winController =new WinController();
-            Scene scene2 = new Scene(winController);
-            Stage newstage = new Stage();
-            newstage.setScene(scene2);
-            stage.close();
-            newstage.show();
-        }
+
 
     }
 
