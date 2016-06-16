@@ -36,16 +36,14 @@ public class Number extends StackPane {
     public Number() {
         this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
-        int p = randomNumber.nextInt(100) + 1;
+        int generatedNum = randomNumber.nextInt(100) + 1;
 
-        this.textLabel.textProperty().bind(new SimpleIntegerProperty(p).asString());
+        this.textLabel.textProperty().bind(new SimpleIntegerProperty(generatedNum).asString());
 
         this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
         this.textLabel.setTextFill(Color.WHITESMOKE);
 
-
-
-        this.setNumberScore(p);
+        this.setNumberScore(generatedNum);
         falling();
     }
     private void falling() {
@@ -55,9 +53,9 @@ public class Number extends StackPane {
 
         double startX = Math.random() * 900;
         double startY =-100;
-        Path p1 = new Path(new MoveTo(startX, startY));
-        p1.getElements().add(new VLineTo(900));
-        pathAnimObst1.setPath(p1);
+        Path pathAnimation = new Path(new MoveTo(startX, startY));
+        pathAnimation.getElements().add(new VLineTo(900));
+        pathAnimObst1.setPath(pathAnimation);
         pathAnimObst1.setDuration(Duration.seconds(Math.random() * 10));
         pathAnimObst1.setCycleCount(1);
         pathAnimObst1.play();

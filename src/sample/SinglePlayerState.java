@@ -26,13 +26,13 @@ public class SinglePlayerState {
     private Player player;
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Pane pane;
-    private List<Number> numberses;
+    private List<Number> numberList;
     private Text scoreText;
     private Text currentOperationText;
-    private LongProperty score = new SimpleLongProperty(500);
-    private String currentOperation = "Add" ;
-    private Timer timer = new Timer();
-    private Random rnd = new Random();
+    private LongProperty score = new SimpleLongProperty(128);
+    private String currentOperation = "Subtract";
+    private Random randomGenerator = new Random();
+
     public SinglePlayerState() {
         this.createPlayScene();
     }
@@ -55,27 +55,27 @@ public class SinglePlayerState {
         }
         if (System.nanoTime() % 60 == 0) {
             Number numbers = new Number();
-            numberses.add(numbers);
+            numberList.add(numbers);
             pane.getChildren().add(numbers);
         }
-        for (int i = 0; i < numberses.size(); i++) {
-            if (numberses.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
-                pane.getChildren().remove(numberses.get(i));
+        for (int i = 0; i < numberList.size(); i++) {
+            if (numberList.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
+                pane.getChildren().remove(numberList.get(i));
                 switch (currentOperation) {
                     case "Divide":
-                        score.set(score.get() / (numberses.get(i).getNumberScore()));
+                        score.set(score.get() / (numberList.get(i).getNumberScore()));
                         break;
                     case "Add":
-                        score.set(score.get() + (numberses.get(i).getNumberScore()));
+                        score.set(score.get() + (numberList.get(i).getNumberScore()));
                         break;
                     case "Multiply":
-                        score.set(score.get() * (numberses.get(i).getNumberScore()));
+                        score.set(score.get() * (numberList.get(i).getNumberScore()));
                         break;
                     case "Subtract":
-                        score.set(score.get() - (numberses.get(i).getNumberScore()));
+                        score.set(score.get() - (numberList.get(i).getNumberScore()));
                         break;
                 }
-                numberses.removeAll(Collections.singleton(numberses.get(i)));
+                numberList.removeAll(Collections.singleton(numberList.get(i)));
             }
         }
     }
@@ -87,9 +87,9 @@ public class SinglePlayerState {
     private void createPlayScene() {
         pane = new Pane();
         pane.setPrefSize(900, 600);
-        numberses = new ArrayList<>();
+        numberList = new ArrayList<>();
         Number fallingNumbers = new Number();
-        numberses.add(fallingNumbers);
+        numberList.add(fallingNumbers);
         player = new Player();
         player.setTranslateX(500);
         player.setTranslateY(540);
@@ -141,18 +141,28 @@ public class SinglePlayerState {
         testText.setOpacity(111);
         return testText;
     }
-    private void generateOperator(){
+
+    private void generateOperator() {
         int number = genRndNCorrespondingToStringOperation();
-        switch(number){
-            case 1 : currentOperation = "Add";break;
-            case 2 : currentOperation = "Subtract";break;
-            case 3 : currentOperation = "Multiply";break;
-            case 4 : currentOperation = "Divide";break;
+        switch (number) {
+            case 1:
+                currentOperation = "Add";
+                break;
+            case 2:
+                currentOperation = "Subtract";
+                break;
+            case 3:
+                currentOperation = "Multiply";
+                break;
+            case 4:
+                currentOperation = "Divide";
+                break;
         }
     }
-    private int genRndNCorrespondingToStringOperation(){
-        if(System.nanoTime()%250==0){
-            return rnd.nextInt(4)+1;
+
+    private int genRndNCorrespondingToStringOperation() {
+        if (System.nanoTime() % 250 == 0) {
+            return randomGenerator.nextInt(4) + 1;
         }
         return 0;
     }

@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class Player extends Pane {
-    private final static int SPEED = 5;
+    private final static int VELOCITY = 5;
     private final static int LEFT_WALL_BOUNDARY = -10;
     private final static int RIGHT_WALL_BOUNDARY = 850;
     private SpriteAnimation animation;
@@ -28,8 +28,8 @@ public class Player extends Pane {
         int offsetYOnPlace = 0;
         ImageView imageView = new ImageView(playerImg);
 
-        imageView.setFitHeight(60);
-        imageView.setFitWidth(60);
+        imageView.setFitHeight(width);
+        imageView.setFitWidth(height);
         imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
         animation = new SpriteAnimation(imageView, Duration.millis(750), count, columns, offsetX, offsetY, width, height);
         animationOnPlace = new SpriteAnimation(imageView, Duration.millis(750), count, columns, offsetX, offsetYOnPlace, width, height);
@@ -41,11 +41,11 @@ public class Player extends Pane {
     void move() {
         if (isMovingRight) {
             if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
-                this.setTranslateX(this.getTranslateX() + SPEED);
+                this.setTranslateX(this.getTranslateX() + VELOCITY);
             }
         } else if (isMovingLeft) {
             if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
-                this.setTranslateX(this.getTranslateX() - SPEED);
+                this.setTranslateX(this.getTranslateX() - VELOCITY);
             }
         }
     }

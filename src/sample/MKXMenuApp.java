@@ -2,10 +2,13 @@ package com.almasb.tutorial26;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,11 +44,10 @@ public class MKXMenuApp extends Application {
 
         Rectangle bg = new Rectangle(900, 600);
 
-        //ContentFrame frame1 = new ContentFrame(createLeftContent());
-        ContentFrame frame2 = new ContentFrame(createMiddleContent());
-        ContentFrame frame3 = new ContentFrame(createRightContent());
+        ContentFrame frame1 = new ContentFrame(createMiddleContent());
+        ContentFrame frame2 = new ContentFrame(createRightContent());
 
-        HBox hbox = new HBox(15, frame2, frame3);
+        HBox hbox = new HBox(15 ,frame1, frame2);
         hbox.setTranslateX(235);
         hbox.setTranslateY(50);
 
@@ -76,38 +78,7 @@ public class MKXMenuApp extends Application {
         return root;
     }
 
-    //private Node createLeftContent() {
-    //    final Text inbox = new Text("You have " + messages + " new message(-s)");
-    //  inbox.setFill(Color.WHITE);
-    //
-    //      bgThread.scheduleAtFixedRate(() -> {
-    //      Platform.runLater(() -> {
-    //          TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), inbox);
-    //          tt.setToY(150);
-    //
-    //            FadeTransition ft = new FadeTransition(Duration.seconds(0.5), inbox);
-    //          ft.setToValue(0);
-    //
-    //              ParallelTransition pt = new ParallelTransition(tt, ft);
-    //          pt.setOnFinished(e -> {
-    //              inbox.setTranslateY(-150);
-    //              inbox.setText("You have " + ++messages + " new message(-s)");
-    //
-    //                  TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.5), inbox);
-    //              tt2.setToY(0);
-    //
-    //                  FadeTransition ft2 = new FadeTransition(Duration.seconds(0.5), inbox);
-    //              ft2.setToValue(1);
-    //
-    //                  ParallelTransition pt2 = new ParallelTransition(tt2, ft2);
-    //            pt2.play();
-    //          });
-    //          pt.play();
-    //      });
-    //  }, 2, 5, TimeUnit.SECONDS);
-    //
-    //      return inbox;
-    // }
+
 
     private Node createMiddleContent() {
         String title = "KEEP RUNNING";
