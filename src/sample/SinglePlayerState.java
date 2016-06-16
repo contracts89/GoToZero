@@ -77,6 +77,10 @@ public class SinglePlayerState {
                 }
                 numberList.removeAll(Collections.singleton(numberList.get(i)));
             }
+
+            if(score.get() == 0){
+                
+            }
         }
     }
 
