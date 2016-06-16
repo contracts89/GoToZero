@@ -29,7 +29,7 @@ public class SinglePlayerState {
     private List<Number> numberList;
     private Text scoreText;
     private Text currentOperationText;
-    private LongProperty score = new SimpleLongProperty(128);
+    private LongProperty score = new SimpleLongProperty(0);
     private String currentOperation = "Subtract";
     private Random randomGenerator = new Random();
 
@@ -112,14 +112,24 @@ public class SinglePlayerState {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                update();
-                drawScore();
-                drawCurrentOperation();
-                generateOperator();
+                if(score.get()!=0) {
+                    update();
+                    drawScore();
+                    drawCurrentOperation();
+                    generateOperator();
+                }
             }
         };
         timer.start();
-
+        if(score.get()==0){
+            timer.stop();
+            WinController winController =new WinController();
+            Scene scene2 = new Scene(winController);
+            Stage newstage = new Stage();
+            newstage.setScene(scene2);
+            stage.close();
+            newstage.show();
+        }
 
     }
 
