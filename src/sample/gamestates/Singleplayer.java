@@ -30,7 +30,7 @@ import static javafx.application.Application.STYLESHEET_MODENA;
 
 public class Singleplayer {
 
-    private Image background = new Image(getClass().getResourceAsStream("../resources/background1.jpg")); // set the
+    public Image background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));// set the
     // background Image if you run on MacOSX just replace "\\" with "/"
     private Player player;
     private StopWatch stopWatch;

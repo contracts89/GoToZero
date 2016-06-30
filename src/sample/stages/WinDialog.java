@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.controllers.WinController;
 
 import java.io.IOException;
 
@@ -19,7 +20,7 @@ public class WinDialog {
 
     public WinDialog() throws IOException {
         this.stage = new Stage();
-        this.fxmlFile = "../winDialog.fxml";
+        this.fxmlFile = "../fxmlFiles/winDialog.fxml";
         this.loader = new FXMLLoader();
         this.rootNode = null;
     }
@@ -32,6 +33,8 @@ public class WinDialog {
         }
 
         final Scene scene = new Scene(rootNode);
+
+        WinController winController = new WinController();
 
 
         stage.setTitle("You Win");
