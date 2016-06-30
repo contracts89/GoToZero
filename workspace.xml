@@ -366,7 +366,7 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.almasb.tutorial26.MKXMenuApp" />
+      <option name="MAIN_CLASS_NAME" value="com.almasb.tutorial26.Menu" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
