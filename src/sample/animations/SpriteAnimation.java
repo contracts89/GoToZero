@@ -8,13 +8,14 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class SpriteAnimation extends Transition {
-    private final ImageView imageView;
-    private final int count;
-    private final int columns;
+
+    private ImageView imageView;
+    private int count;
+    private int columns;
     private int offsetX;
     private int offsetY;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
 
     public SpriteAnimation(
             ImageView imageView,

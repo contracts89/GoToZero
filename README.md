@@ -22,7 +22,7 @@ Objects:
 
 1.1.	Menu
 
-The Main menu gives the player the following options:
+The sample.Main menu gives the player the following options:
 
 Start -  starts the game
 
@@ -41,7 +41,7 @@ division
 
 Falling object symbol – falling symbols (like $, %, #) which have an unpredictable outcome for the score(TO DO)
 
-1.3.	Main Player
+1.3.	sample.Main Player
 
 Object controlled by the player, representing a female ninja who runs side to side and collects the falling objects 
 
@@ -72,7 +72,7 @@ When the player starts the game, a game menu is shows with options for Single Pl
 	- the timer is stopped and the time elapsed is written on the screen(TO DO)
 	- the player’s score is compared to the High Scores(TO DO)
 	- the player can enter a username, if his score is within the top 5(TO DO)
-	- through a back button, the player can return to the Main Menu(TO DO)
+	- through a back button, the player can return to the sample.Main Menu(TO DO)
 
 1.8.	Help
 	- shows the game goal and typical gameplay

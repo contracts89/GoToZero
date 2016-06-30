@@ -12,7 +12,8 @@ import javafx.scene.shape.VLineTo;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-
+import sample.constants.*;
+import java.lang.invoke.ConstantCallSite;
 import java.util.Random;
 
 public class Number extends StackPane {
@@ -38,7 +39,7 @@ public class Number extends StackPane {
 
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(generatedNum).asString());
 
-        this.textLabel.setFont(Font.font("Times New Roman", FontWeight.BLACK, 22));
+        this.textLabel.setFont(Constants.NUMBER_FONT);
         this.textLabel.setTextFill(Color.WHITESMOKE);
 
         this.setNumberScore(generatedNum);

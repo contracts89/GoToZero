@@ -7,11 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.animations.SpriteAnimation;
+import sample.constants.Constants;
+
+import static sample.constants.Constants.VELOCITY;
 
 public class Player extends Pane {
-    private final static int VELOCITY = 5;
-    private final static int LEFT_WALL_BOUNDARY = -10;
-    private final static int RIGHT_WALL_BOUNDARY = 850;
+
     private SpriteAnimation animation;
     private SpriteAnimation animationOnPlace;
     private boolean isMoving;
@@ -46,14 +47,14 @@ public class Player extends Pane {
 
     public void moveRight(){
         this.setMoving(true);
-        if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
-            this.setTranslateX(this.getTranslateX() + VELOCITY);
+        if (this.getTranslateX() < Constants.RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
+            this.setTranslateX(this.getTranslateX() + Constants.VELOCITY);
         }
     }
     public void moveLeft(){
         this.setMoving(true);
-        if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
-            this.setTranslateX(this.getTranslateX() - VELOCITY);
+        if (this.getTranslateX() > Constants.LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
+            this.setTranslateX(this.getTranslateX() - Constants.VELOCITY);
         }
     }
     public void stayAtPos(){
