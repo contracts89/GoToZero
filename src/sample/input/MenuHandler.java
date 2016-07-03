@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import sample.menumodels.MenuOptions;
+import sample.models.menumodels.MenuOptions;
 import sample.stages.Singleplayer;
 
 public class MenuHandler {
@@ -50,9 +50,13 @@ public class MenuHandler {
                         new Singleplayer(stage, scene).visualize();
                         break;
                     case 1:
+                        break;
                     case 2:
+                        break;
                     case 3:
+                        break;
                     case 4:
+                        break;
                     case 5:
                         Platform.exit();
                         break;

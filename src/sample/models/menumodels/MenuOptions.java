@@ -1,12 +1,9 @@
-package sample.menumodels;
+package sample.models.menumodels;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class MenuOptions extends VBox {
-
-    private Text about;
 
     public MenuOptions() {
         super(10,
@@ -21,7 +18,6 @@ public class MenuOptions extends VBox {
         this.setTranslateY(300);
 
     }
-
     public MenuItem getMenuItem(int index) {
         return (MenuItem) this.getChildren().get(index);
     }

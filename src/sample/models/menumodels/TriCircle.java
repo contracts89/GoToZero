@@ -1,4 +1,4 @@
-package sample.menumodels;
+package sample.models.menumodels;
 
 import javafx.scene.Parent;
 import javafx.scene.effect.GaussianBlur;

@@ -1,4 +1,4 @@
-package sample.menumodels;
+package sample.models.menumodels;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;

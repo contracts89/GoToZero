@@ -34,7 +34,6 @@ public class WinDialog {
 
         WinController winController = new WinController();
 
-
         this.stage.setTitle("You Win");
         this.stage.setScene(scene);
         this.stage.setResizable(false);

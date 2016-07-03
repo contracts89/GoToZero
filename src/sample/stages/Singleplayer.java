@@ -16,9 +16,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.constants.Constants;
-import sample.models.Number;
-import sample.models.Player;
-import sample.models.StopWatch;
+import sample.models.playmodels.Number;
+import sample.models.playmodels.Player;
+import sample.models.playmodels.StopWatch;
 
 import java.io.IOException;
 import java.util.*;

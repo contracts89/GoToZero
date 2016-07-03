@@ -1,4 +1,4 @@
-package sample.models;
+package sample.models.playmodels;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;

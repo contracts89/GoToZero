@@ -1,4 +1,4 @@
-package sample.models;
+package sample.models.playmodels;
 
 
 import javafx.geometry.Rectangle2D;
