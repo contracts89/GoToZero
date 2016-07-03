@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.application.Application;
-import sample.stages.Menu;
+import sample.stages.MenuStage;
 
  /**
  * Created by KNikov on 30/06/2016.
@@ -9,6 +9,6 @@ import sample.stages.Menu;
 public class Main {
 
     public static void main(String[] args) {
-        Application.launch(Menu.class,args);
+        Application.launch(MenuStage.class,args);
     }
 }

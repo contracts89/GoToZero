@@ -8,9 +8,7 @@ import sample.controllers.WinController;
 
 import java.io.IOException;
 
-/**
- * Created by KNikov on 30/06/2016.
- */
+
 public class WinDialog {
 
     private Stage stage;
@@ -27,20 +25,20 @@ public class WinDialog {
 
     public void show() {
         try {
-            rootNode = loader.load(getClass().getResourceAsStream(fxmlFile));
+            this.rootNode = loader.load(getClass().getResourceAsStream(this.fxmlFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        final Scene scene = new Scene(rootNode);
+        final Scene scene = new Scene(this.rootNode);
 
         WinController winController = new WinController();
 
 
-        stage.setTitle("You Win");
-        stage.setScene(scene);
-        stage.setResizable(false);
+        this.stage.setTitle("You Win");
+        this.stage.setScene(scene);
+        this.stage.setResizable(false);
 
-        stage.show();
+        this.stage.show();
     }
 }

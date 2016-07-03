@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class WinController {
     @FXML
-    public Button yesButton;
+    private Button yesButton;
 
     @FXML
     private Button noButton;

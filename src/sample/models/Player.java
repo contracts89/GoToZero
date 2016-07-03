@@ -9,8 +9,6 @@ import javafx.util.Duration;
 import sample.animations.SpriteAnimation;
 import sample.constants.Constants;
 
-import static sample.constants.Constants.VELOCITY;
-
 public class Player extends Pane {
 
     private SpriteAnimation animation;
@@ -63,10 +61,10 @@ public class Player extends Pane {
 
     public void animate() {
         if(this.isMoving){
-            animation.play();
+            this.animation.play();
         }else {
-            animation.stop();
-            animationOnPlace.play();
+            this.animation.stop();
+            this.animationOnPlace.play();
         }
     }
 

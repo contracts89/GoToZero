@@ -1,11 +1,9 @@
-package sample.gamestates;
+package sample.stages;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,17 +16,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.constants.Constants;
-import sample.models.StopWatch;
 import sample.models.Number;
 import sample.models.Player;
-import sample.stages.WinDialog;
+import sample.models.StopWatch;
 
 import java.io.IOException;
 import java.util.*;
 
 import static javafx.application.Application.STYLESHEET_MODENA;
 
-public class Singleplayer {
+public class Singleplayer extends AbstractStage{
 
     public Image background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));// set the
     // background Image if you run on MacOSX just replace "\\" with "/"
@@ -44,8 +41,8 @@ public class Singleplayer {
     private String currentOperation = "Subtract";
     private Random randomGenerator = new Random();
 
-    public Singleplayer() {
-        this.createPlayScene();
+    public Singleplayer(Stage stage , Scene scene) {
+        super(stage,scene);
     }
 
     private void update() {
@@ -105,53 +102,6 @@ public class Singleplayer {
     }
 
     private void createPlayScene() {
-        pane = new Pane();
-        pane.setPrefSize(900, 600); // set the scene dimensions
-        numberList = new ArrayList<>();
-        Number fallingNumbers = new Number();
-        numberList.add(fallingNumbers);
-
-        // call the Timer class
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.stopwatch.setTranslateX(0);// X position of Timer
-        stopWatch.stopwatch.setTranslateY(60); // Y postion of Timer
-        stopWatch.stopwatch.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
-        stopWatch.stopwatch.setTextFill(Color.WHITE);
-
-        stopWatchTimer = stopWatch.stopwatch;
-
-        //call the Player class
-        player = new Player();
-        player.setTranslateX(500); //set the X start position of the Player
-        player.setTranslateY(540); //set the Y start position of the Player
-        ImageView imageView = new ImageView(background);
-        scoreText = createText("score");
-        currentOperationText = createText("currentOp");
-
-        pane.getChildren().addAll(imageView, scoreText, currentOperationText, player, fallingNumbers, stopWatchTimer)
-        ; // add objects in the scene
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(pane);
-        scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
-        scene.setOnKeyReleased(event -> {
-            keys.put(event.getCode(), false);
-        });
-        stage.setScene(scene);
-        stage.show();
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                update();
-                drawScore();
-                drawCurrentOperation();
-                generateOperator();
-            }
-        };
-        timer.start();
-
-
     }
 
     //draw the current Score on the scene
@@ -206,6 +156,57 @@ public class Singleplayer {
             return randomGenerator.nextInt(4) + 1;
         }
         return 0;
+    }
+
+    @Override
+    public void visualize() {
+
+        pane = new Pane();
+        pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
+        numberList = new ArrayList<>();
+        Number fallingNumbers = new Number();
+        numberList.add(fallingNumbers);
+
+        // call the Timer class
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.stopwatch.setTranslateX(0);// X position of Timer
+        stopWatch.stopwatch.setTranslateY(60); // Y postion of Timer
+        stopWatch.stopwatch.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
+        stopWatch.stopwatch.setTextFill(Color.WHITE);
+
+        stopWatchTimer = stopWatch.stopwatch;
+
+        //call the Player class
+        player = new Player();
+        player.setTranslateX(500); //set the X start position of the Player
+        player.setTranslateY(540); //set the Y start position of the Player
+        ImageView imageView = new ImageView(background);
+        scoreText = createText("score");
+        currentOperationText = createText("currentOp");
+
+        pane.getChildren().addAll(imageView, scoreText, currentOperationText, player, fallingNumbers, stopWatchTimer)
+        ; // add objects in the scene
+
+        Scene scene = new Scene(pane);
+        scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
+        scene.setOnKeyReleased(event -> {
+            keys.put(event.getCode(), false);
+        });
+        this.stage.setScene(scene);
+        this.stage.show();
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                update();
+                drawScore();
+                drawCurrentOperation();
+                generateOperator();
+            }
+        };
+        timer.start();
+
+
     }
 }
 
