@@ -14,7 +14,7 @@ public class Player extends Pane {
     private SpriteAnimation animation;
     private SpriteAnimation animationOnPlace;
     private boolean isMoving;
-    private Image playerImg = new Image(getClass().getResourceAsStream("../resources/playerSprite.png"));
+    private Image playerImg = new Image(getClass().getResourceAsStream("../../resources/playerSprite.png"));
 
     public Player() {
         int offsetX = 0;

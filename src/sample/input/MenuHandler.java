@@ -2,21 +2,20 @@ package sample.input;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import sample.models.menumodels.MenuOptions;
+import sample.models.menumodels.Options;
+import sample.stages.Credits;
 import sample.stages.Singleplayer;
 
 public class MenuHandler {
 
     private Scene scene;
-    private MenuOptions menu;
+    private Options menu;
     public int currentItem;
 
-    public MenuHandler(Scene scene, MenuOptions menuoptions) {
+    public MenuHandler(Scene scene, Options menuoptions) {
         this.scene = scene;
         this.menu = menuoptions;
-        this.menu.getMenuItem(0).setActive(true);
     }
 
 
@@ -28,39 +27,15 @@ public class MenuHandler {
         return this.currentItem;
     }
 
-    public void processInput(Stage stage, Scene scene) {
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.UP) {
-                if (this.currentItem > 0) {
-                    this.menu.getMenuItem(currentItem).setActive(false);
-                    this.menu.getMenuItem(--currentItem).setActive(true);
-                }
+    public void processMenuInput(Stage stage, Scene scene) {
+        scene.setOnMousePressed(event -> {
+            if (this.menu.getItem(0).isPressed()) {
+                new Singleplayer(stage, scene).visualize();
+            }else if(this.menu.getItem(4).isPressed()){
+                new Credits(stage,scene).visualize();
             }
-
-            if (event.getCode() == KeyCode.DOWN) {
-                if (this.currentItem < this.menu.getChildren().size() - 1) {
-                    this.menu.getMenuItem(currentItem).setActive(false);
-                    this.menu.getMenuItem(++currentItem).setActive(true);
-                }
-            }
-            if (event.getCode() == KeyCode.ENTER) {
-                this.menu.getMenuItem(currentItem).activate();
-                switch (currentItem) {
-                    case 0:
-                        new Singleplayer(stage, scene).visualize();
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        Platform.exit();
-                        break;
-                }
+            else if (this.menu.getItem(5).isPressed()) {
+                Platform.exit();
             }
         });
     }

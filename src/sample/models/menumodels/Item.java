@@ -7,35 +7,46 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import sample.constants.Constants;
 
-public class MenuItem extends HBox {
+public class Item extends HBox {
 
     private TriCircle triCircle1 = new TriCircle(), triCircle2 = new TriCircle();
     private Text text;
     private Runnable script;
 
-    public MenuItem(String name) {
+    public Item(String name,String purpose) {
         super(15);
         setAlignment(Pos.CENTER);
-
-        text = new Text(name);
-        text.setFont(Constants.MENU_FONT);
-        text.setEffect(new GaussianBlur(2));
-
+        setItemFont(name,purpose);
         getChildren().addAll(triCircle1, text, triCircle2);
         setActive(false);
+    }
 
-//               if (name.equals("ONE PLAYER")) {
-//            setOnActivate(() -> System.out.println(name + " activated"));
-//        } else {
-//            setOnActivate(() -> System.out.println(name + " - To be done on next version."));
-//        }
-
-
+    public void setItemFont(String name,String purposeOfItem) {
+        switch (purposeOfItem) {
+            case "CREDITS":
+                text = new Text(name);
+                text.setFont(Constants.CREDIT_FONT);
+                text.setFill(Color.DARKRED);
+                break;
+            case "MENU":
+                text = new Text(name);
+                text.setFont(Constants.MENU_FONT);
+                text.setEffect(new GaussianBlur(2));
+                break;
+            case "":
+                break;
+        }
     }
 
     public void setActive(boolean b) {
         triCircle1.setVisible(b);
         triCircle2.setVisible(b);
+        text.setOnMouseEntered(event -> {
+            text.setFill(Color.DARKRED);
+        });
+        text.setOnMouseExited(event -> {
+            text.setFill(Color.GRAY);
+        });
         text.setFill(b ? Color.DARKRED : Color.GREY);
     }
 

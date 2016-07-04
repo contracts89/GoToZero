@@ -101,8 +101,7 @@ public class Singleplayer extends AbstractStage{
         return keys.getOrDefault(key, false);
     }
 
-    private void createPlayScene() {
-    }
+
 
     //draw the current Score on the scene
     private void drawScore() {

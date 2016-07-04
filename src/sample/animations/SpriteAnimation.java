@@ -49,6 +49,6 @@ public class SpriteAnimation extends Transition {
         final int index = Math.min((int) Math.floor(count * frac), count - 1);
         final int x = (index % columns) * width + offsetX;
         final int y = (index / columns) * height + offsetY;
-        imageView.setViewport(new Rectangle2D(x, y, width, height));
+        this.imageView.setViewport(new Rectangle2D(x, y, width, height));
     }
 }

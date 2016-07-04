@@ -11,7 +11,7 @@ import sample.constants.Constants;
 import sample.input.MenuHandler;
 import sample.models.menumodels.AboutText;
 import sample.models.menumodels.ContentFrame;
-import sample.models.menumodels.MenuOptions;
+import sample.models.menumodels.Options;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,7 +19,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class MenuStage extends Application {
 
     private MenuHandler menuHandler;
-    private MenuOptions menuOptions;
+    private Options menuOptions;
     private ContentFrame contentFrame1;
     private ContentFrame contentFrame2;
     private HBox hBox;
@@ -31,7 +31,7 @@ public class MenuStage extends Application {
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
         Rectangle bg = new Rectangle(Constants.WIDTH, Constants.HEIGHT);
-        this.menuOptions = new MenuOptions();
+        this.menuOptions = new Options("Menu", Constants.menuNodes());
         this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
         this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
         this.hBox = new HBox(15, contentFrame1, contentFrame2);
@@ -48,7 +48,7 @@ public class MenuStage extends Application {
         Scene scene = new Scene(createContent());
 
         this.menuHandler = new MenuHandler(scene, this.menuOptions);
-        this.menuHandler.processInput(primaryStage,scene);
+        this.menuHandler.processMenuInput(primaryStage, scene);
 
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(event -> {
