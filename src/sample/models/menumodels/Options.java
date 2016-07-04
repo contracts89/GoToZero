@@ -15,8 +15,8 @@ public class Options extends VBox {
         switch (menu) {
             case "Menu":
                 this.setAlignment(Pos.TOP_CENTER);
-                this.setTranslateX(360);
-                this.setTranslateY(300);
+                this.setTranslateX(160);
+                this.setTranslateY(200);
                 break;
             case "Credits":
                 this.setAlignment(Pos.BASELINE_CENTER);

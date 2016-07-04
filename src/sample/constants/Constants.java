@@ -18,11 +18,12 @@ public class Constants {
     public static final int NUMBER_ANIMATION_DROP_POINT;
     public static final int CREDITS_ANIMATION_DROP_POINT;
     public static final Font CREDIT_FONT;
-
+    public static final Font ABOUT_FONT;
     static {
         WIDTH = 900;
         HEIGHT = 600;
         NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
+        ABOUT_FONT = Font.font("Times New Roman", FontWeight.BOLD, 32);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 25);
         VELOCITY = 5;
         LEFT_WALL_BOUNDARY = -10;

@@ -3,9 +3,10 @@ package sample.stages;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.constants.Constants;
 import sample.input.MenuHandler;
@@ -25,20 +26,23 @@ public class MenuStage extends Application {
     private HBox hBox;
     private AboutText aboutText;
     private ScheduledExecutorService bgThread = Executors.newSingleThreadScheduledExecutor();
-
+    private Image background;
+    private ImageView imageView;
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
-        Rectangle bg = new Rectangle(Constants.WIDTH, Constants.HEIGHT);
+//        Rectangle bg = new Rectangle(Constants.WIDTH, Constants.HEIGHT);
         this.menuOptions = new Options("Menu", Constants.menuNodes());
-        this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
-        this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
-        this.hBox = new HBox(15, contentFrame1, contentFrame2);
-        this.hBox.setTranslateX(235);
-        this.hBox.setTranslateY(50);
-        this.aboutText = new AboutText("GoToZero by Team Ancalogon");
-        root.getChildren().addAll(bg, this.hBox, this.menuOptions, this.aboutText);
+        this.background  = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
+        this.imageView = new ImageView(this.background);
+//        this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
+//        this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
+//        this.hBox = new HBox(15, contentFrame1, contentFrame2);
+//        this.hBox.setTranslateX(235);
+//        this.hBox.setTranslateY(50);
+        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon");
+        root.getChildren().addAll(this.imageView, this.menuOptions, this.aboutText);
         return root;
     }
 
