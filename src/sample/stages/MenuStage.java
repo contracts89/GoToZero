@@ -19,6 +19,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class MenuStage extends Application {
 
+    private  Stage stage;
+    private  Scene scene;
     private MenuHandler menuHandler;
     private Options menuOptions;
     private ContentFrame contentFrame1;
@@ -28,13 +30,14 @@ public class MenuStage extends Application {
     private ScheduledExecutorService bgThread = Executors.newSingleThreadScheduledExecutor();
     private Image background;
     private ImageView imageView;
+
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
 //        Rectangle bg = new Rectangle(Constants.WIDTH, Constants.HEIGHT);
         this.menuOptions = new Options("Menu", Constants.menuNodes());
-        this.background  = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
+        this.background = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
         this.imageView = new ImageView(this.background);
 //        this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
 //        this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
@@ -46,18 +49,19 @@ public class MenuStage extends Application {
         return root;
     }
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
 
+        this.scene = new Scene(createContent());
         this.menuHandler = new MenuHandler(scene, this.menuOptions);
-        this.menuHandler.processMenuInput(primaryStage, scene);
-
-        primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(event -> {
+        this.menuHandler.processMenuInput(primaryStage, this.scene);
+        this.stage = primaryStage;
+        this.stage.setScene(this.scene);
+        this.stage.setOnCloseRequest(event -> {
             this.bgThread.shutdownNow();
         });
-        primaryStage.show();
+        this.stage.setTitle("GoToZero");
+        this.stage.setResizable(false);
+        this.stage.show();
     }
 }

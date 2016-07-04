@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -13,33 +12,42 @@ import java.time.LocalTime;
  * Created by lgoychev on 6/27/16.
  */
 public class StopWatch {
-    private Stage primaryStage;
+
+    private AnimationTimer timer;
+    private Label stopwatch = new Label();
     public StopWatch() {
         this.createScene();
     }
-    public Label stopwatch = new Label();
+
+    public Label getStopwatch() {
+        return this.stopwatch;
+    }
+
+    public void stopTimer(){
+        this.timer.stop();
+    }
     public void createScene() {
 
         BooleanProperty running = new SimpleBooleanProperty(false);
 
-        AnimationTimer timer = new AnimationTimer() {
+        this.timer = new AnimationTimer() {
 
-            private LocalTime startTime ;
+            private LocalTime startTime;
 
 
             public void handle(long now) {
-                long elapsedSeconds = Duration.between(startTime, LocalTime.now()).getSeconds();
-                long hours = elapsedSeconds / 360;
-                long minutes = elapsedSeconds / 60 ;
-                long seconds = elapsedSeconds % 60 ;
-                stopwatch.setText("Time: "+hours + " hours " +minutes +" minutes "+seconds + " seconds");
+                long elapsedSeconds = Duration.between(this.startTime, LocalTime.now()).getSeconds();
+
+                long minutes = elapsedSeconds / 60;
+                long seconds = elapsedSeconds % 60;
+                stopwatch.setText(minutes + "Minutes " + seconds + " seconds");
 
 
             }
 
             public void start() {
                 running.set(true);
-                startTime = LocalTime.now();
+                this.startTime = LocalTime.now();
                 super.start();
 
             }
@@ -49,7 +57,7 @@ public class StopWatch {
                 super.stop();
             }
         };
-        timer.start();
+        this.timer.start();
 
     }
 }

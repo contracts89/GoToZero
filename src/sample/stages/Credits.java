@@ -22,8 +22,6 @@ public class Credits extends AbstractStage {
 
     public Credits(Stage stage, Scene scene) {
         super(stage, scene);
-        this.developers = new Options("Credits", Constants.creditsText());
-        this.backButton = new Options("Back button", Constants.backButton());
         this.image = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
         this.background = new ImageView(this.image);
         this.creditsTransition = new FallTransition(450, 170);
@@ -37,14 +35,17 @@ public class Credits extends AbstractStage {
 
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
+        this.developers = new Options("Credits", Constants.creditsText());
+        this.backButton = new Options("Back button", Constants.backButton());
+        this.backButton.setOnMousePressed(event -> {
+            this.stage.setScene(scene);
+            root.setDisable(true);
+        });
         root.getChildren().addAll(this.background, this.developers, this.backButton, this.creditsBy);
         this.creditsTransition.useFallAnimation(this.developers, 6, Constants.CREDITS_ANIMATION_DROP_POINT);
-        this.backButton.getItem(0).setOnMouseClicked(event -> {
-            root.setVisible(false);
-            this.stage.setScene(this.scene);
-        });
         Scene scene = new Scene(root);
         this.stage.setScene(scene);
+        this.stage.show();
     }
 
     private void createCreditText() {

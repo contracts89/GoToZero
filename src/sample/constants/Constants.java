@@ -33,8 +33,8 @@ public class Constants {
         CREDITS_ANIMATION_DROP_POINT = 430;
     }
 
-    public static final Node[] menuNodes() {
-        Node[] arr = new Node[]{
+    public static  Node[] menuNodes() {
+        return new Node[]{
                 new Item("ONE PLAYER","MENU"),
                 new Item("TWO PLAYERS","MENU"),
                 new Item("HIGHSCORE","MENU"),
@@ -42,10 +42,9 @@ public class Constants {
                 new Item("CREDITS","MENU"),
                 new Item("EXIT","MENU")
         };
-        return arr;
     }
 
-    public static final Node[] creditsText() {
+    public static  Node[] creditsText() {
         Node[] arr = new Node[]{
                 new Item("ABELINA GEORGIEVA","CREDITS"),
                 new Item("EYUB DJELIL","CREDITS"),
@@ -64,7 +63,7 @@ public class Constants {
         return arr;
     }
 
-    public static final Node backButton() {
+    public static  Node backButton() {
         return new Item("BACK TO MENU","MENU");
     }
 }

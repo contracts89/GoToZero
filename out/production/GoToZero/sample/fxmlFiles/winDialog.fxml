@@ -5,15 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.WinController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="159.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.WinController">
    <children>
-      <Button fx:id="yesButton" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#onYes" prefHeight="31.0" prefWidth="87.0" text="YES" />
-      <Label layoutX="31.0" layoutY="14.0" text="You WIN !">
+      <Button fx:id="playAgainButton" layoutX="73.0" layoutY="102.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="31.0" prefWidth="87.0" text="Play again" />
+      <Label layoutX="30.0" layoutY="14.0" prefHeight="31.0" prefWidth="214.0" text="You won! Your result is : ">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="47.0" layoutY="41.0" text="Do you wanna keep running ?" />
-      <Button fx:id="noButton" layoutX="244.0" layoutY="71.0" mnemonicParsing="false" onAction="#onNo" prefHeight="31.0" prefWidth="87.0" text="No" />
+      <Button fx:id="exitGame" layoutX="182.0" layoutY="102.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="31.0" prefWidth="87.0" text="Exit Game" />
+      <Button fx:id="backToMenu" layoutX="345.0" layoutY="91.0" mnemonicParsing="false" onAction="#backToMenuAction" prefHeight="48.0" prefWidth="111.0" text="Back to menu" />
+      <Label fx:id="resulField" layoutX="109.0" layoutY="48.0" prefHeight="31.0" prefWidth="286.0" text="" />
    </children>
 </AnchorPane>

@@ -31,12 +31,10 @@ public class WinDialog {
         }
 
         final Scene scene = new Scene(this.rootNode);
-
         WinController winController = new WinController();
-
-        this.stage.setTitle("You Win");
+        this.stage.setTitle("You Won!");
         this.stage.setScene(scene);
-        this.stage.setResizable(false);
+        this.stage.setResizable(true);
 
         this.stage.show();
     }

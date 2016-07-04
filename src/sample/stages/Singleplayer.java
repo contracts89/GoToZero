@@ -25,7 +25,7 @@ import java.util.*;
 
 import static javafx.application.Application.STYLESHEET_MODENA;
 
-public class Singleplayer extends AbstractStage{
+public class Singleplayer extends AbstractStage {
 
     public Image background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));// set the
     // background Image if you run on MacOSX just replace "\\" with "/"
@@ -37,15 +37,34 @@ public class Singleplayer extends AbstractStage{
     private List<Number> numberList;
     private Text scoreText;
     private Text currentOperationText;
-    private LongProperty score = new SimpleLongProperty(0); // Set the starting Score (default is 128)
+    private LongProperty score = new SimpleLongProperty(1); // Set the starting Score (default is 128)
     private String currentOperation = "Subtract";
     private Random randomGenerator = new Random();
+    AnimationTimer animationTimer;
 
-    public Singleplayer(Stage stage , Scene scene) {
-        super(stage,scene);
+    public Label getStopWatchTimer() {
+        return stopWatchTimer;
+    }
+
+    public Singleplayer(Stage stage, Scene scene) {
+        super(stage, scene);
     }
 
     private void update() {
+        //If score is Zero the Game Over window is displayed as Winner
+        if (score.get() == 0) {
+            try {
+                animationTimer.stop();
+                player.stopAnimation();
+                stopWatch.stopTimer();
+                clearNumbers();
+                WinDialog winDialog = new WinDialog();
+                winDialog.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return;
+        }
         player.animate();
         if (isPressed(KeyCode.RIGHT)) {
             player.setScaleX(1);
@@ -82,25 +101,23 @@ public class Singleplayer extends AbstractStage{
                 }
                 numberList.removeAll(Collections.singleton(numberList.get(i)));
 
-                //If score is Zero the Game Over window is displayed as Winner
-                if (score.get() == 0) {
-                    try {
-                        WinDialog winDialog = new WinDialog();
-                        winDialog.show();
-                    }catch (IOException ex){
-                        ex.printStackTrace();
-                    }
-                }
+
             }
 
 
         }
     }
 
+    private void clearNumbers() {
+        for (Number number : this.numberList) {
+            pane.getChildren().remove(number);
+        }
+    }
+
+
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
     }
-
 
 
     //draw the current Score on the scene
@@ -166,14 +183,14 @@ public class Singleplayer extends AbstractStage{
         Number fallingNumbers = new Number();
         numberList.add(fallingNumbers);
 
-        // call the Timer class
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.stopwatch.setTranslateX(0);// X position of Timer
-        stopWatch.stopwatch.setTranslateY(60); // Y postion of Timer
-        stopWatch.stopwatch.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
-        stopWatch.stopwatch.setTextFill(Color.WHITE);
+         // call the Timer class
+        this.stopWatch = new StopWatch();
+        this.stopWatch.getStopwatch().setTranslateX(0);// X position of Timer
+        this.stopWatch.getStopwatch().setTranslateY(60); // Y postion of Timer
+        this.stopWatch.getStopwatch().setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
+        this.stopWatch.getStopwatch().setTextFill(Color.WHITE);
 
-        stopWatchTimer = stopWatch.stopwatch;
+        stopWatchTimer = stopWatch.getStopwatch();
 
         //call the Player class
         player = new Player();
@@ -194,7 +211,7 @@ public class Singleplayer extends AbstractStage{
         this.stage.setScene(scene);
         this.stage.show();
 
-        AnimationTimer timer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
@@ -203,7 +220,7 @@ public class Singleplayer extends AbstractStage{
                 generateOperator();
             }
         };
-        timer.start();
+        animationTimer.start();
 
 
     }

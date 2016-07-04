@@ -58,7 +58,10 @@ public class Player extends Pane {
     public void stayAtPos(){
         this.setMoving(false);
     }
-
+    public void stopAnimation(){
+        this.animation.stop();
+        this.animationOnPlace.stop();
+    }
     public void animate() {
         if(this.isMoving){
             this.animation.play();
