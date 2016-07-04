@@ -28,6 +28,7 @@ public class MenuHandler {
     }
 
     public void processMenuInput(Stage stage, Scene scene) {
+
         scene.setOnMousePressed(event -> {
             if (this.menu.getItem(0).isPressed()) {
                 new Singleplayer(stage, scene).visualize();

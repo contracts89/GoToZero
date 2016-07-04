@@ -18,18 +18,18 @@ public class Item extends HBox {
         setAlignment(Pos.CENTER);
         setItemFont(name,purpose);
         getChildren().addAll(triCircle1, text, triCircle2);
-        setActive(false);
+        setActive(false,purpose);
     }
 
     public void setItemFont(String name,String purposeOfItem) {
+        text = new Text(name);
         switch (purposeOfItem) {
             case "CREDITS":
-                text = new Text(name);
                 text.setFont(Constants.CREDIT_FONT);
-                text.setFill(Color.DARKRED);
+                text.setFill(Color.CRIMSON);
+                text.setEffect(new GaussianBlur(1));
                 break;
             case "MENU":
-                text = new Text(name);
                 text.setFont(Constants.MENU_FONT);
                 text.setEffect(new GaussianBlur(2));
                 break;
@@ -38,16 +38,22 @@ public class Item extends HBox {
         }
     }
 
-    public void setActive(boolean b) {
-        triCircle1.setVisible(b);
-        triCircle2.setVisible(b);
-        text.setOnMouseEntered(event -> {
-            text.setFill(Color.DARKRED);
-        });
-        text.setOnMouseExited(event -> {
-            text.setFill(Color.GRAY);
-        });
-        text.setFill(b ? Color.DARKRED : Color.GREY);
+    public void setActive(boolean b,String purpose) {
+        triCircle1.setVisible(false);
+        triCircle2.setVisible(false);
+        if(purpose.equals("MENU")) {
+            text.setOnMouseEntered(event -> {
+                triCircle1.setVisible(true);
+                triCircle2.setVisible(true);
+                text.setFill(Color.DARKRED);
+            });
+            text.setOnMouseExited(event -> {
+                triCircle1.setVisible(false);
+                triCircle2.setVisible(false);
+                text.setFill(Color.GRAY);
+            });
+            text.setFill(b ? Color.DARKRED : Color.GREY);
+        }
     }
 
     public void setOnActivate(Runnable r) {
