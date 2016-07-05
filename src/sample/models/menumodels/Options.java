@@ -8,11 +8,11 @@ public class Options extends VBox {
 
     public Options(String menu, Node... nodes) {
         super(10, nodes);
-        this.setMenu(menu);
+        this.setMenuPosition(menu);
     }
 
-    private void setMenu(String menu) {
-        switch (menu) {
+    private void setMenuPosition(String menuType) {
+        switch (menuType) {
             case "Menu":
                 this.setAlignment(Pos.TOP_CENTER);
                 this.setTranslateX(140);

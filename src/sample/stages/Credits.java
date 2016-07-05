@@ -38,13 +38,13 @@ public class Credits extends AbstractStage {
         this.developers = new Options("Credits", Constants.creditsText());
         this.backButton = new Options("Back button", Constants.backButton());
 
-        this.backButton.getItem(0).setOnMousePressed(e->this.stage.setScene(this.scene));
+        this.backButton.getItem(0).setOnMousePressed(e->stage.setScene(scene));
 
         root.getChildren().addAll(this.background, this.developers, this.backButton, this.creditsBy);
         this.creditsTransition.useFallAnimation(this.developers, 6, Constants.CREDITS_ANIMATION_DROP_POINT);
         Scene scene = new Scene(root);
-        this.stage.setScene(scene);
-        this.stage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void createCreditText() {

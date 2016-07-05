@@ -14,9 +14,18 @@ public class Player extends Pane {
     private SpriteAnimation animation;
     private SpriteAnimation animationOnPlace;
     private boolean isMoving;
-    private Image playerImg = new Image(getClass().getResourceAsStream("../../resources/playerSprite.png"));
+    private Image playerImg;
+    private ImageView playerImageView;
 
     public Player() {
+        this.drawPlayer();
+        this.animate();
+        this.getChildren().addAll(playerImageView);
+    }
+
+    private void drawPlayer() {
+        this.playerImg = new Image(getClass().getResourceAsStream("../../resources/playerSprite.png"));
+        this.playerImageView = new ImageView(this.playerImg);
         int offsetX = 0;
         int width = 60;
         int height = 60;
@@ -24,15 +33,16 @@ public class Player extends Pane {
         int count = 8;
         int columns = 8;
         int offsetYOnPlace = 0;
-        ImageView imageView = new ImageView(playerImg);
-
-        imageView.setFitHeight(width);
-        imageView.setFitWidth(height);
-        imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-        animation = new SpriteAnimation(imageView, Duration.millis(750), count, columns, offsetX, offsetY, width, height);
-        animationOnPlace = new SpriteAnimation(imageView, Duration.millis(750), count, columns, offsetX, offsetYOnPlace, width, height);
-        animate();
-        getChildren().addAll(imageView);
+        this.playerImageView.setFitHeight(width);
+        this.playerImageView.setFitWidth(height);
+        this.playerImageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+        this.animation = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
+                offsetY, width,
+                height);
+        this.animationOnPlace = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
+                offsetYOnPlace, width, height);
+        this.setTranslateX(Constants.DEFAULT_X_START_POSITION);
+        this.setTranslateY(Constants.DEFAULT_Y_START_POSITION);
     }
 
     private boolean isMoving() {
@@ -43,29 +53,33 @@ public class Player extends Pane {
         isMoving = moving;
     }
 
-    public void moveRight(){
+    public void moveRight() {
         this.setMoving(true);
         if (this.getTranslateX() < Constants.RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
             this.setTranslateX(this.getTranslateX() + Constants.VELOCITY);
         }
     }
-    public void moveLeft(){
+
+    public void moveLeft() {
         this.setMoving(true);
         if (this.getTranslateX() > Constants.LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
             this.setTranslateX(this.getTranslateX() - Constants.VELOCITY);
         }
     }
-    public void stayAtPos(){
+
+    public void stayAtPos() {
         this.setMoving(false);
     }
-    public void stopAnimation(){
+
+    public void stopAnimation() {
         this.animation.stop();
         this.animationOnPlace.stop();
     }
+
     public void animate() {
-        if(this.isMoving){
+        if (this.isMoving) {
             this.animation.play();
-        }else {
+        } else {
             this.animation.stop();
             this.animationOnPlace.play();
         }

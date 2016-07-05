@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.constants.Constants;
 import sample.input.MenuHandler;
-import sample.models.menumodels.AboutText;
 import sample.models.menumodels.ContentFrame;
 import sample.models.menumodels.Options;
 
@@ -26,7 +25,6 @@ public class MenuStage extends Application {
     private ContentFrame contentFrame1;
     private ContentFrame contentFrame2;
     private HBox hBox;
-    private AboutText aboutText;
     private ScheduledExecutorService bgThread = Executors.newSingleThreadScheduledExecutor();
     private Image background;
     private ImageView imageView;
@@ -51,8 +49,8 @@ public class MenuStage extends Application {
         this.hBox = new HBox(15, contentFrame1, contentFrame2);
         this.hBox.setTranslateX(35);
         this.hBox.setTranslateY(20);
-        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon \u00AE");
-        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox, this.aboutText);
+//        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon \u00AE");
+        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox,Constants.ABOUT_TEXT);
         return root;
     }
 
