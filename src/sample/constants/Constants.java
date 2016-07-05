@@ -19,12 +19,15 @@ public class Constants {
     public static final int CREDITS_ANIMATION_DROP_POINT;
     public static final Font CREDIT_FONT;
     public static final Font ABOUT_FONT;
+    public static final Font HELP_FONT ;
+
     static {
         WIDTH = 900;
         HEIGHT = 600;
         NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
         ABOUT_FONT = Font.font("Consolas", FontWeight.THIN, 25);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 25);
+        HELP_FONT = Font.font("Consolas",FontWeight.BLACK,25);
         VELOCITY = 5;
         LEFT_WALL_BOUNDARY = -10;
         RIGHT_WALL_BOUNDARY = 850;
@@ -43,7 +46,17 @@ public class Constants {
                 new Item("EXIT","MENU")
         };
     }
-
+public static Node[] HelpsText(){
+    Node[] arr = new Node[]{
+            new Item("(->)Right arrow - moving right","HELP"),
+            new Item("(<-)Left arrow - moving right","HELP"),
+            new Item("Alt + F4 - EXIT","HELP")
+    };
+    for (Node node : arr) {
+        node.setDisable(true);
+    }
+    return arr;
+}
     public static  Node[] creditsText() {
         Node[] arr = new Node[]{
                 new Item("ABELINA GEORGIEVA","CREDITS"),

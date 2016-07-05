@@ -2,6 +2,7 @@ package sample.models.menumodels;
 
 import javafx.geometry.Pos;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Shadow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -32,7 +33,10 @@ public class Item extends StackPane {
                 text.setFont(Constants.MENU_FONT);
                 text.setSmooth(false);
                 break;
-            case "":
+            case "HELP":
+                text.setFont(Constants.HELP_FONT);
+                text.setFill(Color.INDIANRED);
+                this.setEffect(new Shadow(1,Color.DARKGREY));
                 break;
         }
     }
