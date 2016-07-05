@@ -28,6 +28,11 @@ public class Options extends VBox {
                 this.setTranslateX(140);
                 this.setTranslateY(360);
                 break;
+            case "Help":
+                this.setAlignment(Pos.CENTER);
+                this.setTranslateX(50);
+                this.setTranslateY(150);
+                break;
         }
     }
 

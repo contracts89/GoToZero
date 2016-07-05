@@ -21,9 +21,13 @@ public class Constants {
     public static final int CREDITS_ANIMATION_DROP_POINT;
     public static final Font CREDIT_FONT;
     public static final Font ABOUT_FONT;
+<<<<<<< HEAD
     public static final double DEFAULT_X_START_POSITION;
     public static final double DEFAULT_Y_START_POSITION;
     public static Text ABOUT_TEXT;
+=======
+    public static final Font HELP_FONT ;
+>>>>>>> 331ccb1a850ba7a841029c46d1482a2648a7bbf2
 
     static {
         ABOUT_FONT = Font.font("Consolas", FontWeight.THIN, 25);
@@ -34,6 +38,7 @@ public class Constants {
         HEIGHT = 600;
         NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 25);
+        HELP_FONT = Font.font("Consolas",FontWeight.BLACK,25);
         VELOCITY = 5;
         LEFT_WALL_BOUNDARY = -10;
         RIGHT_WALL_BOUNDARY = 850;
@@ -52,8 +57,23 @@ public class Constants {
                 new Item("EXIT", "MENU")
         };
     }
+<<<<<<< HEAD
 
     public static Node[] creditsText() {
+=======
+public static Node[] HelpsText(){
+    Node[] arr = new Node[]{
+            new Item("(->)Right arrow - moving right","HELP"),
+            new Item("(<-)Left arrow - moving right","HELP"),
+            new Item("Alt + F4 - EXIT","HELP")
+    };
+    for (Node node : arr) {
+        node.setDisable(true);
+    }
+    return arr;
+}
+    public static  Node[] creditsText() {
+>>>>>>> 331ccb1a850ba7a841029c46d1482a2648a7bbf2
         Node[] arr = new Node[]{
                 new Item("ABELINA GEORGIEVA", "CREDITS"),
                 new Item("EYUB DJELIL", "CREDITS"),
