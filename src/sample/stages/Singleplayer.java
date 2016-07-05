@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.collisions.CollisionDetector;
 import sample.constants.Constants;
 import sample.input.PlayerInputHandler;
 import sample.models.playmodels.Number;
@@ -22,7 +23,6 @@ import sample.models.playmodels.StopWatch;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -46,6 +46,7 @@ public class Singleplayer extends AbstractStage {
     private Random randomGenerator;
     AnimationTimer animationTimer;
     private PlayerInputHandler playerInputHandler;
+    private CollisionDetector collisionDetector;
 
     public Singleplayer(Stage stage, Scene scene) {
         super(stage, scene);
@@ -58,6 +59,7 @@ public class Singleplayer extends AbstractStage {
         this.pane = new Pane();
         this.numberList = new ArrayList<>();
         this.stopWatch = new StopWatch();
+        this.collisionDetector = new CollisionDetector();
     }
 
     private void update() {
@@ -71,30 +73,8 @@ public class Singleplayer extends AbstractStage {
         this.generateFallingNumber();
 
         // Game collission: intersection between falling numbers and Player
-        for (int i = 0; i < numberList.size(); i++) {
-            if (numberList.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
-                pane.getChildren().remove(numberList.get(i));
-                switch (currentOperation) {
-                    case "Divide":
-                        score.set(score.get() / (numberList.get(i).getNumberScore()));
-                        break;
-                    case "Add":
-                        score.set(score.get() + (numberList.get(i).getNumberScore()));
-                        break;
-                    case "Multiply":
-                        score.set(score.get() * (numberList.get(i).getNumberScore()));
-                        break;
-                    case "Subtract":
-                        score.set(score.get() - (numberList.get(i).getNumberScore()));
-                        break;
-                }
-                numberList.removeAll(Collections.singleton(numberList.get(i)));
-
-
-            }
-
-
-        }
+        this.collisionDetector.checkForCollisionWithNumbers(this.numberList
+                ,this.player,this.pane,this.currentOperation,this.score);
     }
 
     private void generateFallingNumber() {
@@ -105,11 +85,18 @@ public class Singleplayer extends AbstractStage {
         }
     }
 
+    private void clearNumbers() {
+        for (Number number : this.numberList) {
+            this.pane.getChildren().remove(number);
+        }
+    }
+
     private void showWinDialog() {
         try {
-            animationTimer.stop();
-            player.stopAnimation();
-            stopWatch.stopTimer();
+            this.animationTimer.stop();
+            clearNumbers();
+            this.player.stopAnimation();
+            this.stopWatch.stopTimer();
             WinDialog winDialog = new WinDialog(stage, scene);
             winDialog.visualize();
         } catch (IOException ex) {
