@@ -9,21 +9,27 @@ import sample.controllers.WinController;
 import java.io.IOException;
 
 
-public class WinDialog {
+public class WinDialog extends AbstractStage {
 
-    private Stage stage;
+    private static Stage winStage;
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
 
-    public WinDialog() throws IOException {
-        this.stage = new Stage();
+    public WinDialog(Stage stage, Scene scene) throws IOException {
+        super(stage, scene);
+        winStage = new Stage();
         this.fxmlFile = "../fxmlFiles/winDialog.fxml";
         this.loader = new FXMLLoader();
         this.rootNode = null;
     }
 
     public void show() {
+    }
+
+    @Override
+    public void visualize() {
+
         try {
             this.rootNode = loader.load(getClass().getResourceAsStream(this.fxmlFile));
         } catch (IOException e) {
@@ -32,10 +38,13 @@ public class WinDialog {
 
         final Scene scene = new Scene(this.rootNode);
         WinController winController = new WinController();
-        this.stage.setTitle("You Won!");
-        this.stage.setScene(scene);
-        this.stage.setResizable(true);
-
-        this.stage.show();
+        winStage.setTitle("You Won!");
+        winStage.setScene(scene);
+        winStage.setResizable(true);
+        winStage.show();
+    }
+     public static void goToMenu(){
+        winStage.close();
+        stage.setScene(scene);
     }
 }

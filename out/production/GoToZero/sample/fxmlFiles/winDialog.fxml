@@ -14,7 +14,7 @@
          </font>
       </Label>
       <Button fx:id="exitGame" layoutX="182.0" layoutY="102.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="31.0" prefWidth="87.0" text="Exit Game" />
-      <Button fx:id="backToMenu" layoutX="345.0" layoutY="91.0" mnemonicParsing="false" onAction="#backToMenuAction" prefHeight="48.0" prefWidth="111.0" text="Back to menu" />
+      <Button fx:id="backToMenu" layoutX="345.0" layoutY="91.0" mnemonicParsing="false" onMousePressed="#goBackToMenu" prefHeight="48.0" prefWidth="111.0" text="Back to menu" />
       <Label fx:id="resulField" layoutX="109.0" layoutY="48.0" prefHeight="31.0" prefWidth="286.0" text="" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package sample.input;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.models.menumodels.Options;
@@ -24,13 +25,8 @@ public class MenuHandler {
 
     public void processMenuInput(Stage stage, Scene scene) {
 
-        scene.setOnMousePressed(event -> {
-            if (this.menu.getItem(0).isPressed()) {
-                new Singleplayer(stage, this.scene).visualize();
-            }
-            if (this.menu.getItem(4).isPressed()) {
-                new Credits(stage, this.scene).visualize();
-            }
-        });
+        this.menu.getItem(0).setOnMousePressed(e-> new Singleplayer(stage,scene).visualize());
+        this.menu.getItem(4).setOnMousePressed(e-> new Credits(stage,scene).visualize());
+        this.menu.getItem(5).setOnMousePressed(e-> Platform.exit());
     }
 }

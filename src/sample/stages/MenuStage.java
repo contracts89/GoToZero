@@ -19,8 +19,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class MenuStage extends Application {
 
-    private  Stage stage;
-    private  Scene scene;
+    private Stage stage;
+    private Scene scene;
     private MenuHandler menuHandler;
     private Options menuOptions;
     private ContentFrame contentFrame1;
@@ -31,21 +31,28 @@ public class MenuStage extends Application {
     private Image background;
     private ImageView imageView;
 
+    public  Stage getStage() {
+        return stage;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
-//        Rectangle bg = new Rectangle(Constants.WIDTH, Constants.HEIGHT);
         this.menuOptions = new Options("Menu", Constants.menuNodes());
-        this.background = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
+        this.background = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
         this.imageView = new ImageView(this.background);
-//        this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
-//        this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
-//        this.hBox = new HBox(15, contentFrame1, contentFrame2);
-//        this.hBox.setTranslateX(235);
-//        this.hBox.setTranslateY(50);
-        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon");
-        root.getChildren().addAll(this.imageView, this.menuOptions, this.aboutText);
+        this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
+        this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());
+        this.hBox = new HBox(15, contentFrame1, contentFrame2);
+        this.hBox.setTranslateX(35);
+        this.hBox.setTranslateY(20);
+        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon \u00AE");
+        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox, this.aboutText);
         return root;
     }
 

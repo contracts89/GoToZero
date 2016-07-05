@@ -23,7 +23,7 @@ public class Constants {
         WIDTH = 900;
         HEIGHT = 600;
         NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
-        ABOUT_FONT = Font.font("Times New Roman", FontWeight.BOLD, 32);
+        ABOUT_FONT = Font.font("Consolas", FontWeight.THIN, 25);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 25);
         VELOCITY = 5;
         LEFT_WALL_BOUNDARY = -10;

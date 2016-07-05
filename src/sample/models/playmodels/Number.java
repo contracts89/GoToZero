@@ -41,7 +41,4 @@ public class Number extends StackPane {
         this.fallTransition = new FallTransition(Math.random() * 900, -100);
         this.fallTransition.useFallAnimation(this.textLabel,10,Constants.NUMBER_ANIMATION_DROP_POINT);
     }
-    public void clear(){
-        this.clear();
-    }
 }

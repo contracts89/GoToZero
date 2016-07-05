@@ -18,10 +18,10 @@ public class ContentFrame extends StackPane {
     public ContentFrame(Node content) {
         this.setAlignment(Pos.CENTER);
 
-        Rectangle frame = new Rectangle(200, 200);
-        frame.setArcWidth(25);
-        frame.setArcHeight(25);
-        frame.setStroke(Color.ALICEBLUE);
+        Rectangle frame = new Rectangle(160, 160);
+        frame.setArcWidth(30);
+        frame.setArcHeight(30);
+        frame.setStroke(Color.DARKRED);
 
         this.getChildren().addAll(frame, content);
     }

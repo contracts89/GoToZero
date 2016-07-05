@@ -58,8 +58,8 @@ public class Singleplayer extends AbstractStage {
                 player.stopAnimation();
                 stopWatch.stopTimer();
                 clearNumbers();
-                WinDialog winDialog = new WinDialog();
-                winDialog.show();
+                WinDialog winDialog = new WinDialog(stage,scene);
+                winDialog.visualize();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

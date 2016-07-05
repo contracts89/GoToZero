@@ -15,8 +15,8 @@ public class Options extends VBox {
         switch (menu) {
             case "Menu":
                 this.setAlignment(Pos.TOP_CENTER);
-                this.setTranslateX(160);
-                this.setTranslateY(200);
+                this.setTranslateX(140);
+                this.setTranslateY(240);
                 break;
             case "Credits":
                 this.setAlignment(Pos.BASELINE_CENTER);
@@ -25,8 +25,8 @@ public class Options extends VBox {
                 break;
             case "Back button":
                 this.setAlignment(Pos.TOP_LEFT);
-                this.setTranslateX(100);
-                this.setTranslateY(50);
+                this.setTranslateX(140);
+                this.setTranslateY(360);
                 break;
         }
     }

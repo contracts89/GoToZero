@@ -22,7 +22,7 @@ public class Credits extends AbstractStage {
 
     public Credits(Stage stage, Scene scene) {
         super(stage, scene);
-        this.image = new Image(getClass().getResourceAsStream("../resources/creditsWallpaper.jpg"));
+        this.image = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
         this.background = new ImageView(this.image);
         this.creditsTransition = new FallTransition(450, 170);
         this.creditsTransition.reverse();
@@ -37,10 +37,9 @@ public class Credits extends AbstractStage {
 
         this.developers = new Options("Credits", Constants.creditsText());
         this.backButton = new Options("Back button", Constants.backButton());
-        this.backButton.setOnMousePressed(event -> {
-            this.stage.setScene(scene);
-            root.setDisable(true);
-        });
+
+        this.backButton.getItem(0).setOnMousePressed(e->this.stage.setScene(this.scene));
+
         root.getChildren().addAll(this.background, this.developers, this.backButton, this.creditsBy);
         this.creditsTransition.useFallAnimation(this.developers, 6, Constants.CREDITS_ANIMATION_DROP_POINT);
         Scene scene = new Scene(root);
