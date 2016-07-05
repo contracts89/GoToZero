@@ -7,6 +7,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import sample.models.menumodels.Item;
 
+import java.io.*;
+
 
 public class Constants {
 
@@ -23,23 +25,26 @@ public class Constants {
     public static final Font ABOUT_FONT;
     public static final double DEFAULT_X_START_POSITION;
     public static final double DEFAULT_Y_START_POSITION;
-    public static Text ABOUT_TEXT;
+    public static final Text ABOUT_TEXT;
+    public static final Text CREDITS_BY;
     public static final Font HELP_FONT;
-
+    public static final Text HELP_TEXT;
     static {
+        MENU_FONT = Font.font("", FontWeight.BOLD, 18);
+        NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
+        CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 22);
+        HELP_FONT = Font.font("Consolas", FontWeight.BLACK, 18);
         ABOUT_FONT = Font.font("Consolas", FontWeight.THIN, 25);
         ABOUT_TEXT = createAboutText();
+        CREDITS_BY = creditsByText();
+        HELP_TEXT = createHelpText();
         DEFAULT_X_START_POSITION = 500;
         DEFAULT_Y_START_POSITION = 540;
         WIDTH = 900;
         HEIGHT = 600;
-        NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
-        CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 25);
-        HELP_FONT = Font.font("Consolas", FontWeight.BLACK, 25);
         VELOCITY = 5;
         LEFT_WALL_BOUNDARY = -10;
         RIGHT_WALL_BOUNDARY = 850;
-        MENU_FONT = Font.font("", FontWeight.BOLD, 18);
         NUMBER_ANIMATION_DROP_POINT = 850;
         CREDITS_ANIMATION_DROP_POINT = 430;
     }
@@ -53,19 +58,6 @@ public class Constants {
                 new Item("CREDITS", "MENU"),
                 new Item("EXIT", "MENU")
         };
-    }
-
-
-    public static Node[] HelpsText () {
-        Node[] arr = new Node[]{
-                new Item("(->)Right arrow - moving right", "HELP"),
-                new Item("(<-)Left arrow - moving right", "HELP"),
-                new Item("Alt + F4 - EXIT", "HELP")
-        };
-        for (Node node : arr) {
-            node.setDisable(true);
-        }
-        return arr;
     }
     public static Node[] creditsText() {
         {
@@ -88,6 +80,16 @@ public class Constants {
         }
     }
 
+    private static Text creditsByText() {
+        Text creditsBy = new Text("CREDITS BY =>\n\nTEAM ANCALOGON");
+        creditsBy.setTranslateX(130);
+        creditsBy.setTranslateY(250);
+        creditsBy.setFill(Color.WHITESMOKE);
+        creditsBy.setFont(Constants.MENU_FONT);
+        creditsBy.setOpacity(5);
+        return creditsBy;
+    }
+
     private static Text createAboutText() {
         Text aboutText = new Text("GoToZero\n\nby Team Ancalogon \u00AE");
         aboutText.setTranslateX(60);
@@ -96,6 +98,34 @@ public class Constants {
         aboutText.setFont(Constants.ABOUT_FONT);
         aboutText.setOpacity(1.5);
         return aboutText;
+    }
+
+    public static Text createHelpText() {
+        StringBuilder help = getFilePath();
+        Text helpText = new Text(help.toString());
+        helpText.setTranslateX(60);
+        helpText.setTranslateY(40);
+        helpText.setFill(Color.ANTIQUEWHITE);
+        helpText.setFont(Constants.HELP_FONT);
+        helpText.setOpacity(1.5);
+        return helpText;
+    }
+
+    private static StringBuilder getFilePath() {
+        StringBuilder helpBuilder = new StringBuilder();
+        String basePath = new File("help.txt").getAbsolutePath();
+        File file = new File("src/sample/resources/help.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+            while (line != null) {
+                helpBuilder.append(line);
+                helpBuilder.append(System.lineSeparator());
+                line = br.readLine();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return helpBuilder;
     }
 
     public static Node backButton() {

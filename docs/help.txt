@@ -1,0 +1,4 @@
+Goal of the Game :
+The goal is through mathematical operations like
+addition , subtraction, multiplication and division
+to reach a score of ZERO

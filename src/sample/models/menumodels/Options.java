@@ -18,17 +18,17 @@ public class Options extends VBox {
                 this.setTranslateX(140);
                 this.setTranslateY(240);
                 break;
-            case "Credits":
+            case "CreditsStage":
                 this.setAlignment(Pos.BASELINE_CENTER);
                 this.setTranslateX(50);
                 this.setTranslateY(150);
                 break;
             case "Back button":
                 this.setAlignment(Pos.TOP_LEFT);
-                this.setTranslateX(140);
-                this.setTranslateY(360);
+                this.setTranslateX(120);
+                this.setTranslateY(400);
                 break;
-            case "Help":
+            case "HelpStage":
                 this.setAlignment(Pos.CENTER);
                 this.setTranslateX(50);
                 this.setTranslateY(150);
