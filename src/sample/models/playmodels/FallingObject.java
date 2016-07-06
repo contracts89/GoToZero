@@ -22,7 +22,6 @@ public abstract class FallingObject extends StackPane {
 
         this.textLabel = new Label();
         this.getChildren().addAll(this.textLabel);
-
         setFallingObject();
         this.fallTransition = new FallTransition(Math.random() * 900, -100);
         this.fallTransition.useFallAnimation(this.textLabel, 10, Constants.NUMBER_ANIMATION_DROP_POINT);
@@ -32,6 +31,9 @@ public abstract class FallingObject extends StackPane {
         this.generatedNum = generatedNum;
     }
 
+    public FallTransition getFallTransition() {
+        return fallTransition;
+    }
 
     protected void setTextLabel(Label textLabel) {
         this.textLabel = textLabel;

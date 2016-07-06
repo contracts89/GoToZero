@@ -3,7 +3,10 @@ package sample.input;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import sample.models.playmodels.FallingObject;
+import sample.models.playmodels.MathOperator;
 import sample.models.playmodels.Player;
+import sample.stages.PlayState;
 
 import java.util.HashMap;
 
@@ -29,18 +32,53 @@ public class PlayerInputHandler {
     }
 
 
-    public void processSinglePlayerInput() {
+    public void processSinglePlayerInput(PlayState playstate) {
+
         this.processInput();
-         if (isPressed(KeyCode.ESCAPE)) {
-            Platform.exit();
-        } else if (isPressed(KeyCode.RIGHT)) {
-            player.setScaleX(1);
-            player.moveRight();
-        } else if (isPressed(KeyCode.LEFT)) {
-            player.setScaleX(-1);
-            player.moveLeft();
+        if (!playstate.isPaused()) {
+            if (isPressed(KeyCode.ESCAPE)) {
+                Platform.exit();
+            } else if (isPressed(KeyCode.RIGHT)) {
+                player.setScaleX(1);
+                player.moveRight();
+            } else if (isPressed(KeyCode.LEFT)) {
+                player.setScaleX(-1);
+                player.moveLeft();
+            } else if (isPressed(KeyCode.P)) {
+                pauseGame(playstate);
+            } else {
+                player.stayAtPos();
+            }
         } else {
-            player.stayAtPos();
+            resumeGame(playstate);
+        }
+    }
+
+    private void pauseGame(PlayState playstate) {
+        playstate.setPaused(true);
+        playstate.getGameTimer().stop();
+        playstate.getStopWatch().stopTimer();
+        for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+            fallingObject.getFallTransition().getPathTransition().stop();
+        }
+        for (MathOperator mathOperator : playstate.getMathOperators()) {
+            mathOperator.getFallTransition().getPathTransition().stop();
+        }
+        playstate.getPlayer().stopAnimation();
+    }
+
+    private void resumeGame(PlayState playstate) {
+        if (isPressed(KeyCode.P)) {
+            playstate.setPaused(false);
+            playstate.getGameTimer().start();
+            playstate.getStopWatch().resumeTimer();
+            playstate.getPlayer().stayAtPos();
+            for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+                fallingObject.getFallTransition().getPathTransition().play();
+            }
+            for (MathOperator mathOperator : playstate.getMathOperators()) {
+                mathOperator.getFallTransition().getPathTransition().play();
+            }
         }
     }
 }

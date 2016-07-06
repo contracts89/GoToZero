@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
 import sample.constants.Constants;
@@ -34,12 +33,12 @@ public class PlayState extends AbstractStage {
     private List<FallingObject> fallingSymbolsAndNumbers;
     private List<MathOperator> mathOperators;
     private FallingObject fallingObject;
-    private Text scoreText;
-    private Text currentOperationText;
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
     private Random randomGenerator;
-    AnimationTimer animationTimer;
+    AnimationTimer gameTimer;
+    AnimationTimer inputTimer;
+    private boolean isPaused;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
 
@@ -58,6 +57,22 @@ public class PlayState extends AbstractStage {
         this.collisionDetector = new CollisionDetector();
     }
 
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
+
+    public AnimationTimer getInputTimer() {
+        return inputTimer;
+    }
+
+    public List<MathOperator> getMathOperators() {
+        return mathOperators;
+    }
+
     public StopWatch getStopWatch() {
         return stopWatch;
     }
@@ -66,8 +81,8 @@ public class PlayState extends AbstractStage {
         return fallingSymbolsAndNumbers;
     }
 
-    public AnimationTimer getAnimationTimer() {
-        return animationTimer;
+    public AnimationTimer getGameTimer() {
+        return gameTimer;
     }
 
 
@@ -80,9 +95,8 @@ public class PlayState extends AbstractStage {
         if (checkForEnd()) return;
 
         player.animate();
-        this.playerInputHandler.processSinglePlayerInput();
         this.generateFallingObject();
-
+//        playerInputHandler.processSinglePlayerInput(this);
         // Game collission: intersection between falling numbers and Player
         this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
                 , this.player, this.pane, this.currentOperation, this.score);
@@ -128,7 +142,7 @@ public class PlayState extends AbstractStage {
 
     private void showEndDialog() {
         try {
-            this.animationTimer.stop();
+            this.gameTimer.stop();
             clearFallingObjects();
             this.player.stopAnimation();
             this.stopWatch.stopTimer();
@@ -172,19 +186,41 @@ public class PlayState extends AbstractStage {
         this.drawThePlayScene();
         Scene scene = new Scene(this.pane);
         this.playerInputHandler = new PlayerInputHandler(scene, this.player);
-
-
+        processInputInGame(scene);
+        gameLoop();
         stage.setScene(scene);
 
         stage.show();
 
-        animationTimer = new AnimationTimer() {
+        inputLoop(scene);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    private void inputLoop(final Scene scene) {
+        inputTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                processInputInGame(scene);
+            }
+        };
+        inputTimer.start();
+    }
+
+    private void processInputInGame(Scene scene) {
+        this.playerInputHandler.processSinglePlayerInput(this);
+    }
+
+    private void gameLoop() {
+        gameTimer = new AnimationTimer() {
             @Override
             public synchronized void handle(long now) {
                 update();
             }
         };
-        animationTimer.start();
+        gameTimer.start();
     }
 }
 
