@@ -33,10 +33,11 @@ public class Constants {
     public static final Text CREDITS_BY;
     public static final Font HELP_FONT;
     public static final Text HELP_TEXT;
+    public static final Text HIGH_SCORE_TEXT;
+    public static final Text SCORE_TEXT;
     public static final int BOMB_VALUE;
     public static final String SYMBOLS;
     public static final String MATH_OPERATORS;
-    public static final Text SCORE_TEXT;
     public static final Text OPERATION_TEXT;
     public static final Font GAME_FONT;
 
@@ -53,6 +54,7 @@ public class Constants {
         ABOUT_TEXT = createAboutText();
         CREDITS_BY = creditsByText();
         HELP_TEXT = createHelpText();
+        HIGH_SCORE_TEXT = createHighScoreText();
         SCORE_TEXT = createScoreAndOpText("score");
         OPERATION_TEXT = createScoreAndOpText("operation");
         DEFAULT_X_START_POSITION = 500;
@@ -144,6 +146,34 @@ public class Constants {
         }
         return helpBuilder;
     }
+
+    public static Text createHighScoreText() {
+        StringBuilder highScore = getHighScoreFilePath();
+        Text highScoreText = new Text(highScore.toString());
+        highScoreText.setTranslateX(60);
+        highScoreText.setTranslateY(40);
+        highScoreText.setFill(Color.ANTIQUEWHITE);
+        highScoreText.setFont(Constants.HELP_FONT);
+        highScoreText.setOpacity(1.5);
+        return highScoreText;
+    }
+
+    private static StringBuilder getHighScoreFilePath() {
+        StringBuilder helpBuilder = new StringBuilder();
+        File file = new File("src/sample/resources/highScore.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+            while (line != null) {
+                helpBuilder.append(line);
+                helpBuilder.append(System.lineSeparator());
+                line = br.readLine();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return helpBuilder;
+    }
+
     private static Text createScoreAndOpText(String type){
         Text tempText = new Text();
         tempText.setFont(Constants.GAME_FONT);
