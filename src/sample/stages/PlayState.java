@@ -15,7 +15,7 @@ import sample.constants.Constants;
 import sample.input.PlayerInputHandler;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
-import sample.models.timers.PlayTimer;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,8 +27,6 @@ public class PlayState extends AbstractStage {
     // set the background Image if you run on MacOSX just replace "\\" with "/"
     private ImageView imageView;
     private Player player;
-//    private StopWatch stopWatch;
-    private PlayTimer playTimer;
     private Label stopWatchLabel;
     private Pane pane;
     private List<FallingObject> fallingSymbolsAndNumbers;
@@ -49,20 +47,16 @@ public class PlayState extends AbstractStage {
         this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
         this.imageView = new ImageView(this.background);
         this.player = new Player(hasTwoPlayers);
-        this.score = new SimpleLongProperty(1);
+        this.score = new SimpleLongProperty(128);
         this.currentOperation = "Subtract";
         this.pane = new Pane();
         this.fallingSymbolsAndNumbers = new ArrayList<>();
         this.mathOperators = new ArrayList<>();
-//        this.stopWatch = new StopWatch();
-        this.playTimer = new PlayTimer();
-        this.playTimer.start();
+
         this.collisionDetector = new CollisionDetector();
     }
 
-    public PlayTimer getPlayTimer() {
-        return playTimer;
-    }
+
 
     public AnimationTimer getGameTimer() {
         return gameTimer;
@@ -92,10 +86,6 @@ public class PlayState extends AbstractStage {
     public List<MathOperator> getMathOperators() {
         return mathOperators;
     }
-
-//    public StopWatch getStopWatch() {
-//        return stopWatch;
-//    }
 
     public List<FallingObject> getFallingSymbolsAndNumbers() {
         return fallingSymbolsAndNumbers;
@@ -161,7 +151,6 @@ public class PlayState extends AbstractStage {
             this.gameTimer.stop();
             clearFallingObjects();
             this.player.stopAnimation();
-            this.playTimer.cancel();
             if (score.get() == 0) {
                 new WinDialog(stage, scene).visualize(); // WIN
             } else {
@@ -188,13 +177,13 @@ public class PlayState extends AbstractStage {
         this.pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
 
         // call the Timer class
-        this.stopWatchLabel = this.playTimer.getStopwatch();
+
 
         this.pane.getChildren()
                 .addAll(this.imageView,
                         Constants.SCORE_TEXT,
                         Constants.OPERATION_TEXT,
-                        this.player, this.stopWatchLabel); // add objects in the scene
+                        this.player); // add objects in the scene
     }
 //    private void processInput(){
 //        this.playerInputHandler.processSinglePlayerInput(this);
