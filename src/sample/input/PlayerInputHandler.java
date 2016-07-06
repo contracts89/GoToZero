@@ -35,8 +35,16 @@ public class PlayerInputHandler {
     public void processSinglePlayerInput(PlayState playstate) {
 
         this.processInput();
-
-        if (isPressed(KeyCode.ESCAPE)) {
+        if (isPressed(KeyCode.P)) {
+            if (!playstate.isPaused()) {
+                playstate.setPaused(true);
+                playstate.getGameTimer().stop();
+                pauseGame(playstate);
+            } else {
+//                playstate.setPaused(true);
+                resumeGame(playstate);
+            }
+        } else if (isPressed(KeyCode.ESCAPE)) {
             Platform.exit();
         } else if (isPressed(KeyCode.RIGHT)) {
             player.setScaleX(1);
@@ -44,21 +52,13 @@ public class PlayerInputHandler {
         } else if (isPressed(KeyCode.LEFT)) {
             player.setScaleX(-1);
             player.moveLeft();
-        } else if (isPressed(KeyCode.P)) {
-            if (!playstate.isPaused()) {
-                playstate.setPaused(true);
-                pauseGame(playstate);
-            } else {
-                playstate.setPaused(false);
-                resumeGame(playstate);
-            }
         } else {
             player.stayAtPos();
         }
     }
 
+
     private void pauseGame(PlayState playstate) {
-        playstate.getGameTimer().stop();
         playstate.getStopWatch().stopTimer();
         playstate.getPlayer().stopAnimation();
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {

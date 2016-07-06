@@ -21,8 +21,6 @@ public class MenuHandler {
 
     }
 
-
-
     public Scene getScene() {
         return this.scene;
     }

@@ -103,9 +103,9 @@ public class PlayState extends AbstractStage {
         if (checkForEnd()) return;
 
         player.animate();
-        this.playerInputHandler.processSinglePlayerInput(this);
         this.generateFallingObject();
         this.drawScoreAndCurrentOperation();
+        this.playerInputHandler.processSinglePlayerInput(this);
         // Game collission: intersection between falling numbers and Player
         this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
                 , this.player, this.pane, this.currentOperation, this.score);
@@ -194,23 +194,17 @@ public class PlayState extends AbstractStage {
 
     private void inputLoop() {
         inputTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                processInput();
-            }
-        };
+        @Override
+        public void handle(long now) {
+            processInput();
+        }
+    };
         inputTimer.start();
     }
 
 
     private void gameLoop() {
-        gameTimer = new AnimationTimer() {
-            @Override
-            public synchronized void handle(long now) {
-                update();
-            }
-        };
-        gameTimer.start();
+
     }
     @Override
     public void visualize() {
@@ -219,8 +213,13 @@ public class PlayState extends AbstractStage {
         Scene scene = new Scene(this.pane);
         this.playerInputHandler = new PlayerInputHandler(scene, this.player);
 
-        inputLoop();
-        gameLoop();
+        gameTimer = new AnimationTimer() {
+            @Override
+            public synchronized void handle(long now) {
+                update();
+            }
+        };
+        gameTimer.start();
 
         stage.setScene(scene);
         stage.show();

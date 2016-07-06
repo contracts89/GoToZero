@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.controllers.WinController;
 
 import java.io.IOException;
 
@@ -37,7 +36,6 @@ public class GameOverDialog extends AbstractStage {
         }
 
         final Scene scene = new Scene(this.rootNode);
-        WinController winController = new WinController();
         winStage.setTitle("Game Over!");
         winStage.setScene(scene);
         winStage.setResizable(true);
