@@ -7,10 +7,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import sample.models.menumodels.Item;
-import sample.models.playmodels.StopWatch;
-import sample.stages.PlayState;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class Constants {
@@ -32,13 +33,12 @@ public class Constants {
     public static final Text CREDITS_BY;
     public static final Font HELP_FONT;
     public static final Text HELP_TEXT;
-    public static final Text SCORE_TEXT;
     public static final int BOMB_VALUE;
     public static final String SYMBOLS;
     public static final String MATH_OPERATORS;
-    public static final Text OPERATION_TEXT;
     public static final Font GAME_FONT;
-
+    public static final Text SCORE_TEXT;
+    public static final Text OPERATION_TEXT;
     static {
         MATH_OPERATORS = "+-*/";
         SYMBOLS = "?!&^%$";
@@ -162,16 +162,6 @@ public class Constants {
         tempText.setOpacity(1);
         return tempText;
     }
-//    private static Text createOperationText(){
-//        Text operationText = new Text();
-//        operationText.setFont(Constants.GAME_FONT);
-//        operationText.setY(50);
-//        operationText.setX(5);
-//        operationText.setFill(Color.WHITESMOKE);
-//        operationText.setEffect(new DropShadow(1.5,Color.WHITE));
-//        operationText.setOpacity(1);
-//        return operationText;
-//    }
     public static Node backButton() {
         return new Item("BACK TO MENU", "MENU");
     }
