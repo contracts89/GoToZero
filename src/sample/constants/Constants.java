@@ -29,7 +29,11 @@ public class Constants {
     public static final Text CREDITS_BY;
     public static final Font HELP_FONT;
     public static final Text HELP_TEXT;
+    public static final int BOMB_VALUE;
+    public static final String SYMBOLS;
     static {
+        SYMBOLS  = "?!&^%$";
+        BOMB_VALUE = 0;
         MENU_FONT = Font.font("", FontWeight.BOLD, 18);
         NUMBER_FONT = Font.font("Times New Roman", FontWeight.BLACK, 22);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 22);

@@ -17,9 +17,8 @@ import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
 import sample.constants.Constants;
 import sample.input.PlayerInputHandler;
+import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
-import sample.models.playmodels.Player;
-import sample.models.playmodels.StopWatch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,8 +36,8 @@ public class Singleplayer extends AbstractStage {
     private StopWatch stopWatch;
     private Label stopWatchLabel;
     private Pane pane;
-    private List<Number> numberList;
-    private Number fallingNumber;
+    private List<FallingObject> fallingObjects;
+    private FallingObject fallingObject;
     private Text scoreText;
     private Text currentOperationText;
     private LongProperty score; // Set the starting Score (default is 128)
@@ -58,7 +57,7 @@ public class Singleplayer extends AbstractStage {
         this.currentOperation = "Subtract";
         this.randomGenerator = new Random();
         this.pane = new Pane();
-        this.numberList = new ArrayList<>();
+        this.fallingObjects = new ArrayList<>();
         this.stopWatch = new StopWatch();
         this.collisionDetector = new CollisionDetector();
     }
@@ -67,8 +66,8 @@ public class Singleplayer extends AbstractStage {
         return stopWatch;
     }
 
-    public List<Number> getNumberList() {
-        return numberList;
+    public List<FallingObject> getFallingObjects() {
+        return fallingObjects;
     }
 
     public AnimationTimer getAnimationTimer() {
@@ -89,25 +88,30 @@ public class Singleplayer extends AbstractStage {
 
         player.animate();
         this.playerInputHandler.processSinglePlayerInput();
-        this.generateFallingNumber();
+        this.generateFallingObject();
 
         // Game collission: intersection between falling numbers and Player
-        this.collisionDetector.checkForCollisionWithNumbers(this.numberList
+        this.collisionDetector.checkForCollisionWithNumbers(this.fallingObjects
                 ,this.player,this.pane,this.currentOperation,this.score);
     }
 
 
-    private void generateFallingNumber() {
+    private void generateFallingObject() {
         if (System.nanoTime() % 60 == 0) {
-            fallingNumber = new Number();
-            numberList.add(fallingNumber);
-            pane.getChildren().add(fallingNumber);
+            fallingObject = new Number();
+            fallingObjects.add(fallingObject);
+            pane.getChildren().add(fallingObject);
+        }
+        if(System.nanoTime()%90==0){
+            fallingObject = new Symbol();
+            fallingObjects.add(fallingObject);
+            pane.getChildren().add(fallingObject);
         }
     }
 
-    private void clearNumbers() {
-        for (Number number : this.numberList) {
-            this.pane.getChildren().remove(number);
+    private void clearFallingObjects() {
+        for (FallingObject fallingObject : this.fallingObjects) {
+            this.pane.getChildren().remove(fallingObject);
         }
     }
 
@@ -115,7 +119,7 @@ public class Singleplayer extends AbstractStage {
     private void showWinDialog() {
         try {
             this.animationTimer.stop();
-            clearNumbers();
+            clearFallingObjects();
             this.player.stopAnimation();
             this.stopWatch.stopTimer();
             WinDialog winDialog = new WinDialog(stage, scene);
@@ -129,7 +133,7 @@ public class Singleplayer extends AbstractStage {
     private void showWinDialogGameOver() {
         try {
             this.animationTimer.stop();
-            clearNumbers();
+            clearFallingObjects();
             this.player.stopAnimation();
             this.stopWatch.stopTimer();
             WinDialogGameOver winDialogGameOver = new WinDialogGameOver(stage, scene);
