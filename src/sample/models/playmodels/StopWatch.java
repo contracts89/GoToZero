@@ -10,9 +10,6 @@ import sample.constants.Constants;
 import java.time.Duration;
 import java.time.LocalTime;
 
-/**
- * Created by lgoychev on 6/27/16.
- */
 public class StopWatch {
 
     private AnimationTimer timer;
