@@ -7,11 +7,11 @@ import sample.constants.Constants;
 
 public class Symbol extends FallingObject {
 
-    //    final String symbols = "*&^%$";
     private String generatedSymbol;
 
     public Symbol() {
         super();
+        this.setNumberScore(this.getGeneratedNum());
         this.getTextLabel().setFont(Constants.NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.AQUAMARINE);
     }

@@ -6,25 +6,10 @@ import sample.constants.Constants;
 
 public class Number extends FallingObject {
 
-    //    private Label textLabel = new Label();
-//    private int numberScore;
-//    private FallTransition fallTransition;
-//    final String symbols = "*&^%$"; // list of symbols
-//    final int Bomb = 0; // add zero value as bomb
-//
-//    public int getNumberScore() {
-//        return numberScore;
-//    }
-//
-//    public void setNumberScore(int numberScore) {
-//        this.numberScore = numberScore;
-//    }
-//
-//    public Label getTextLabel() {
-//        return textLabel;
-//    }
+
     public Number() {
         super();
+        this.setNumberScore(this.getGeneratedNum());
         this.getTextLabel().setFont(Constants.NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.WHITESMOKE);
     }

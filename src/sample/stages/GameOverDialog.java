@@ -9,14 +9,14 @@ import sample.controllers.WinController;
 import java.io.IOException;
 
 
-public class WinDialogGameOver extends AbstractStage {
+public class GameOverDialog extends AbstractStage {
 
     private static Stage winStage;
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
 
-    public WinDialogGameOver(Stage stage, Scene scene) throws IOException {
+    public GameOverDialog(Stage stage, Scene scene) throws IOException {
         super(stage, scene);
         winStage = new Stage();
         this.fxmlFile = "../fxmlFiles/winDialogGameOver.fxml";

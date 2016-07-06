@@ -27,7 +27,7 @@ import java.util.Random;
 
 import static javafx.application.Application.STYLESHEET_MODENA;
 
-public class Singleplayer extends AbstractStage {
+public class PlayState extends AbstractStage {
 
     private Image background;
     // set the background Image if you run on MacOSX just replace "\\" with "/"
@@ -36,7 +36,8 @@ public class Singleplayer extends AbstractStage {
     private StopWatch stopWatch;
     private Label stopWatchLabel;
     private Pane pane;
-    private List<FallingObject> fallingObjects;
+    private List<FallingObject> fallingSymbolsAndNumbers;
+    private List<MathOperator> mathOperators;
     private FallingObject fallingObject;
     private Text scoreText;
     private Text currentOperationText;
@@ -46,9 +47,8 @@ public class Singleplayer extends AbstractStage {
     AnimationTimer animationTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
-    private volatile boolean isPaused;
 
-    public Singleplayer(Stage stage, Scene scene) {
+    public PlayState(Stage stage, Scene scene) {
         super(stage, scene);
         this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
         this.imageView = new ImageView(this.background);
@@ -57,7 +57,8 @@ public class Singleplayer extends AbstractStage {
         this.currentOperation = "Subtract";
         this.randomGenerator = new Random();
         this.pane = new Pane();
-        this.fallingObjects = new ArrayList<>();
+        this.fallingSymbolsAndNumbers = new ArrayList<>();
+        this.mathOperators = new ArrayList<>();
         this.stopWatch = new StopWatch();
         this.collisionDetector = new CollisionDetector();
     }
@@ -66,78 +67,80 @@ public class Singleplayer extends AbstractStage {
         return stopWatch;
     }
 
-    public List<FallingObject> getFallingObjects() {
-        return fallingObjects;
+    public List<FallingObject> getFallingSymbolsAndNumbers() {
+        return fallingSymbolsAndNumbers;
     }
 
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
 
-    private void update()  {
-        //If score is Zero the dialog window is displayed as Winner
-        if (score.get() == 0) {
-            showWinDialog();
-            return;
-        }
-        // if score is Infinity the dialog window is displayed as Loser (Game Over.)
-        if (score.get()==999999999){
-            showWinDialogGameOver();
-            return;
-        }
+
+    public void setCurrentOperation(String currentOperation) {
+        this.currentOperation = currentOperation;
+    }
+
+    private void update() {
+        //If score is Zero || Infinity end dialog window is shown
+        if (checkForEnd()) return;
 
         player.animate();
         this.playerInputHandler.processSinglePlayerInput();
         this.generateFallingObject();
 
         // Game collission: intersection between falling numbers and Player
-        this.collisionDetector.checkForCollisionWithNumbers(this.fallingObjects
-                ,this.player,this.pane,this.currentOperation,this.score);
+        this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
+                , this.player, this.pane, this.currentOperation, this.score);
+        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators, this.player, this.pane, this);
     }
 
+    private boolean checkForEnd() {
+        if (score.get() == 0 || score.get() == 999999999) {
+            showEndDialog();
+            return true;
+        }
+        return false;
+    }
 
     private void generateFallingObject() {
         if (System.nanoTime() % 60 == 0) {
             fallingObject = new Number();
-            fallingObjects.add(fallingObject);
+            fallingSymbolsAndNumbers.add(fallingObject);
             pane.getChildren().add(fallingObject);
         }
-        if(System.nanoTime()%90==0){
+        if (System.nanoTime() % 90 == 0) {
             fallingObject = new Symbol();
-            fallingObjects.add(fallingObject);
+            fallingSymbolsAndNumbers.add(fallingObject);
+            pane.getChildren().add(fallingObject);
+        }
+        if (System.nanoTime() % 120 == 0) {
+            fallingObject = new MathOperator();
+            mathOperators.add((MathOperator) fallingObject);
             pane.getChildren().add(fallingObject);
         }
     }
 
     private void clearFallingObjects() {
-        for (FallingObject fallingObject : this.fallingObjects) {
+        for (FallingObject fallingObject : this.fallingSymbolsAndNumbers) {
             this.pane.getChildren().remove(fallingObject);
         }
-    }
-
-    // Win the game dialog Window
-    private void showWinDialog() {
-        try {
-            this.animationTimer.stop();
-            clearFallingObjects();
-            this.player.stopAnimation();
-            this.stopWatch.stopTimer();
-            WinDialog winDialog = new WinDialog(stage, scene);
-            winDialog.visualize();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        for (MathOperator mathoperator : this.mathOperators) {
+            this.pane.getChildren().remove(mathoperator);
         }
     }
 
-    // Add game over dialog Window
-    private void showWinDialogGameOver() {
+
+    private void showEndDialog() {
         try {
             this.animationTimer.stop();
             clearFallingObjects();
             this.player.stopAnimation();
             this.stopWatch.stopTimer();
-            WinDialogGameOver winDialogGameOver = new WinDialogGameOver(stage, scene);
-            winDialogGameOver.visualize();
+            if (score.get() == 0) {
+                new WinDialog(stage, scene).visualize(); // WIN
+            } else {
+                new GameOverDialog(stage, scene).visualize(); //LOSS
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -147,7 +150,7 @@ public class Singleplayer extends AbstractStage {
     private void drawScore() {
         scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: " + score.get()), score));
         //replace infinity score with String INFINITY
-        if (score.get()==999999999){
+        if (score.get() == 999999999) {
             scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: INFINITY...")));
         }
     }
@@ -174,32 +177,6 @@ public class Singleplayer extends AbstractStage {
         return testText;
     }
 
-    // method to swithch between current math operators
-    private void generateOperator() {
-        int number = genRndNCorrespondingToStringOperation();
-        switch (number) {
-            case 1:
-                currentOperation = "Add";
-                break;
-            case 2:
-                currentOperation = "Subtract";
-                break;
-            case 3:
-                currentOperation = "Multiply";
-                break;
-            case 4:
-                currentOperation = "Divide";
-                break;
-        }
-    }
-
-    //generator to change the time of the Current operator
-    private int genRndNCorrespondingToStringOperation() {
-        if (System.nanoTime() % 250 == 0) {
-            return randomGenerator.nextInt(4) + 1;
-        }
-        return 0;
-    }
 
     private void drawThePlayScene() {
         this.pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
@@ -218,13 +195,6 @@ public class Singleplayer extends AbstractStage {
                         this.player, this.stopWatchLabel); // add objects in the scene
     }
 
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public void setPaused(boolean paused) {
-        isPaused = paused;
-    }
 
     @Override
     public void visualize() {
@@ -243,7 +213,6 @@ public class Singleplayer extends AbstractStage {
                 update();
                 drawScore();
                 drawCurrentOperation();
-                generateOperator();
             }
         };
         animationTimer.start();

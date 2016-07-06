@@ -50,6 +50,6 @@ public class WinDialog extends AbstractStage {
     }
 
     public static void playAgain() {
-        new Singleplayer(stage, scene).visualize();
+        new PlayState(stage, scene).visualize();
     }
 }

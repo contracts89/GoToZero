@@ -3,7 +3,9 @@ package sample.collisions;
 import javafx.beans.property.LongProperty;
 import javafx.scene.layout.Pane;
 import sample.models.playmodels.FallingObject;
+import sample.models.playmodels.MathOperator;
 import sample.models.playmodels.Player;
+import sample.stages.PlayState;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,4 +43,20 @@ public class CollisionDetector {
             }
         }
     }
+
+    public void checkForCollisionWithOperators(List<MathOperator> mathOperators, Player player, Pane pane, PlayState playState) {
+        for (int i = 0; i < mathOperators.size(); i++) {
+            if (mathOperators.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
+                pane.getChildren().remove(mathOperators.get(i));
+                switch (mathOperators.get(i).getMathOperator()){
+                    case "+": playState.setCurrentOperation("Add");break;
+                    case "-": playState.setCurrentOperation("Subtract");break;
+                    case "*": playState.setCurrentOperation("Multiply");break;
+                    case "/": playState.setCurrentOperation("Divide");break;
+                }
+                mathOperators.removeAll(Collections.singleton(mathOperators.get(i)));
+            }
+        }
+    }
 }
+
