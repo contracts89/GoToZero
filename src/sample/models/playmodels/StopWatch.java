@@ -14,14 +14,19 @@ public class StopWatch {
 
     private AnimationTimer timer;
     private Label stopwatch;
+    long elapsedSeconds;
+    long elapsedSecondsNow;
+
     public StopWatch() {
         this.createScene();
         this.setStopwatch(new Label());
     }
 
+
     public Label getStopwatch() {
         return this.stopwatch;
     }
+
     private void setStopwatch(Label stopwatch) {
         this.stopwatch = stopwatch;
         this.stopwatch.setTranslateX(5);// X position of Timer
@@ -30,12 +35,14 @@ public class StopWatch {
         this.stopwatch.setTextFill(Color.WHITE);
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
         this.timer.stop();
     }
-    public void resumeTimer(){
+
+    public void resumeTimer() {
         this.timer.start();
     }
+
     public void createScene() {
 
         BooleanProperty running = new SimpleBooleanProperty(false);
@@ -44,14 +51,13 @@ public class StopWatch {
 
             private LocalTime startTime;
 
-
             public void handle(long now) {
-                long elapsedSeconds = Duration.between(this.startTime, LocalTime.now()).getSeconds();
-
+                long elapsedSecondsNow = Duration.between(this.startTime, LocalTime.now()).getSeconds();
+                elapsedSeconds = elapsedSecondsNow;
                 long minutes = elapsedSeconds / 60;
                 long seconds = elapsedSeconds % 60;
 
-                stopwatch.setText( minutes + " minutes " + seconds + " seconds");
+                stopwatch.setText(minutes + " minutes " + seconds + " seconds");
 
             }
 
@@ -64,10 +70,10 @@ public class StopWatch {
 
             public void stop() {
                 running.set(false);
+                elapsedSeconds = this.startTime.getSecond();
                 super.stop();
             }
         };
         this.timer.start();
-
     }
 }

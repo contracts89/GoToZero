@@ -61,7 +61,7 @@ public class PlayerInputHandler {
 
 
     private void pauseGame(PlayState playstate) {
-        playstate.getStopWatch().stopTimer();
+        playstate.getPlayTimer().pause();
         playstate.getPlayer().stopAnimation();
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
             fallingObject.getFallTransition().getPathTransition().pause();
@@ -72,7 +72,7 @@ public class PlayerInputHandler {
     }
 
     private void resumeGame(PlayState playstate) {
-        playstate.getStopWatch().resumeTimer();
+        playstate.getPlayTimer().resume();
         playstate.getPlayer().stayAtPos();
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
             fallingObject.getFallTransition().getPathTransition().play();

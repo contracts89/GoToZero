@@ -18,7 +18,6 @@ public class MenuHandler {
     public MenuHandler(Scene scene, Options menuoptions) {
         this.scene = scene;
         this.menu = menuoptions;
-
     }
 
     public Scene getScene() {
