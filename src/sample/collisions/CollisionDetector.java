@@ -19,8 +19,14 @@ public class CollisionDetector {
                 pane.getChildren().remove(numberList.get(i));
                 switch (currentOperation) {
                     case "Divide":
-                        score.set(score.get() / (numberList.get(i).getNumberScore()));
-                        break;
+
+                        //Catch the impossible operation Devide to Zero
+                        try {
+                            score.set(score.get() / (numberList.get(i).getNumberScore()));
+                            break;
+                        } catch (ArithmeticException ex) {
+                            score.set(999999999);
+                        }
                     case "Add":
                         score.set(score.get() + (numberList.get(i).getNumberScore()));
                         break;

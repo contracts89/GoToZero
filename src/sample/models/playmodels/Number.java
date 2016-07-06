@@ -16,6 +16,7 @@ public class Number extends StackPane {
     private int numberScore;
     private FallTransition fallTransition;
     final String symbols = "*&^%$"; // list of symbols
+    final int Bomb = 0; // add zero value as bomb
 
     public int getNumberScore() {
         return numberScore;
@@ -34,7 +35,7 @@ public class Number extends StackPane {
         //generate random numbers from 1 to 20
         this.getChildren().addAll(this.textLabel);
         Random randomNumber = new Random();
-        int generatedNum = randomNumber.nextInt(20) + 1; // the values of falling numbers (change to double (20)
+        int generatedNum = randomNumber.nextInt(20)+1; // the values of falling numbers (change to double (20) -- clear +1 to generate 0 value
 
         // generate symbols from symbols list (symbols = "*&^%$")
         Random randomSymbol = new Random();
@@ -42,8 +43,16 @@ public class Number extends StackPane {
 
         // add symbols and numbers as falling objects
         this.textLabel.textProperty().bind(new SimpleIntegerProperty(generatedNum).asString());
+
+        //If generator trying to push numbers greater than 10 it replace it with random symbols
         if (generatedNum > 10) {
             this.textLabel.textProperty().bind(new SimpleStringProperty(generateSymbols));
+        }
+
+        // If generator trying to push number 20 it replace it with 0.
+        if (generatedNum == 20) {
+            this.textLabel.textProperty().bind(new SimpleIntegerProperty(Bomb).asString());
+            generatedNum = 0;
         }
 
         this.textLabel.setFont(Constants.NUMBER_FONT);

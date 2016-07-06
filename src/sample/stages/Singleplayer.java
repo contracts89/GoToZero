@@ -76,9 +76,14 @@ public class Singleplayer extends AbstractStage {
     }
 
     private void update()  {
-        //If score is Zero the Game Over window is displayed as Winner
+        //If score is Zero the dialog window is displayed as Winner
         if (score.get() == 0) {
             showWinDialog();
+            return;
+        }
+        // if score is Infinity the dialog window is displayed as Loser (Game Over.)
+        if (score.get()==999999999){
+            showWinDialogGameOver();
             return;
         }
 
@@ -106,6 +111,7 @@ public class Singleplayer extends AbstractStage {
         }
     }
 
+    // Win the game dialog Window
     private void showWinDialog() {
         try {
             this.animationTimer.stop();
@@ -119,10 +125,27 @@ public class Singleplayer extends AbstractStage {
         }
     }
 
+    // Add game over dialog Window
+    private void showWinDialogGameOver() {
+        try {
+            this.animationTimer.stop();
+            clearNumbers();
+            this.player.stopAnimation();
+            this.stopWatch.stopTimer();
+            WinDialogGameOver winDialogGameOver = new WinDialogGameOver(stage, scene);
+            winDialogGameOver.visualize();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     //draw the current Score on the scene
     private void drawScore() {
         scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: " + score.get()), score));
+        //replace infinity score with String INFINITY
+        if (score.get()==999999999){
+            scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: INFINITY...")));
+        }
     }
 
     // draw the current Math operation
