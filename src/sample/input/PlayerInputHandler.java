@@ -38,10 +38,12 @@ public class PlayerInputHandler {
         if (isPressed(KeyCode.P)) {
             if (!playstate.isPaused()) {
                 playstate.setPaused(true);
-                playstate.getGameTimer().stop();
                 pauseGame(playstate);
-            } else {
-//                playstate.setPaused(true);
+            }
+        }else if(isPressed(KeyCode.S)){
+            if (playstate.isPaused()) {
+
+                playstate.setPaused(false);
                 resumeGame(playstate);
             }
         } else if (isPressed(KeyCode.ESCAPE)) {
@@ -70,7 +72,6 @@ public class PlayerInputHandler {
     }
 
     private void resumeGame(PlayState playstate) {
-        playstate.getGameTimer().start();
         playstate.getStopWatch().resumeTimer();
         playstate.getPlayer().stayAtPos();
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
