@@ -35,50 +35,49 @@ public class PlayerInputHandler {
     public void processSinglePlayerInput(PlayState playstate) {
 
         this.processInput();
-        if (!playstate.isPaused()) {
-            if (isPressed(KeyCode.ESCAPE)) {
-                Platform.exit();
-            } else if (isPressed(KeyCode.RIGHT)) {
-                player.setScaleX(1);
-                player.moveRight();
-            } else if (isPressed(KeyCode.LEFT)) {
-                player.setScaleX(-1);
-                player.moveLeft();
-            } else if (isPressed(KeyCode.P)) {
+
+        if (isPressed(KeyCode.ESCAPE)) {
+            Platform.exit();
+        } else if (isPressed(KeyCode.RIGHT)) {
+            player.setScaleX(1);
+            player.moveRight();
+        } else if (isPressed(KeyCode.LEFT)) {
+            player.setScaleX(-1);
+            player.moveLeft();
+        } else if (isPressed(KeyCode.P)) {
+            if (!playstate.isPaused()) {
+                playstate.setPaused(true);
                 pauseGame(playstate);
             } else {
-                player.stayAtPos();
+                playstate.setPaused(false);
+                resumeGame(playstate);
             }
         } else {
-            resumeGame(playstate);
+            player.stayAtPos();
         }
     }
 
     private void pauseGame(PlayState playstate) {
-        playstate.setPaused(true);
         playstate.getGameTimer().stop();
         playstate.getStopWatch().stopTimer();
+        playstate.getPlayer().stopAnimation();
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
-            fallingObject.getFallTransition().getPathTransition().stop();
+            fallingObject.getFallTransition().getPathTransition().pause();
         }
         for (MathOperator mathOperator : playstate.getMathOperators()) {
-            mathOperator.getFallTransition().getPathTransition().stop();
+            mathOperator.getFallTransition().getPathTransition().pause();
         }
-        playstate.getPlayer().stopAnimation();
     }
 
     private void resumeGame(PlayState playstate) {
-        if (isPressed(KeyCode.P)) {
-            playstate.setPaused(false);
-            playstate.getGameTimer().start();
-            playstate.getStopWatch().resumeTimer();
-            playstate.getPlayer().stayAtPos();
-            for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
-                fallingObject.getFallTransition().getPathTransition().play();
-            }
-            for (MathOperator mathOperator : playstate.getMathOperators()) {
-                mathOperator.getFallTransition().getPathTransition().play();
-            }
+        playstate.getGameTimer().start();
+        playstate.getStopWatch().resumeTimer();
+        playstate.getPlayer().stayAtPos();
+        for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+            fallingObject.getFallTransition().getPathTransition().play();
+        }
+        for (MathOperator mathOperator : playstate.getMathOperators()) {
+            mathOperator.getFallTransition().getPathTransition().play();
         }
     }
 }
