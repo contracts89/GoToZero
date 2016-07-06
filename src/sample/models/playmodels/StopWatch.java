@@ -39,6 +39,9 @@ public class StopWatch {
     public void stopTimer(){
         this.timer.stop();
     }
+    public void resumeTimer(){
+        this.timer.start();
+    }
     public void createScene() {
 
         BooleanProperty running = new SimpleBooleanProperty(false);

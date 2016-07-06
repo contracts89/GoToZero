@@ -34,4 +34,8 @@ public class FallTransition {
         this.pathTransition.setCycleCount(Animation.INDEFINITE); // set cycle of the falling object to infinity
         this.pathTransition.play();
     }
+
+    public PathTransition getPathTransition() {
+        return pathTransition;
+    }
 }

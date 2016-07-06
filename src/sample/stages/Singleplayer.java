@@ -31,11 +31,11 @@ import static javafx.application.Application.STYLESHEET_MODENA;
 public class Singleplayer extends AbstractStage {
 
     private Image background;
-    ;// set the background Image if you run on MacOSX just replace "\\" with "/"
+    // set the background Image if you run on MacOSX just replace "\\" with "/"
     private ImageView imageView;
     private Player player;
     private StopWatch stopWatch;
-    private Label stopWatchTimer;
+    private Label stopWatchLabel;
     private Pane pane;
     private List<Number> numberList;
     private Number fallingNumber;
@@ -47,6 +47,7 @@ public class Singleplayer extends AbstractStage {
     AnimationTimer animationTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
+    private volatile boolean isPaused;
 
     public Singleplayer(Stage stage, Scene scene) {
         super(stage, scene);
@@ -62,12 +63,25 @@ public class Singleplayer extends AbstractStage {
         this.collisionDetector = new CollisionDetector();
     }
 
-    private void update() {
+    public StopWatch getStopWatch() {
+        return stopWatch;
+    }
+
+    public List<Number> getNumberList() {
+        return numberList;
+    }
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
+    }
+
+    private void update()  {
         //If score is Zero the Game Over window is displayed as Winner
         if (score.get() == 0) {
             showWinDialog();
             return;
         }
+
         player.animate();
         this.playerInputHandler.processSinglePlayerInput();
         this.generateFallingNumber();
@@ -76,6 +90,7 @@ public class Singleplayer extends AbstractStage {
         this.collisionDetector.checkForCollisionWithNumbers(this.numberList
                 ,this.player,this.pane,this.currentOperation,this.score);
     }
+
 
     private void generateFallingNumber() {
         if (System.nanoTime() % 60 == 0) {
@@ -102,11 +117,6 @@ public class Singleplayer extends AbstractStage {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-
-    public Label getStopWatchTimer() {
-        return stopWatchTimer;
     }
 
 
@@ -169,7 +179,7 @@ public class Singleplayer extends AbstractStage {
 
         // call the Timer class
 
-        this.stopWatchTimer = this.stopWatch.getStopwatch();
+        this.stopWatchLabel = this.stopWatch.getStopwatch();
 
         this.scoreText = createText("score");
         this.currentOperationText = createText("currentOp");
@@ -178,14 +188,22 @@ public class Singleplayer extends AbstractStage {
                 .addAll(this.imageView,
                         this.scoreText,
                         this.currentOperationText,
-                        this.player, this.stopWatchTimer); // add objects in the scene
+                        this.player, this.stopWatchLabel); // add objects in the scene
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
     }
 
     @Override
     public void visualize() {
         this.drawThePlayScene();
         Scene scene = new Scene(this.pane);
-        this.playerInputHandler = new PlayerInputHandler(scene, this.player);
+        this.playerInputHandler = new PlayerInputHandler(scene, this.player,this);
 
 
         stage.setScene(scene);
@@ -194,7 +212,7 @@ public class Singleplayer extends AbstractStage {
 
         animationTimer = new AnimationTimer() {
             @Override
-            public void handle(long now) {
+            public synchronized void handle(long now) {
                 update();
                 drawScore();
                 drawCurrentOperation();

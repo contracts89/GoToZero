@@ -29,14 +29,6 @@ public class MenuStage extends Application {
     private Image background;
     private ImageView imageView;
 
-    public  Stage getStage() {
-        return stage;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
@@ -49,10 +41,10 @@ public class MenuStage extends Application {
         this.hBox = new HBox(15, contentFrame1, contentFrame2);
         this.hBox.setTranslateX(35);
         this.hBox.setTranslateY(20);
-//        this.aboutText = new AboutText("GoToZero\n\nby Team Ancalogon \u00AE");
-        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox,Constants.ABOUT_TEXT);
+        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox, Constants.ABOUT_TEXT);
         return root;
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
