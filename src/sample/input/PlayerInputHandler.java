@@ -1,6 +1,5 @@
 package sample.input;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -16,7 +15,6 @@ public class PlayerInputHandler {
     private Scene scene;
     private Player player;
     private Singleplayer singleplayer;
-    AnimationTimer pause;
 
     public PlayerInputHandler(Scene scene, Player player, Singleplayer singleplayer) {
         this.scene = scene;
@@ -42,7 +40,6 @@ public class PlayerInputHandler {
                 this.singleplayer.setPaused(true);
                 this.pauseGame();
             } else {
-                pause.stop();
                 this.singleplayer.setPaused(false);
                 this.resumeGame();
             }
