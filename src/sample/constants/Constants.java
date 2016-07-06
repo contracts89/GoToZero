@@ -96,7 +96,15 @@ public class Constants {
             return arr;
         }
     }
-
+    public static Text displayHighScore(String text){
+        Text highScoreText = new Text(text);
+        highScoreText.setTranslateX(60);
+        highScoreText.setTranslateY(40);
+        highScoreText.setFill(Color.ANTIQUEWHITE);
+        highScoreText.setFont(Constants.HELP_FONT);
+        highScoreText.setOpacity(1.5);
+        return highScoreText;
+    }
     private static Text creditsByText() {
         Text creditsBy = new Text("CREDITS BY =>\n\nTEAM ANCALOGON");
         creditsBy.setTranslateX(130);
@@ -143,8 +151,6 @@ public class Constants {
         }
         return helpBuilder;
     }
-
-
 
 
     private static Text createScoreAndOpText(String type){
