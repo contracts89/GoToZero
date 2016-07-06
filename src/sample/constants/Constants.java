@@ -1,13 +1,17 @@
 package sample.constants;
 
 import javafx.scene.Node;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import sample.models.menumodels.Item;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class Constants {
@@ -32,11 +36,15 @@ public class Constants {
     public static final int BOMB_VALUE;
     public static final String SYMBOLS;
     public static final String MATH_OPERATORS;
+    public static final Text SCORE_TEXT;
+    public static final Text OPERATION_TEXT;
+    public static final Font GAME_FONT;
 
     static {
         MATH_OPERATORS = "+-*/";
         SYMBOLS = "?!&^%$";
         BOMB_VALUE = 0;
+        GAME_FONT = Font.font("Consolas",FontWeight.SEMI_BOLD,22);
         MENU_FONT = Font.font("", FontWeight.BOLD, 18);
         NUMBER_FONT = Font.font("Consolas", FontWeight.BLACK, 20);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 22);
@@ -45,6 +53,8 @@ public class Constants {
         ABOUT_TEXT = createAboutText();
         CREDITS_BY = creditsByText();
         HELP_TEXT = createHelpText();
+        SCORE_TEXT = createScoreAndOpText("score");
+        OPERATION_TEXT = createScoreAndOpText("operation");
         DEFAULT_X_START_POSITION = 500;
         DEFAULT_Y_START_POSITION = 540;
         WIDTH = 900;
@@ -121,7 +131,6 @@ public class Constants {
 
     private static StringBuilder getFilePath() {
         StringBuilder helpBuilder = new StringBuilder();
-        String basePath = new File("help.txt").getAbsolutePath();
         File file = new File("src/sample/resources/help.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = br.readLine();
@@ -135,7 +144,31 @@ public class Constants {
         }
         return helpBuilder;
     }
-
+    private static Text createScoreAndOpText(String type){
+        Text tempText = new Text();
+        tempText.setFont(Constants.GAME_FONT);
+        if(type.equals("score")) {
+            tempText.setY(20);
+            tempText.setX(5);
+        }else{
+            tempText.setY(50);
+            tempText.setX(5);
+        }
+        tempText.setFill(Color.WHITESMOKE);
+        tempText.setEffect(new DropShadow(1.5,Color.WHITE));
+        tempText.setOpacity(1);
+        return tempText;
+    }
+//    private static Text createOperationText(){
+//        Text operationText = new Text();
+//        operationText.setFont(Constants.GAME_FONT);
+//        operationText.setY(50);
+//        operationText.setX(5);
+//        operationText.setFill(Color.WHITESMOKE);
+//        operationText.setEffect(new DropShadow(1.5,Color.WHITE));
+//        operationText.setOpacity(1);
+//        return operationText;
+//    }
     public static Node backButton() {
         return new Item("BACK TO MENU", "MENU");
     }

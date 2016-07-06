@@ -9,9 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
@@ -24,8 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static javafx.application.Application.STYLESHEET_MODENA;
 
 public class PlayState extends AbstractStage {
 
@@ -92,10 +87,11 @@ public class PlayState extends AbstractStage {
         this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
                 , this.player, this.pane, this.currentOperation, this.score);
         this.collisionDetector.checkForCollisionWithOperators(this.mathOperators, this.player, this.pane, this);
+        this.drawScoreAndOperation();
     }
 
     private boolean checkForEnd() {
-        if (score.get() == 0 || score.get() == 999999999) {
+        if (this.score.get() == 0 || this.score.get() == 999999999) {
             showEndDialog();
             return true;
         }
@@ -104,19 +100,19 @@ public class PlayState extends AbstractStage {
 
     private void generateFallingObject() {
         if (System.nanoTime() % 60 == 0) {
-            fallingObject = new Number();
-            fallingSymbolsAndNumbers.add(fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.fallingObject = new Number();
+            this.fallingSymbolsAndNumbers.add(this.fallingObject);
+            this.pane.getChildren().add(this.fallingObject);
         }
         if (System.nanoTime() % 90 == 0) {
-            fallingObject = new Symbol();
-            fallingSymbolsAndNumbers.add(fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.fallingObject = new Symbol();
+            this.fallingSymbolsAndNumbers.add(this.fallingObject);
+            this.pane.getChildren().add(this.fallingObject);
         }
         if (System.nanoTime() % 120 == 0) {
-            fallingObject = new MathOperator();
-            mathOperators.add((MathOperator) fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.fallingObject = new MathOperator();
+            this.mathOperators.add((MathOperator) this.fallingObject);
+            this.pane.getChildren().add(this.fallingObject);
         }
     }
 
@@ -146,52 +142,27 @@ public class PlayState extends AbstractStage {
         }
     }
 
-    //draw the current Score on the scene
-    private void drawScore() {
-        scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: " + score.get()), score));
+    //draw the current Score And Operation on the scene
+    private void drawScoreAndOperation() {
+        Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()), score));
         //replace infinity score with String INFINITY
-        if (score.get() == 999999999) {
-            scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("Score: INFINITY...")));
+        if (this.score.get() == 999999999) {
+            Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
         }
+        Constants.OPERATION_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION = " +
+                this.currentOperation)));
     }
-
-    // draw the current Math operation
-    private void drawCurrentOperation() {
-        currentOperationText.textProperty().bind(Bindings.createStringBinding(() -> ("Current Operation: " +
-                currentOperation)));
-    }
-
-    private Text createText(String type) {
-        Text testText = new Text();
-        testText.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
-
-        if (type.equals("score")) {
-            testText.setY(20); // position of the Score text on the scene
-            testText.setX(0);
-        } else {
-            testText.setY(50); // position of the Current operation text on the scene
-            testText.setX(0);
-        }
-        testText.setFill(Color.WHITE); // color of the Text
-        testText.setOpacity(111);
-        return testText;
-    }
-
 
     private void drawThePlayScene() {
         this.pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
 
         // call the Timer class
-
         this.stopWatchLabel = this.stopWatch.getStopwatch();
-
-        this.scoreText = createText("score");
-        this.currentOperationText = createText("currentOp");
 
         this.pane.getChildren()
                 .addAll(this.imageView,
-                        this.scoreText,
-                        this.currentOperationText,
+                        Constants.SCORE_TEXT,
+                        Constants.OPERATION_TEXT,
                         this.player, this.stopWatchLabel); // add objects in the scene
     }
 
@@ -211,8 +182,6 @@ public class PlayState extends AbstractStage {
             @Override
             public synchronized void handle(long now) {
                 update();
-                drawScore();
-                drawCurrentOperation();
             }
         };
         animationTimer.start();

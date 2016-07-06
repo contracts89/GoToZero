@@ -5,13 +5,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import sample.constants.Constants;
 
 import java.time.Duration;
 import java.time.LocalTime;
-
-import static javafx.application.Application.STYLESHEET_MODENA;
 
 /**
  * Created by lgoychev on 6/27/16.
@@ -30,9 +27,9 @@ public class StopWatch {
     }
     private void setStopwatch(Label stopwatch) {
         this.stopwatch = stopwatch;
-        this.stopwatch.setTranslateX(0);// X position of Timer
+        this.stopwatch.setTranslateX(5);// X position of Timer
         this.stopwatch.setTranslateY(60); // Y postion of Timer
-        this.stopwatch.setFont(Font.font(STYLESHEET_MODENA, FontWeight.BOLD, 20));
+        this.stopwatch.setFont(Constants.GAME_FONT);
         this.stopwatch.setTextFill(Color.WHITE);
     }
 
@@ -56,7 +53,8 @@ public class StopWatch {
 
                 long minutes = elapsedSeconds / 60;
                 long seconds = elapsedSeconds % 60;
-                stopwatch.setText(minutes + "Minutes " + seconds + " seconds");
+
+                stopwatch.setText( minutes + " minutes " + seconds + " seconds");
 
             }
 

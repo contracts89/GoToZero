@@ -26,12 +26,12 @@ public class Options extends VBox {
             case "Back button":
                 this.setAlignment(Pos.TOP_LEFT);
                 this.setTranslateX(120);
-                this.setTranslateY(400);
+                this.setTranslateY(450);
                 break;
             case "HelpStage":
                 this.setAlignment(Pos.CENTER);
                 this.setTranslateX(50);
-                this.setTranslateY(150);
+                this.setTranslateY(110);
                 break;
         }
     }
