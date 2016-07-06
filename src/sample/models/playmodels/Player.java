@@ -11,21 +11,32 @@ import sample.constants.Constants;
 
 public class Player extends Pane {
 
+    private ImageView secondPlayerImageView;
     private SpriteAnimation animation;
     private SpriteAnimation animationOnPlace;
+    private SpriteAnimation secondAnimation;
+    private SpriteAnimation secondAnimationOnPlace;
     private boolean isMoving;
     private Image playerImg;
     private ImageView playerImageView;
+    private Image secondPlayerImg;
 
-    public Player() {
+    public Player(boolean hasTwoPlayers) {
         this.drawPlayer();
         this.animate();
         this.getChildren().addAll(playerImageView);
+        if (hasTwoPlayers){
+            this.drawPlayer();
+            this.animate();
+            this.getChildren().addAll(secondPlayerImageView);
+        }
     }
 
     private void drawPlayer() {
         this.playerImg = new Image(getClass().getResourceAsStream("../../resources/playerSprite.png"));
         this.playerImageView = new ImageView(this.playerImg);
+        this.secondPlayerImg=new Image(getClass().getResourceAsStream("../../resources/playerSprite -Second.png"));
+        this.secondPlayerImageView=new ImageView(this.secondPlayerImg);
         int offsetX = 0;
         int width = 60;
         int height = 60;
@@ -36,11 +47,17 @@ public class Player extends Pane {
         this.playerImageView.setFitHeight(width);
         this.playerImageView.setFitWidth(height);
         this.playerImageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+        this.secondPlayerImageView.setFitHeight(width);
+        this.secondPlayerImageView.setFitWidth(height);
+        this.secondPlayerImageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));
         this.animation = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
                 offsetY, width,
                 height);
+        this.secondAnimation=new SpriteAnimation(this.secondPlayerImageView,Duration.millis(750),count,columns,offsetX,offsetY,width,height);
         this.animationOnPlace = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
                 offsetYOnPlace, width, height);
+        this.secondAnimationOnPlace=new SpriteAnimation(this.secondPlayerImageView,Duration.millis(750),count,columns,offsetX,
+                offsetYOnPlace,width,height);
         this.setTranslateX(Constants.DEFAULT_X_START_POSITION);
         this.setTranslateY(Constants.DEFAULT_Y_START_POSITION);
     }
