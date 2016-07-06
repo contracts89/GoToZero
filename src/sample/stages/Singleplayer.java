@@ -226,7 +226,7 @@ public class Singleplayer extends AbstractStage {
     public void visualize() {
         this.drawThePlayScene();
         Scene scene = new Scene(this.pane);
-        this.playerInputHandler = new PlayerInputHandler(scene, this.player,this);
+        this.playerInputHandler = new PlayerInputHandler(scene, this.player);
 
 
         stage.setScene(scene);

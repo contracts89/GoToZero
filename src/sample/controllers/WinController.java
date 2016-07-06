@@ -28,6 +28,7 @@ public class WinController {
     public void playAgain(ActionEvent actionEvent) {
         Stage stage = (Stage) playAgainButton.getScene().getWindow();
         stage.close();
+        WinDialog.playAgain();
     }
 
     public void exitGame(ActionEvent actionEvent) {

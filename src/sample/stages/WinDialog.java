@@ -43,8 +43,13 @@ public class WinDialog extends AbstractStage {
         winStage.setResizable(true);
         winStage.show();
     }
-     public static void goToMenu(){
+
+    public static void goToMenu() {
         winStage.close();
         stage.setScene(scene);
+    }
+
+    public static void playAgain() {
+        new Singleplayer(stage, scene).visualize();
     }
 }
