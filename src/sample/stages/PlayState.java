@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
 import sample.constants.Constants;
@@ -16,18 +17,17 @@ import sample.input.PlayerInputHandler;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayState extends AbstractStage {
+
     private boolean hasTwoPayers;
     private Image background;
     // set the background Image if you run on MacOSX just replace "\\" with "/"
     private ImageView imageView;
     private Player player;
-    private Label stopWatchLabel;
     private Pane pane;
     private List<FallingObject> fallingSymbolsAndNumbers;
     private List<MathOperator> mathOperators;
@@ -35,15 +35,14 @@ public class PlayState extends AbstractStage {
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
     private AnimationTimer gameTimer;
-    private AnimationTimer inputTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
     private boolean isPaused;
-
+    private Label fallenObjectsAcquired;
 
     public PlayState(Stage stage, Scene scene, boolean hasTwoPlayers) {
         super(stage, scene);
-        this.hasTwoPayers=hasTwoPlayers;
+        this.hasTwoPayers = hasTwoPlayers;
         this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
         this.imageView = new ImageView(this.background);
         this.player = new Player(hasTwoPlayers);
@@ -52,15 +51,10 @@ public class PlayState extends AbstractStage {
         this.pane = new Pane();
         this.fallingSymbolsAndNumbers = new ArrayList<>();
         this.mathOperators = new ArrayList<>();
-
         this.collisionDetector = new CollisionDetector();
+        this.fallenObjectsAcquired = new Label();
     }
 
-
-
-    public AnimationTimer getGameTimer() {
-        return gameTimer;
-    }
 
     public boolean isPaused() {
         return isPaused;
@@ -70,14 +64,6 @@ public class PlayState extends AbstractStage {
         isPaused = paused;
     }
 
-    public void setHasTwoPayers(boolean hasTwoPayers) {
-        this.hasTwoPayers = hasTwoPayers;
-    }
-
-    public boolean hasTwoPayers() {
-
-        return hasTwoPayers;
-    }
 
     public Player getPlayer() {
         return player;
@@ -103,6 +89,7 @@ public class PlayState extends AbstractStage {
         player.animate();
         this.generateFallingObject();
         this.drawScoreAndCurrentOperation();
+        this.drawObjectsAcquired();
         this.playerInputHandler.processSinglePlayerInput(this);
         // Game collission: intersection between falling numbers and Player
         this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
@@ -161,6 +148,16 @@ public class PlayState extends AbstractStage {
         }
     }
 
+    private void drawObjectsAcquired() {
+        int currentCount = CollisionDetector.getCollidedObjects();
+        this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
+        this.fallenObjectsAcquired.setFont(Constants.GAME_FONT);
+        this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
+        this.fallenObjectsAcquired.setTranslateX(5);
+        this.fallenObjectsAcquired.setTranslateY(60);
+        this.fallenObjectsAcquired.setOpacity(5);
+    }
+
     //draw the current Score on the scene
     private void drawScoreAndCurrentOperation() {
         Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()), score));
@@ -176,33 +173,14 @@ public class PlayState extends AbstractStage {
     private void drawThePlayScene() {
         this.pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
 
-        // call the Timer class
-
-
         this.pane.getChildren()
                 .addAll(this.imageView,
                         Constants.SCORE_TEXT,
                         Constants.OPERATION_TEXT,
+                        this.fallenObjectsAcquired,
                         this.player); // add objects in the scene
     }
-//    private void processInput(){
-//        this.playerInputHandler.processSinglePlayerInput(this);
-//    }
 
-//    private void inputLoop() {
-//        inputTimer = new AnimationTimer() {
-//        @Override
-//        public void handle(long now) {
-//            processInput();
-//        }
-//    };
-//        inputTimer.start();
-//    }
-
-
-    private void gameLoop() {
-
-    }
     @Override
     public void visualize() {
         this.drawThePlayScene();

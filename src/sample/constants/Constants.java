@@ -39,6 +39,7 @@ public class Constants {
     public static final Font GAME_FONT;
     public static final Text SCORE_TEXT;
     public static final Text OPERATION_TEXT;
+
     static {
         MATH_OPERATORS = "+-*/";
         SYMBOLS = "?!&^%$";

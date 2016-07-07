@@ -13,7 +13,6 @@ public class MenuHandler {
 
     private Scene scene;
     private Options menu;
-    private boolean isMultiplayer;
 
     public MenuHandler(Scene scene, Options menuoptions) {
         this.scene = scene;

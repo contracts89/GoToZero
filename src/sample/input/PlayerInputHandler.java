@@ -42,7 +42,6 @@ public class PlayerInputHandler {
             }
         }else if(isPressed(KeyCode.S)){
             if (playstate.isPaused()) {
-
                 playstate.setPaused(false);
                 resumeGame(playstate);
             }

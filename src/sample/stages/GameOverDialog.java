@@ -23,8 +23,7 @@ public class GameOverDialog extends AbstractStage {
         this.rootNode = null;
     }
 
-    public void show() {
-    }
+
 
     @Override
     public void visualize() {
