@@ -65,7 +65,7 @@ public class CollisionDetector {
                     case "/": playState.setCurrentOperation("Divide");break;
                 }
                 mathOperators.removeAll(Collections.singleton(mathOperators.get(i)));
-                collidedObjects++;
+                //collidedObjects++; // don't count the math operators to current count
             }
         }
     }

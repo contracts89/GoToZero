@@ -18,7 +18,7 @@ public class Symbol extends FallingObject {
 
     @Override
     protected void setFallingObject() {
-        //this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 10);
+        this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 10);
 
         //this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
         this.generatedSymbol = String.valueOf(Constants.SYMBOLS.charAt(this.getRandomNumber().nextInt(6)));
