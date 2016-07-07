@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.collisions.CollisionDetector;
+import sample.output.HighscoreManager;
 
 import java.io.IOException;
 
@@ -40,6 +42,8 @@ public class WinDialog extends AbstractStage {
         winStage.setScene(scene);
         winStage.setResizable(true);
         winStage.show();
+
+        HighscoreManager.saveScore(CollisionDetector.getCollidedObjects());
     }
 
     public static void goToMenu() {
@@ -48,6 +52,7 @@ public class WinDialog extends AbstractStage {
     }
 
     public static void playAgain() {
-        new PlayState(stage, scene,false).visualize();
+        new PlayState(stage, scene, false).visualize();
+        CollisionDetector.setCollidedObjects(0);
     }
 }

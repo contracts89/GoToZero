@@ -47,7 +47,7 @@ public class PlayState extends AbstractStage {
         this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
         this.imageView = new ImageView(this.background);
         this.player = new Player(hasTwoPlayers);
-        this.score = new SimpleLongProperty(128);
+        this.score = new SimpleLongProperty(5);
         this.currentOperation = "Subtract";
         this.pane = new Pane();
         this.fallingSymbolsAndNumbers = new ArrayList<>();

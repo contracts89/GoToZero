@@ -11,6 +11,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class CollisionDetector {
+    private static int collidedObjects = 0;
+
+    public static int getCollidedObjects() {
+        return collidedObjects;
+    }
+
+    public static void setCollidedObjects(int collidedObjects) {
+        CollisionDetector.collidedObjects = collidedObjects;
+    }
 
     public void checkForCollisionWithNumbers(List<FallingObject> fallingObjects,
                                              Player player, Pane pane,
@@ -39,6 +48,7 @@ public class CollisionDetector {
                         score.set(score.get() - (fallingObjects.get(i).getNumberScore()));
                         break;
                 }
+                collidedObjects++;
                 fallingObjects.removeAll(Collections.singleton(fallingObjects.get(i)));
             }
         }
@@ -55,6 +65,7 @@ public class CollisionDetector {
                     case "/": playState.setCurrentOperation("Divide");break;
                 }
                 mathOperators.removeAll(Collections.singleton(mathOperators.get(i)));
+                collidedObjects++;
             }
         }
     }

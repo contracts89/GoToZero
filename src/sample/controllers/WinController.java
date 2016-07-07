@@ -7,11 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sample.collisions.CollisionDetector;
 import sample.stages.WinDialog;
 
 public class WinController {
     @FXML
-    private Label resulField;
+    private Label resultField;
     @FXML
     private Button playAgainButton;
     @FXML
@@ -19,6 +20,10 @@ public class WinController {
 
     public WinController() {
         this.backToMenu = new Button();
+    }
+
+    public void setResultField(Label resultField) {
+        this.resultField = resultField;
     }
 
     public Button getBackToMenu() {
@@ -30,7 +35,6 @@ public class WinController {
         stage.close();
         WinDialog.playAgain();
     }
-
     public void exitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
