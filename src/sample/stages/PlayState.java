@@ -139,8 +139,10 @@ public class PlayState extends AbstractStage {
             clearFallingObjects();
             this.player.stopAnimation();
             if (score.get() == 0) {
+                drawObjectsAcquired(); // draw the last taken object
                 new WinDialog(stage, scene).visualize(); // WIN
             } else {
+                drawScoreAndCurrentOperation();
                 new GameOverDialog(stage, scene).visualize(); //LOSS
             }
         } catch (IOException ex) {

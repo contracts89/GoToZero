@@ -3,6 +3,7 @@ package sample.stages;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
 import sample.output.HighscoreManager;
@@ -16,6 +17,7 @@ public class WinDialog extends AbstractStage {
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
+    private Label winResult;
 
     public WinDialog(Stage stage, Scene scene) throws IOException {
         super(stage, scene);
@@ -32,6 +34,11 @@ public class WinDialog extends AbstractStage {
 
         try {
             this.rootNode = loader.load(getClass().getResourceAsStream(this.fxmlFile));
+            //add total taken obects as result
+            winResult = (Label) rootNode.lookup("#winResult");
+            if (winResult!=null) {
+                winResult.setText(String.format("You Won!\nYou go to Zero with %d objects ", CollisionDetector.getCollidedObjects()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,15 +18,12 @@ public class Symbol extends FallingObject {
 
     @Override
     protected void setFallingObject() {
-        this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 10);
+        //this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 10);
 
-        this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
+        //this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
         this.generatedSymbol = String.valueOf(Constants.SYMBOLS.charAt(this.getRandomNumber().nextInt(6)));
-        if (this.getGeneratedNum() == 20) {
-            this.setGeneratedNum(Constants.BOMB_VALUE);
-            this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
-        } else {
+
             this.getTextLabel().textProperty().bind(new SimpleStringProperty(this.generatedSymbol));
         }
     }
-}
+

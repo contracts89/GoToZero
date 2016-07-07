@@ -16,11 +16,17 @@ public class Number extends FallingObject {
 
     @Override
     protected void setFallingObject() {
+        //generate numbers from 1 to 10
+        this.setGeneratedNum(this.getRandomNumber().nextInt(20) + 1);
 
-        this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 1);
+        if (this.getGeneratedNum() == 20) {
+            this.setGeneratedNum(Constants.BOMB_VALUE);
+            this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
+        }
 
-        // add symbols and numbers as falling objects
-        this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(this.getGeneratedNum()).asString());
-        this.setNumberScore(this.getGeneratedNum());
+        if (this.getGeneratedNum() <11) {
+            this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(this.getGeneratedNum()).asString());
+            this.setNumberScore(this.getGeneratedNum());
+        }
     }
 }
