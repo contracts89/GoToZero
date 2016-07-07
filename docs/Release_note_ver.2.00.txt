@@ -1,0 +1,22 @@
+Release Note GoToZero ver. 2.00
+------------------------------------
+New in Version:
+1.1.	Change all code according to Object Oriented Programming Concepts
+1.2.	Add Help screen with description of the controls and game goals
+1.3.	Add HighScore screen
+1.4.	Add symbols signs as falling object to mess the current score of the player when catch them. 
+1.5.	Change Timer with Count of taken object.
+1.6.	Add mathematical operators as falling object to change the math operators
+1.7.	Add Pause menu of the game with button “P”.
+1.8.	Close the game with “Esc” button.
+1.9.	Improve the game Play 
+-	change the speed of falling objects
+-	change falling object to double digits
+-	add different color to falling objects for best recognition
+1.10.	Add Zero as best or bad falling object (relevant to math operators).
+1.11.	Improve User Interface 
+-	Add menu background
+-	Choose the menu items with Mouse
+-	Add WinDialog when the Player go to Zero
+-	Add gameOver Dialog when Player go to Infinity
+1.12.	Bug fixes
