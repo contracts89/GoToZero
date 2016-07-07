@@ -1,9 +1,6 @@
 package sample.output;
 
-import sample.stages.Highscore;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class HighscoreManager {
@@ -49,7 +46,7 @@ public class HighscoreManager {
         int index = 1;
         StringBuilder sb = new StringBuilder();
         for (Integer result : results) {
-            sb.append(String.format("%d - %d\n", index++, result));
+            sb.append(String.format("%d. Pesho -  %d\n", index++, result));
         }
         return sb.toString();
     }
