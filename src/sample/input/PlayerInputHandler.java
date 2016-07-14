@@ -16,6 +16,7 @@ public class PlayerInputHandler {
     private Scene scene;
     private Player player;
 
+
     public PlayerInputHandler(Scene scene, Player player) {
         this.scene = scene;
         this.keys = new HashMap<>();
@@ -30,52 +31,70 @@ public class PlayerInputHandler {
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
     }
-
+    private boolean isReleassed(KeyCode key) {
+        return keys.getOrDefault(key, true);
+    }
 
     public void processSinglePlayerInput(PlayState playstate) {
 
         this.processInput();
-        if (isPressed(KeyCode.P)) {
-            if (!playstate.isPaused()) {
-                playstate.setPaused(true);
+        if (!playstate.isPaused()) {
+            if (isPressed(KeyCode.ESCAPE)) {
+                Platform.exit();
+            } else if (isPressed(KeyCode.RIGHT)) {
+                player.setScaleX(1);
+                player.moveRight();
+            } else if (isPressed(KeyCode.LEFT)) {
+                player.setScaleX(-1);
+                player.moveLeft();
+            } else if (isPressed(KeyCode.P)&& playstate.isPaused() == false) {
                 pauseGame(playstate);
+            } else {
+                player.stayAtPos();
             }
-        }else if(isPressed(KeyCode.S)){
-            if (playstate.isPaused()) {
-                playstate.setPaused(false);
-                resumeGame(playstate);
-            }
-        } else if (isPressed(KeyCode.ESCAPE)) {
-            Platform.exit();
-        } else if (isPressed(KeyCode.RIGHT)) {
-            player.setScaleX(1);
-            player.moveRight();
-        } else if (isPressed(KeyCode.LEFT)) {
-            player.setScaleX(-1);
-            player.moveLeft();
         } else {
-            player.stayAtPos();
+            resumeGame(playstate);
         }
     }
 
 
+
     private void pauseGame(PlayState playstate) {
+
+        // added in addition
+        playstate.getGameTimer().stop();
         playstate.getPlayer().stopAnimation();
+
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
             fallingObject.getFallTransition().getPathTransition().pause();
         }
         for (MathOperator mathOperator : playstate.getMathOperators()) {
             mathOperator.getFallTransition().getPathTransition().pause();
         }
+        playstate.setPaused(true);
+
+
+        //System.out.println("Pause"); // use for debugging
+
+
+
+
     }
 
+
     private void resumeGame(PlayState playstate) {
-        playstate.getPlayer().stayAtPos();
-        for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
-            fallingObject.getFallTransition().getPathTransition().play();
-        }
-        for (MathOperator mathOperator : playstate.getMathOperators()) {
-            mathOperator.getFallTransition().getPathTransition().play();
+        if ((isPressed(KeyCode.S)) && playstate.isPaused()==true){
+
+            playstate.setPaused(false);
+            playstate.getGameTimer().start();
+
+            for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+                fallingObject.getFallTransition().getPathTransition().play();
+            }
+            for (MathOperator mathOperator : playstate.getMathOperators()) {
+                mathOperator.getFallTransition().getPathTransition().play();
+            }
+            //System.out.println("Resume"); // use for debugging
         }
     }
 }

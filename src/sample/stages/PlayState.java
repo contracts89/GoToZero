@@ -35,10 +35,13 @@ public class PlayState extends AbstractStage {
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
     private AnimationTimer gameTimer;
+    private AnimationTimer inputTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
-    private boolean isPaused;
+    public boolean isPaused;
     private Label fallenObjectsAcquired;
+
+
 
     public PlayState(Stage stage, Scene scene, boolean hasTwoPlayers) {
         super(stage, scene);
@@ -60,21 +63,24 @@ public class PlayState extends AbstractStage {
         return isPaused;
     }
 
+    // use to Pause the game
     public void setPaused(boolean paused) {
         isPaused = paused;
+        //System.out.println("Is Pused:" + isPaused); // use for debugging
     }
 
-
-    public Player getPlayer() {
-        return player;
-    }
 
     public List<MathOperator> getMathOperators() {
         return mathOperators;
     }
 
+
     public List<FallingObject> getFallingSymbolsAndNumbers() {
         return fallingSymbolsAndNumbers;
+    }
+
+    public AnimationTimer getGameTimer() {
+        return gameTimer;
     }
 
 
@@ -83,14 +89,16 @@ public class PlayState extends AbstractStage {
     }
 
     private void update() {
-        //If score is Zero || Infinity end dialog window is shown
-        if (checkForEnd()) return;
+
+        if (checkForEnd()) return; //If score is Zero || Infinity end dialog window is shown
+        if (checkForPause()) return; // If the Game is Paused stop update.
 
         player.animate();
+
         this.generateFallingObject();
         this.drawScoreAndCurrentOperation();
         this.drawObjectsAcquired();
-        this.playerInputHandler.processSinglePlayerInput(this);
+
         // Game collission: intersection between falling numbers and Player
         this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
                 , this.player, this.pane, this.currentOperation, this.score);
@@ -104,6 +112,15 @@ public class PlayState extends AbstractStage {
         }
         return false;
     }
+
+    // use to check if the game is paused
+    private boolean checkForPause() {
+        if (isPaused()==true) {
+            return true;
+        }
+        return false;
+    }
+
 
     private void generateFallingObject() {
         if (System.nanoTime() % 60 == 0) {
@@ -189,7 +206,35 @@ public class PlayState extends AbstractStage {
 
         Scene scene = new Scene(this.pane);
         this.playerInputHandler = new PlayerInputHandler(scene, this.player);
+        processInputInGame(scene);
+        gameLoop();
+        gameTimer.start();
 
+        stage.setScene(scene);
+        stage.show();
+
+        inputLoop(scene);
+    }
+
+    private void processInputInGame(Scene scene) {
+        this.playerInputHandler.processSinglePlayerInput(this);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    private void inputLoop(final Scene scene) {
+        inputTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                processInputInGame(scene);
+            }
+        };
+        inputTimer.start();
+    }
+
+    private void gameLoop() {
         gameTimer = new AnimationTimer() {
             @Override
             public synchronized void handle(long now) {
@@ -197,9 +242,8 @@ public class PlayState extends AbstractStage {
             }
         };
         gameTimer.start();
-
-        stage.setScene(scene);
-        stage.show();
     }
+
+
 }
 
