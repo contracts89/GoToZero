@@ -2,6 +2,7 @@ package sample.collisions;
 
 import javafx.beans.property.LongProperty;
 import javafx.scene.layout.Pane;
+import sample.interfaces.CollisionDetectable;
 import sample.models.playmodels.FallingObject;
 import sample.models.playmodels.MathOperator;
 import sample.models.playmodels.Player;
@@ -10,7 +11,7 @@ import sample.stages.PlayState;
 import java.util.Collections;
 import java.util.List;
 
-public class CollisionDetector {
+public class CollisionDetector implements CollisionDetectable {
     private static int collidedObjects = 0;
 
     public static int getCollidedObjects() {

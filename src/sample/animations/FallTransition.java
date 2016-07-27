@@ -7,8 +7,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 import javafx.util.Duration;
+import sample.interfaces.FallTransitionImpl;
 
-public class FallTransition {
+public class FallTransition implements FallTransitionImpl{
 
     private PathTransition pathTransition;
     private Path pathAnimation;

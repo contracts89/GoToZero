@@ -8,8 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.animations.SpriteAnimation;
 import sample.constants.Constants;
+import sample.interfaces.Animatable;
+import sample.interfaces.Moveable;
+import sample.interfaces.PlayerImpl;
+import sample.interfaces.Stayable;
 
-public class Player extends Pane {
+public class Player extends Pane implements PlayerImpl, Moveable, Stayable, Animatable{
 
     private ImageView secondPlayerImageView;
     private SpriteAnimation animation;

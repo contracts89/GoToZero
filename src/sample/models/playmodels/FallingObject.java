@@ -4,10 +4,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import sample.animations.FallTransition;
 import sample.constants.Constants;
+import sample.interfaces.Fallable;
 
 import java.util.Random;
 
-public abstract class FallingObject extends StackPane {
+public abstract class FallingObject extends StackPane implements Fallable {
 
     private Label textLabel;
     private int numberScore;

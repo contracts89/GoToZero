@@ -2,7 +2,9 @@ package sample.stages;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-public abstract class AbstractStage {
+import sample.interfaces.Visible;
+
+public abstract class AbstractStage implements Visible {
 
     protected static Stage stage;
     protected static Scene scene;

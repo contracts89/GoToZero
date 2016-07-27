@@ -4,8 +4,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
+import sample.interfaces.SymbolImpl;
 
-public class Symbol extends FallingObject {
+public class Symbol extends FallingObject implements SymbolImpl{
 
     private String generatedSymbol;
 

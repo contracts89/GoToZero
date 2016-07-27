@@ -3,8 +3,9 @@ package sample.models.playmodels;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
+import sample.interfaces.MathOperatorImpl;
 
-public class MathOperator extends FallingObject {
+public class MathOperator extends FallingObject implements MathOperatorImpl {
 
     private String mathOperator;
 
