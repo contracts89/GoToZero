@@ -3,8 +3,8 @@ package sample.collisions;
 import javafx.beans.property.LongProperty;
 import javafx.scene.layout.Pane;
 import sample.interfaces.CollisionDetectable;
-import sample.models.playmodels.FallingObject;
-import sample.models.playmodels.MathOperator;
+import sample.interfaces.Fallable;
+import sample.interfaces.MathOperatorImpl;
 import sample.models.playmodels.Player;
 import sample.stages.PlayState;
 
@@ -22,7 +22,7 @@ public class CollisionDetector implements CollisionDetectable {
         CollisionDetector.collidedObjects = collidedObjects;
     }
 
-    public void checkForCollisionWithNumbers(List<FallingObject> fallingObjects,
+    public void checkForCollisionWithNumbers(List<Fallable> fallingObjects,
                                              Player player, Pane pane,
                                              String currentOperation,
                                              LongProperty score) {
@@ -55,7 +55,7 @@ public class CollisionDetector implements CollisionDetectable {
         }
     }
 
-    public void checkForCollisionWithOperators(List<MathOperator> mathOperators, Player player, Pane pane, PlayState playState) {
+    public void checkForCollisionWithOperators(List<MathOperatorImpl> mathOperators, Player player, Pane pane, PlayState playState) {
         for (int i = 0; i < mathOperators.size(); i++) {
             if (mathOperators.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
                 pane.getChildren().remove(mathOperators.get(i));

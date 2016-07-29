@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import sample.collisions.CollisionDetector;
 import sample.constants.Constants;
 import sample.input.PlayerInputHandler;
+import sample.interfaces.Fallable;
+import sample.interfaces.MathOperatorImpl;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
 
@@ -29,8 +31,8 @@ public class PlayState extends AbstractStage {
     private ImageView imageView;
     private Player player;
     private Pane pane;
-    private List<FallingObject> fallingSymbolsAndNumbers;
-    private List<MathOperator> mathOperators;
+    private List<Fallable> fallingSymbolsAndNumbers;
+    private List<MathOperatorImpl> mathOperators;
     private FallingObject fallingObject;
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
@@ -70,12 +72,12 @@ public class PlayState extends AbstractStage {
     }
 
 
-    public List<MathOperator> getMathOperators() {
+    public List<MathOperatorImpl> getMathOperators() {
         return mathOperators;
     }
 
 
-    public List<FallingObject> getFallingSymbolsAndNumbers() {
+    public List<Fallable> getFallingSymbolsAndNumbers() {
         return fallingSymbolsAndNumbers;
     }
 
@@ -141,10 +143,10 @@ public class PlayState extends AbstractStage {
     }
 
     private void clearFallingObjects() {
-        for (FallingObject fallingObject : this.fallingSymbolsAndNumbers) {
+        for (Fallable fallingObject : this.fallingSymbolsAndNumbers) {
             this.pane.getChildren().remove(fallingObject);
         }
-        for (MathOperator mathoperator : this.mathOperators) {
+        for (MathOperatorImpl mathoperator : this.mathOperators) {
             this.pane.getChildren().remove(mathoperator);
         }
     }

@@ -13,7 +13,7 @@ import sample.interfaces.Moveable;
 import sample.interfaces.PlayerImpl;
 import sample.interfaces.Stayable;
 
-public class Player extends Pane implements PlayerImpl, Moveable, Stayable, Animatable{
+public class Player extends Pane implements PlayerImpl, Moveable, Stayable,Animatable{
 
     private ImageView secondPlayerImageView;
     private SpriteAnimation animation;
