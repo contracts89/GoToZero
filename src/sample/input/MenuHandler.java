@@ -23,11 +23,9 @@ public class MenuHandler {
         return this.scene;
     }
 
-
     public void processMenuInput(Stage stage, Scene scene) {
-
-        this.menu.getItem(0).setOnMousePressed(e-> new PlayState(stage,scene,false).visualize());
-        this.menu.getItem(1).setOnMousePressed(e -> new PlayState(stage,scene,true).visualize());
+        this.menu.getItem(0).setOnMousePressed(e-> new PlayState(stage,scene).visualize());
+        this.menu.getItem(1).setOnMousePressed(e -> new PlayState(stage,scene).visualize());
         this.menu.getItem(2).setOnMousePressed(e -> new Highscore(stage,scene).visualize());
         this.menu.getItem(3).setOnMousePressed(e-> new HelpStage(stage,scene).visualize());
         this.menu.getItem(4).setOnMousePressed(e-> new CreditsStage(stage,scene).visualize());

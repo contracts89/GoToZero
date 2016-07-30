@@ -1,77 +1,39 @@
 package sample.models.playmodels;
 
 
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-import sample.animations.SpriteAnimation;
 import sample.constants.Constants;
-import sample.interfaces.Animatable;
+import sample.graphical.*;
+import sample.graphical.interfaces.PlayerAnimator;
+import sample.graphical.interfaces.PlayerRenderer;
 import sample.interfaces.Moveable;
-import sample.interfaces.PlayerImpl;
 import sample.interfaces.Stayable;
 
-public class Player extends Pane implements PlayerImpl, Moveable, Stayable,Animatable{
+public class Player extends Pane implements Moveable, Stayable {
 
-    private ImageView secondPlayerImageView;
-    private SpriteAnimation animation;
-    private SpriteAnimation animationOnPlace;
-    private SpriteAnimation secondAnimation;
-    private SpriteAnimation secondAnimationOnPlace;
     private boolean isMoving;
-    private Image playerImg;
-    private ImageView playerImageView;
-    private Image secondPlayerImg;
+    private PlayerRenderer playerRenderer;
+    private PlayerAnimator playerAnimator;
 
-    public Player(boolean hasTwoPlayers) {
-        this.drawPlayer();
-        this.animate();
-        this.getChildren().addAll(playerImageView);
-        if (hasTwoPlayers){
-            this.drawPlayer();
-            this.animate();
-            this.getChildren().addAll(secondPlayerImageView);
-        }
+    public Player() {
+        this.playerRenderer = new PlayerRendererImpl();
+        this.playerRenderer.render();
+        this.playerAnimator = new PlayerAnimatorImpl(this.playerRenderer,this);
+        this.playerAnimator.animateOnPlace();
+        this.setInitialPosition();
+        this.getChildren().addAll(this.playerRenderer.getPlayerImage());
     }
 
-    private void drawPlayer() {
-        this.playerImg = new Image(getClass().getResourceAsStream("../../resources/playerSprite.png"));
-        this.playerImageView = new ImageView(this.playerImg);
-        this.secondPlayerImg=new Image(getClass().getResourceAsStream("../../resources/playerSprite -Second.png"));
-        this.secondPlayerImageView=new ImageView(this.secondPlayerImg);
-        int offsetX = 0;
-        int width = 60;
-        int height = 60;
-        int offsetY = 120;
-        int count = 8;
-        int columns = 8;
-        int offsetYOnPlace = 0;
-        this.playerImageView.setFitHeight(width);
-        this.playerImageView.setFitWidth(height);
-        this.playerImageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-        this.secondPlayerImageView.setFitHeight(width);
-        this.secondPlayerImageView.setFitWidth(height);
-        this.secondPlayerImageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));
-        this.animation = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
-                offsetY, width,
-                height);
-        this.secondAnimation=new SpriteAnimation(this.secondPlayerImageView,Duration.millis(750),count,columns,offsetX,offsetY,width,height);
-        this.animationOnPlace = new SpriteAnimation(this.playerImageView, Duration.millis(750), count, columns, offsetX,
-                offsetYOnPlace, width, height);
-        this.secondAnimationOnPlace=new SpriteAnimation(this.secondPlayerImageView,Duration.millis(750),count,columns,offsetX,
-                offsetYOnPlace,width,height);
-        this.setTranslateX(Constants.DEFAULT_X_START_POSITION);
-        this.setTranslateY(Constants.DEFAULT_Y_START_POSITION);
-    }
-
-    private boolean isMoving() {
-        return isMoving;
+    public boolean isMoving() {
+        return this.isMoving;
     }
 
     private void setMoving(boolean moving) {
         isMoving = moving;
+    }
+
+    public PlayerAnimator getAnimator() {
+        return this.playerAnimator;
     }
 
     public void moveRight() {
@@ -92,21 +54,8 @@ public class Player extends Pane implements PlayerImpl, Moveable, Stayable,Anima
         this.setMoving(false);
     }
 
-    public void stopAnimation() {
-        this.animation.stop();
-        this.animationOnPlace.stop();
+    private void setInitialPosition() {
+        this.setTranslateX(Constants.DEFAULT_X_START_POSITION);
+        this.setTranslateY(Constants.DEFAULT_Y_START_POSITION);
     }
-
-    public void animate() {
-        if (this.isMoving) {
-            this.animation.play();
-            this.secondAnimation.play();
-        } else {
-            this.animation.stop();
-            this.animationOnPlace.play();
-            this.secondAnimation.stop();
-            this.secondAnimationOnPlace.play();
-        }
-    }
-
 }

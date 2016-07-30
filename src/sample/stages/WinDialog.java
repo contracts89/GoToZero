@@ -58,7 +58,7 @@ public class WinDialog extends AbstractStage {
     }
 
     public static void playAgain() {
-        new PlayState(stage, scene, false).visualize();
+        new PlayState(stage, scene).visualize();
         CollisionDetector.setCollidedObjects(0);
     }
 }

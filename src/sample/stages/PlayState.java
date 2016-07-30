@@ -25,14 +25,12 @@ import java.util.List;
 
 public class PlayState extends AbstractStage {
 
-    private boolean hasTwoPayers;
     private Image background;
-    // set the background Image if you run on MacOSX just replace "\\" with "/"
     private ImageView imageView;
     private Player player;
     private Pane pane;
-    private List<Fallable> fallingSymbolsAndNumbers;
-    private List<MathOperatorImpl> mathOperators;
+    private List<FallingObject> fallingSymbolsAndNumbers;
+    private List<MathOperator> mathOperators;
     private FallingObject fallingObject;
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
@@ -40,17 +38,16 @@ public class PlayState extends AbstractStage {
     private AnimationTimer inputTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
-    public boolean isPaused;
+    private boolean isPaused;
     private Label fallenObjectsAcquired;
 
 
 
-    public PlayState(Stage stage, Scene scene, boolean hasTwoPlayers) {
+    public PlayState(Stage stage, Scene scene) {
         super(stage, scene);
-        this.hasTwoPayers = hasTwoPlayers;
         this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
         this.imageView = new ImageView(this.background);
-        this.player = new Player(hasTwoPlayers);
+        this.player = new Player();
         this.score = new SimpleLongProperty(5);
         this.currentOperation = "Subtract";
         this.pane = new Pane();
@@ -72,12 +69,12 @@ public class PlayState extends AbstractStage {
     }
 
 
-    public List<MathOperatorImpl> getMathOperators() {
+    public List<MathOperator> getMathOperators() {
         return mathOperators;
     }
 
 
-    public List<Fallable> getFallingSymbolsAndNumbers() {
+    public List<FallingObject> getFallingSymbolsAndNumbers() {
         return fallingSymbolsAndNumbers;
     }
 
@@ -95,7 +92,7 @@ public class PlayState extends AbstractStage {
         if (checkForEnd()) return; //If score is Zero || Infinity end dialog window is shown
         if (checkForPause()) return; // If the Game is Paused stop update.
 
-        player.animate();
+        this.player.getAnimator().animate();
 
         this.generateFallingObject();
         this.drawScoreAndCurrentOperation();
@@ -117,7 +114,7 @@ public class PlayState extends AbstractStage {
 
     // use to check if the game is paused
     private boolean checkForPause() {
-        if (isPaused()==true) {
+        if (isPaused()) {
             return true;
         }
         return false;
@@ -156,7 +153,7 @@ public class PlayState extends AbstractStage {
         try {
             this.gameTimer.stop();
             clearFallingObjects();
-            this.player.stopAnimation();
+            this.player.stayAtPos();
             if (score.get() == 0) {
                 drawObjectsAcquired(); // draw the last taken object
                 new WinDialog(stage, scene).visualize(); // WIN
