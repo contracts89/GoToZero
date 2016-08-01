@@ -4,7 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import sample.animations.FallTransition;
 import sample.constants.Constants;
-import sample.interfaces.Fallable;
+import sample.models.interfaces.Fallable;
 
 import java.util.Random;
 
@@ -16,16 +16,13 @@ public abstract class FallingObject extends StackPane implements Fallable {
     private int generatedNum;
     private Random randomNumber;
 
-
     //generate random numbers from 1 to 20
-    public FallingObject() {
+    protected FallingObject() {
         this.randomNumber = new Random();
-
         this.textLabel = new Label();
         this.getChildren().addAll(this.textLabel);
-        setFallingObject();
-        this.fallTransition = new FallTransition(Math.random() * 900, -100);
-        this.fallTransition.useFallAnimation(this.textLabel, 10, Constants.NUMBER_ANIMATION_DROP_POINT);
+        this.setFallingObject();
+        this.setFallTransition();
     }
 
     protected void setGeneratedNum(int generatedNum) {
@@ -34,10 +31,6 @@ public abstract class FallingObject extends StackPane implements Fallable {
 
     public FallTransition getFallTransition() {
         return fallTransition;
-    }
-
-    protected void setTextLabel(Label textLabel) {
-        this.textLabel = textLabel;
     }
 
     public int getGeneratedNum() {
@@ -62,4 +55,8 @@ public abstract class FallingObject extends StackPane implements Fallable {
 
     protected abstract void setFallingObject();
 
+    private void setFallTransition() {
+        this.fallTransition = new FallTransition(Math.random() * 900, -100);
+        this.fallTransition.useFallAnimation(this.textLabel, 10, Constants.NUMBER_ANIMATION_DROP_POINT);
+    }
 }

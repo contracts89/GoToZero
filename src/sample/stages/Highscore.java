@@ -11,17 +11,19 @@ import sample.constants.Constants;
 import sample.models.menumodels.Options;
 import sample.output.HighscoreManager;
 
+import static sample.constants.Constants.BACKGROUND_PATH;
+
 
 public class Highscore extends AbstractStage {
 
     private Image image;
-    private ImageView background = new ImageView(this.image);
+    private ImageView background;
     private Options backButton;
     private Text highScoreText;
 
     public Highscore(Stage stage, Scene scene) {
         super(stage, scene);
-        this.image = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
+        this.image = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.background = new ImageView(this.image);
     }
 

@@ -16,6 +16,8 @@ import sample.models.menumodels.Options;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import static sample.constants.Constants.BACKGROUND_PATH;
+
 public class MenuStage extends Application {
 
     private Stage stage;
@@ -34,7 +36,7 @@ public class MenuStage extends Application {
         root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
 
         this.menuOptions = new Options("Menu", Constants.menuNodes());
-        this.background = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
+        this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.imageView = new ImageView(this.background);
         this.contentFrame1 = new ContentFrame(ContentFrame.createRightContent());
         this.contentFrame2 = new ContentFrame(ContentFrame.createMiddleContent());

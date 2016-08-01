@@ -3,9 +3,8 @@ package sample.models.playmodels;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
-import sample.interfaces.NumberImpl;
 
-public class Number extends FallingObject implements NumberImpl {
+public class Number extends FallingObject {
 
     public Number() {
         super();

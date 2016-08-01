@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import sample.models.playmodels.FallingObject;
-import sample.models.playmodels.MathOperator;
+import sample.models.playmodels.MathOperatorImpl;
 import sample.models.playmodels.Player;
 import sample.stages.PlayState;
 
@@ -57,7 +57,7 @@ public class PlayerInputHandler {
         for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
             fallingObject.getFallTransition().getPathTransition().pause();
         }
-        for (MathOperator mathOperator : playstate.getMathOperators()) {
+        for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
             mathOperator.getFallTransition().getPathTransition().pause();
         }
         playstate.setPaused(true);
@@ -73,7 +73,7 @@ public class PlayerInputHandler {
             for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
                 fallingObject.getFallTransition().getPathTransition().play();
             }
-            for (MathOperator mathOperator : playstate.getMathOperators()) {
+            for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
                 mathOperator.getFallTransition().getPathTransition().play();
             }
         }

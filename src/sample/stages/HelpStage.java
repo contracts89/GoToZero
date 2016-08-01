@@ -4,23 +4,22 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.constants.Constants;
 import sample.models.menumodels.Options;
+
+import static sample.constants.Constants.BACKGROUND_PATH;
 
 public class HelpStage extends AbstractStage {
 
     private Image image;
     private ImageView background = new ImageView(this.image);
-    private Text help;
-    private Options controls;
     private Options backButton;
 
 
     public HelpStage(Stage stage, Scene scene) {
         super(stage, scene);
-        this.image = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
+        this.image = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.background = new ImageView(this.image);
     }
 

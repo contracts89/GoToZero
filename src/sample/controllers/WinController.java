@@ -19,16 +19,15 @@ public class WinController {
         this.backToMenu = new Button();
     }
 
-
     public void playAgain(ActionEvent actionEvent) {
         Stage stage = (Stage) playAgainButton.getScene().getWindow();
         stage.close();
         WinDialog.playAgain();
     }
+
     public void exitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
-
 
     public void goBackToMenu(Event event) {
         WinDialog.goToMenu();

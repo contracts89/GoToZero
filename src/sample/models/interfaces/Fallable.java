@@ -1,4 +1,4 @@
-package sample.interfaces;
+package sample.models.interfaces;
 
 import sample.animations.FallTransition;
 

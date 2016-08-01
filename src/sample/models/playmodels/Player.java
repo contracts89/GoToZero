@@ -6,8 +6,8 @@ import sample.constants.Constants;
 import sample.graphical.*;
 import sample.graphical.interfaces.PlayerAnimator;
 import sample.graphical.interfaces.PlayerRenderer;
-import sample.interfaces.Moveable;
-import sample.interfaces.Stayable;
+import sample.models.interfaces.Moveable;
+import sample.models.interfaces.Stayable;
 
 public class Player extends Pane implements Moveable, Stayable {
 

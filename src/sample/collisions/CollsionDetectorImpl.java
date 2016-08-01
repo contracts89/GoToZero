@@ -2,16 +2,16 @@ package sample.collisions;
 
 import javafx.beans.property.LongProperty;
 import javafx.scene.layout.Pane;
-import sample.interfaces.CollisionDetectable;
+import sample.collisions.interfaces.CollisionDetector;
 import sample.models.playmodels.FallingObject;
-import sample.models.playmodels.MathOperator;
+import sample.models.playmodels.MathOperatorImpl;
 import sample.models.playmodels.Player;
 import sample.stages.PlayState;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CollisionDetector implements CollisionDetectable {
+public class CollsionDetectorImpl implements CollisionDetector {
     private static int collidedObjects = 0;
 
     public static int getCollidedObjects() {
@@ -19,7 +19,7 @@ public class CollisionDetector implements CollisionDetectable {
     }
 
     public static void setCollidedObjects(int collidedObjects) {
-        CollisionDetector.collidedObjects = collidedObjects;
+        CollsionDetectorImpl.collidedObjects = collidedObjects;
     }
 
     public void checkForCollisionWithNumbers(List<FallingObject> fallingObjects,
@@ -55,7 +55,7 @@ public class CollisionDetector implements CollisionDetectable {
         }
     }
 
-    public void checkForCollisionWithOperators(List<MathOperator> mathOperators, Player player, Pane pane, PlayState playState) {
+    public void checkForCollisionWithOperators(List<MathOperatorImpl> mathOperators, Player player, Pane pane, PlayState playState) {
         for (int i = 0; i < mathOperators.size(); i++) {
             if (mathOperators.get(i).getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
                 pane.getChildren().remove(mathOperators.get(i));

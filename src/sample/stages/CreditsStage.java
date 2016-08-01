@@ -9,6 +9,8 @@ import sample.animations.FallTransition;
 import sample.constants.Constants;
 import sample.models.menumodels.Options;
 
+import static sample.constants.Constants.BACKGROUND_PATH;
+
 public class CreditsStage extends AbstractStage {
 
     private Image image;
@@ -19,7 +21,7 @@ public class CreditsStage extends AbstractStage {
 
     public CreditsStage(Stage stage, Scene scene) {
         super(stage, scene);
-        this.image = new Image(getClass().getResourceAsStream("../resources/menuWallpaper.jpg"));
+        this.image = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.background = new ImageView(this.image);
         this.creditsTransition = new FallTransition(450, 170);
         this.creditsTransition.reverse();

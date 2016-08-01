@@ -3,13 +3,13 @@ package sample.models.playmodels;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
-import sample.interfaces.MathOperatorImpl;
+import sample.models.interfaces.MathOperator;
 
-public class MathOperator extends FallingObject implements MathOperatorImpl {
+public class MathOperatorImpl extends FallingObject implements MathOperator {
 
     private String mathOperator;
 
-    public MathOperator() {
+    public MathOperatorImpl() {
         super();
         this.getTextLabel().setFont(Constants.NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.RED);

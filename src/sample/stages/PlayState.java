@@ -11,17 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.collisions.CollisionDetector;
+import sample.collisions.CollsionDetectorImpl;
+import sample.collisions.interfaces.CollisionDetector;
 import sample.constants.Constants;
 import sample.input.PlayerInputHandler;
-import sample.interfaces.Fallable;
-import sample.interfaces.MathOperatorImpl;
+import sample.models.interfaces.Fallable;
+import sample.models.interfaces.MathOperator;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static sample.constants.Constants.BACKGROUND_PATH;
 
 public class PlayState extends AbstractStage {
 
@@ -30,7 +33,7 @@ public class PlayState extends AbstractStage {
     private Player player;
     private Pane pane;
     private List<FallingObject> fallingSymbolsAndNumbers;
-    private List<MathOperator> mathOperators;
+    private List<MathOperatorImpl> mathOperators;
     private FallingObject fallingObject;
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
@@ -42,10 +45,9 @@ public class PlayState extends AbstractStage {
     private Label fallenObjectsAcquired;
 
 
-
     public PlayState(Stage stage, Scene scene) {
         super(stage, scene);
-        this.background = new Image(getClass().getResourceAsStream("../resources/background1.jpg"));
+        this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.imageView = new ImageView(this.background);
         this.player = new Player();
         this.score = new SimpleLongProperty(5);
@@ -53,26 +55,22 @@ public class PlayState extends AbstractStage {
         this.pane = new Pane();
         this.fallingSymbolsAndNumbers = new ArrayList<>();
         this.mathOperators = new ArrayList<>();
-        this.collisionDetector = new CollisionDetector();
+        this.collisionDetector = new CollsionDetectorImpl();
         this.fallenObjectsAcquired = new Label();
     }
-
 
     public boolean isPaused() {
         return isPaused;
     }
 
-    // use to Pause the game
     public void setPaused(boolean paused) {
         isPaused = paused;
         //System.out.println("Is Pused:" + isPaused); // use for debugging
     }
 
-
-    public List<MathOperator> getMathOperators() {
+    public List<MathOperatorImpl> getMathOperators() {
         return mathOperators;
     }
-
 
     public List<FallingObject> getFallingSymbolsAndNumbers() {
         return fallingSymbolsAndNumbers;
@@ -82,15 +80,14 @@ public class PlayState extends AbstractStage {
         return gameTimer;
     }
 
-
     public void setCurrentOperation(String currentOperation) {
         this.currentOperation = currentOperation;
     }
 
     private void update() {
 
-        if (checkForEnd()) return; //If score is Zero || Infinity end dialog window is shown
-        if (checkForPause()) return; // If the Game is Paused stop update.
+        if (this.checkForEnd()) return; //If score is Zero || Infinity end dialog window is shown
+        if (this.isPaused()) return; // If the Game is Paused stop update.
 
         this.player.getAnimator().animate();
 
@@ -112,15 +109,6 @@ public class PlayState extends AbstractStage {
         return false;
     }
 
-    // use to check if the game is paused
-    private boolean checkForPause() {
-        if (isPaused()) {
-            return true;
-        }
-        return false;
-    }
-
-
     private void generateFallingObject() {
         if (System.nanoTime() % 60 == 0) {
             fallingObject = new Number();
@@ -133,8 +121,8 @@ public class PlayState extends AbstractStage {
             pane.getChildren().add(fallingObject);
         }
         if (System.nanoTime() % 120 == 0) {
-            fallingObject = new MathOperator();
-            mathOperators.add((MathOperator) fallingObject);
+            fallingObject = new MathOperatorImpl();
+            mathOperators.add((MathOperatorImpl) fallingObject);
             pane.getChildren().add(fallingObject);
         }
     }
@@ -143,7 +131,7 @@ public class PlayState extends AbstractStage {
         for (Fallable fallingObject : this.fallingSymbolsAndNumbers) {
             this.pane.getChildren().remove(fallingObject);
         }
-        for (MathOperatorImpl mathoperator : this.mathOperators) {
+        for (MathOperator mathoperator : this.mathOperators) {
             this.pane.getChildren().remove(mathoperator);
         }
     }
@@ -167,7 +155,7 @@ public class PlayState extends AbstractStage {
     }
 
     private void drawObjectsAcquired() {
-        int currentCount = CollisionDetector.getCollidedObjects();
+        int currentCount = CollsionDetectorImpl.getCollidedObjects();
         this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
         this.fallenObjectsAcquired.setFont(Constants.GAME_FONT);
         this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
@@ -205,42 +193,42 @@ public class PlayState extends AbstractStage {
 
         Scene scene = new Scene(this.pane);
         this.playerInputHandler = new PlayerInputHandler(scene, this.player);
-        processInputInGame(scene);
-        gameLoop();
-        gameTimer.start();
+        this.processInputInGame();
+        this.gameLoop();
+        this.gameTimer.start();
+        this.inputLoop(scene);
 
         stage.setScene(scene);
         stage.show();
 
-        inputLoop(scene);
     }
 
-    private void processInputInGame(Scene scene) {
+    private void processInputInGame() {
         this.playerInputHandler.processSinglePlayerInput(this);
     }
 
     public Player getPlayer() {
-        return player;
+        return this.player;
     }
 
     private void inputLoop(final Scene scene) {
-        inputTimer = new AnimationTimer() {
+        this.inputTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                processInputInGame(scene);
+                processInputInGame();
             }
         };
-        inputTimer.start();
+        this.inputTimer.start();
     }
 
     private void gameLoop() {
-        gameTimer = new AnimationTimer() {
+        this.gameTimer = new AnimationTimer() {
             @Override
             public synchronized void handle(long now) {
                 update();
             }
         };
-        gameTimer.start();
+        this.gameTimer.start();
     }
 
 

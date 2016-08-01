@@ -16,35 +16,33 @@ import java.io.IOException;
 
 public class Constants {
 
-    public static final int WIDTH;
-    public static final int HEIGHT;
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 600;
     public static final Font NUMBER_FONT;
-    public static final int VELOCITY;
-    public static final int LEFT_WALL_BOUNDARY;
-    public static final int RIGHT_WALL_BOUNDARY;
+    public static final int VELOCITY = 5;
+    public static final int LEFT_WALL_BOUNDARY = -10;
+    public static final int RIGHT_WALL_BOUNDARY = 850;
     public static final Font MENU_FONT;
-    public static final int NUMBER_ANIMATION_DROP_POINT;
-    public static final int CREDITS_ANIMATION_DROP_POINT;
+    public static final int NUMBER_ANIMATION_DROP_POINT = 850;
+    public static final int CREDITS_ANIMATION_DROP_POINT = 430;
     public static final Font CREDIT_FONT;
     public static final Font ABOUT_FONT;
-    public static final double DEFAULT_X_START_POSITION;
-    public static final double DEFAULT_Y_START_POSITION;
+    public static final double DEFAULT_X_START_POSITION = 500;
+    public static final double DEFAULT_Y_START_POSITION = 540;
     public static final Text ABOUT_TEXT;
     public static final Text CREDITS_BY;
     public static final Font HELP_FONT;
     public static final Text HELP_TEXT;
-    public static final int BOMB_VALUE;
-    public static final String SYMBOLS;
-    public static final String MATH_OPERATORS;
+    public static final int BOMB_VALUE = 0;
+    public static final String BACKGROUND_PATH = "../resources/menuWallpaper.jpg";
+    public static final String SYMBOLS = "?!&^%$";
+    public static final String MATH_OPERATORS = "+-*/";
     public static final Font GAME_FONT;
     public static final Text SCORE_TEXT;
     public static final Text OPERATION_TEXT;
 
     static {
-        MATH_OPERATORS = "+-*/";
-        SYMBOLS = "?!&^%$";
-        BOMB_VALUE = 0;
-        GAME_FONT = Font.font("Consolas",FontWeight.SEMI_BOLD,22);
+        GAME_FONT = Font.font("Consolas", FontWeight.SEMI_BOLD, 22);
         MENU_FONT = Font.font("", FontWeight.BOLD, 18);
         NUMBER_FONT = Font.font("Consolas", FontWeight.BLACK, 20);
         CREDIT_FONT = Font.font("Calibri", FontWeight.NORMAL, 22);
@@ -55,15 +53,6 @@ public class Constants {
         HELP_TEXT = createHelpText();
         SCORE_TEXT = createScoreAndOpText("score");
         OPERATION_TEXT = createScoreAndOpText("operation");
-        DEFAULT_X_START_POSITION = 500;
-        DEFAULT_Y_START_POSITION = 540;
-        WIDTH = 900;
-        HEIGHT = 600;
-        VELOCITY = 5;
-        LEFT_WALL_BOUNDARY = -10;
-        RIGHT_WALL_BOUNDARY = 850;
-        NUMBER_ANIMATION_DROP_POINT = 850;
-        CREDITS_ANIMATION_DROP_POINT = 430;
     }
 
     public static Node[] menuNodes() {
@@ -97,7 +86,8 @@ public class Constants {
             return arr;
         }
     }
-    public static Text displayHighScore(String text){
+
+    public static Text displayHighScore(String text) {
         Text highScoreText = new Text(text);
         highScoreText.setTranslateX(60);
         highScoreText.setTranslateY(40);
@@ -106,6 +96,7 @@ public class Constants {
         highScoreText.setOpacity(1.5);
         return highScoreText;
     }
+
     private static Text creditsByText() {
         Text creditsBy = new Text("CREDITS BY =>\n\nTEAM ANCALOGON");
         creditsBy.setTranslateX(130);
@@ -153,22 +144,22 @@ public class Constants {
         return helpBuilder;
     }
 
-
-    private static Text createScoreAndOpText(String type){
+    private static Text createScoreAndOpText(String type) {
         Text tempText = new Text();
         tempText.setFont(Constants.GAME_FONT);
-        if(type.equals("score")) {
+        if (type.equals("score")) {
             tempText.setY(20);
             tempText.setX(5);
-        }else{
+        } else {
             tempText.setY(50);
             tempText.setX(5);
         }
         tempText.setFill(Color.WHITESMOKE);
-        tempText.setEffect(new DropShadow(1.5,Color.WHITE));
+        tempText.setEffect(new DropShadow(1.5, Color.WHITE));
         tempText.setOpacity(1);
         return tempText;
     }
+
     public static Node backButton() {
         return new Item("BACK TO MENU", "MENU");
     }
