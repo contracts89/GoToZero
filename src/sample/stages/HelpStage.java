@@ -31,11 +31,11 @@ public class HelpStage extends AbstractStage {
 
         this.backButton = new Options("Back button", Constants.backButton());
 
-        this.backButton.getItem(0).setOnMousePressed(e -> stage.setScene(scene));
+        this.backButton.getItem(0).setOnMousePressed(e -> getStage().setScene(getScene()));
 
         root.getChildren().addAll(this.background, this.backButton, Constants.HELP_TEXT);
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        getStage().setScene(scene);
+        getStage().show();
     }
 }

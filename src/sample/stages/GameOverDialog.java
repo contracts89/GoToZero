@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class GameOverDialog extends AbstractStage {
 
-    private static Stage winStage;
+    private Stage winStage;
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
@@ -40,8 +40,8 @@ public class GameOverDialog extends AbstractStage {
         winStage.setResizable(true);
         winStage.show();
     }
-     public static void goToMenu(){
+     public void goToMenu(){
         winStage.close();
-        stage.setScene(scene);
+        getStage().setScene(getScene());
     }
 }

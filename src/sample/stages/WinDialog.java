@@ -13,11 +13,17 @@ import java.io.IOException;
 
 public class WinDialog extends AbstractStage {
 
-    private static Stage winStage;
+    private Stage winStage;
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
     private Label winResult;
+
+    public Stage getWinStage() {
+        return this.winStage;
+    }
+
+
 
     public WinDialog(Stage stage, Scene scene) throws IOException {
         super(stage, scene);
@@ -51,14 +57,14 @@ public class WinDialog extends AbstractStage {
 
         HighscoreManager.saveScore(CollsionDetectorImpl.getCollidedObjects());
     }
-
-    public static void goToMenu() {
+// move to wincontroller or whenever its used or make instantion and give it to the controller
+    public void goToMenu() {
         winStage.close();
-        stage.setScene(scene);
+        getStage().setScene(getScene());
     }
 
-    public static void playAgain() {
-        new PlayState(stage, scene).visualize();
+    public  void playAgain() {
+        new PlayState(getStage(), getScene()).visualize();
         CollsionDetectorImpl.setCollidedObjects(0);
     }
 }
