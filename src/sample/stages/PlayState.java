@@ -144,10 +144,10 @@ public class PlayState extends AbstractStage {
             this.player.stayAtPos();
             if (score.get() == 0) {
                 drawObjectsAcquired(); // draw the last taken object
-                new WinDialog(getStage(), getScene()).visualize(); // WIN
+                new WinDialog(stage, scene).visualize(); // WIN
             } else {
                 drawScoreAndCurrentOperation();
-                new GameOverDialog(getStage(), getScene()).visualize(); //LOSS
+                new GameOverDialog(stage, scene).visualize(); //LOSS
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -198,8 +198,8 @@ public class PlayState extends AbstractStage {
         this.gameTimer.start();
         this.inputLoop(scene);
 
-        getStage().setScene(scene);
-        getStage().show();
+        stage.setScene(scene);
+        stage.show();
 
     }
 
