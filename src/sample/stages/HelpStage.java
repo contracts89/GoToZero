@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 import sample.constants.Constants;
 import sample.models.menumodels.Options;
 
-import static sample.constants.Constants.BACKGROUND_PATH;
+import static sample.constants.MenuConstants.*;
+
 
 public class HelpStage extends AbstractStage {
 
@@ -27,7 +28,7 @@ public class HelpStage extends AbstractStage {
     public void visualize() {
         Pane root = new Pane();
 
-        root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
+        root.setPrefSize(WIDTH,HEIGHT);
 
         this.backButton = new Options("Back button", Constants.backButton());
 

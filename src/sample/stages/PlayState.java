@@ -24,7 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static sample.constants.Constants.BACKGROUND_PATH;
+import static sample.constants.MenuConstants.*;
+
 
 public class PlayState extends AbstractStage {
 
@@ -96,9 +97,16 @@ public class PlayState extends AbstractStage {
         this.drawObjectsAcquired();
 
         // Game collission: intersection between falling numbers and Player
-        this.collisionDetector.checkForCollisionWithNumbers(this.fallingSymbolsAndNumbers
-                , this.player, this.pane, this.currentOperation, this.score);
-        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators, this.player, this.pane, this);
+        this.collisionDetector.checkForCollisionWithNumbers(
+                this.fallingSymbolsAndNumbers,
+                this.player,
+                this.pane,
+                this.currentOperation,
+                this.score);
+        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators,
+                this.player,
+                this.pane,
+                this);
     }
 
     private boolean checkForEnd() {
@@ -177,7 +185,7 @@ public class PlayState extends AbstractStage {
 
 
     private void drawThePlayScene() {
-        this.pane.setPrefSize(Constants.WIDTH, Constants.HEIGHT); // set the scene dimensions
+        this.pane.setPrefSize(WIDTH, HEIGHT); // set the scene dimensions
 
         this.pane.getChildren()
                 .addAll(this.imageView,

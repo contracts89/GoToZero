@@ -6,20 +6,18 @@ import sample.graphical.interfaces.PlayerAnimator;
 import sample.graphical.interfaces.PlayerRenderer;
 import sample.models.playmodels.Player;
 
+import static sample.constants.PlayStateConstants.*;
+
 public class PlayerAnimatorImpl implements PlayerAnimator {
 
     private SpriteAnimation animationOnMove;
     private SpriteAnimation animationOnPlace;
     private Player player;
     private PlayerRenderer renderer;
-    private int count;
-    private int columns;
-    private int offsetYOnPlace;
 
     public PlayerAnimatorImpl(PlayerRenderer renderer, Player player) {
         this.renderer = renderer;
         this.player = player;
-        this.initializeValues();
         this.initializeMoveAnimation();
         this.initializeOnPlaceAnimation();
     }
@@ -53,31 +51,20 @@ public class PlayerAnimatorImpl implements PlayerAnimator {
         this.stopOnPlaceAnimation();
     }
 
-    private void initializeValues() {
-        this.count = 8;
-        this.columns = 8;
-        this.offsetYOnPlace = 0;
-    }
-
     private void initializeMoveAnimation() {
-        this.animationOnMove = new SpriteAnimation(this.renderer.getPlayerImage(),
-                Duration.millis(750),
-                this.count,
-                this.columns,
-                this.renderer.getOffsetX(),
-                this.renderer.getOffsetY(),
-                this.renderer.getWidth(),
-                this.renderer.getHeight());
+        this.animationOnMove = new SpriteAnimation(
+                this.renderer.getPlayerImage(),
+                Duration.millis(PLAYER_SPRITE_ANIMATION_DURATION),
+                PLAYER_SPRITE_RENDERER_INITIAL_OFFSET_X,
+                PLAYER_SPRITE_RENDERER_INITIAL_OFFSET_Y);
     }
 
     private void initializeOnPlaceAnimation() {
-        this.animationOnPlace = new SpriteAnimation(this.renderer.getPlayerImage(), Duration.millis(750),
-                this.count,
-                this.columns,
-                this.renderer.getOffsetX(),
-                this.offsetYOnPlace,
-                this.renderer.getWidth(),
-                this.renderer.getHeight());
+        this.animationOnPlace = new SpriteAnimation(
+                this.renderer.getPlayerImage(),
+                Duration.millis(PLAYER_SPRITE_ANIMATION_DURATION),
+                PLAYER_SPRITE_RENDERER_INITIAL_OFFSET_X,
+                PLAYER_SPRITE_OFFSETY_ON_PLACE);
     }
 }
 

@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
 
+import static sample.constants.PlayStateConstants.BOMB_VALUE;
+
 public class Number extends FallingObject {
 
     public Number() {
@@ -19,8 +21,8 @@ public class Number extends FallingObject {
         this.setGeneratedNum(this.getRandomNumber().nextInt(20) + 1);
 
         if (this.getGeneratedNum() == 20) {
-            this.setGeneratedNum(Constants.BOMB_VALUE);
-            this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(Constants.BOMB_VALUE).asString());
+            this.setGeneratedNum(BOMB_VALUE);
+            this.getTextLabel().textProperty().bind(new SimpleIntegerProperty(BOMB_VALUE).asString());
         }
 
         if (this.getGeneratedNum() <11) {

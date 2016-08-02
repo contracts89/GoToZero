@@ -9,7 +9,8 @@ import sample.animations.FallTransition;
 import sample.constants.Constants;
 import sample.models.menumodels.Options;
 
-import static sample.constants.Constants.BACKGROUND_PATH;
+import static sample.constants.MenuConstants.*;
+import static sample.constants.PlayStateConstants.*;
 
 public class CreditsStage extends AbstractStage {
 
@@ -31,7 +32,7 @@ public class CreditsStage extends AbstractStage {
     public void visualize() {
         Pane root = new Pane();
 
-        root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
+        root.setPrefSize(WIDTH, HEIGHT);
 
         this.developers = new Options("CreditsStage", Constants.creditsText());
         this.backButton = new Options("Back button", Constants.backButton());
@@ -39,7 +40,7 @@ public class CreditsStage extends AbstractStage {
         this.backButton.getItem(0).setOnMousePressed(e->getStage().setScene(getScene()));
 
         root.getChildren().addAll(this.background, this.developers, this.backButton,Constants.CREDITS_BY);
-        this.creditsTransition.useFallAnimation(this.developers, 6, Constants.CREDITS_ANIMATION_DROP_POINT);
+        this.creditsTransition.useFallAnimation(this.developers, 6, CREDITS_ANIMATION_DROP_POINT);
         Scene scene = new Scene(root);
         getStage().setScene(scene);
         getStage().show();

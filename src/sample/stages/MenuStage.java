@@ -16,7 +16,8 @@ import sample.models.menumodels.Options;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static sample.constants.Constants.BACKGROUND_PATH;
+import static sample.constants.MenuConstants.*;
+
 
 public class MenuStage extends Application {
 
@@ -33,7 +34,7 @@ public class MenuStage extends Application {
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(Constants.WIDTH, Constants.HEIGHT);
+        root.setPrefSize(WIDTH,HEIGHT);
 
         this.menuOptions = new Options("Menu", Constants.menuNodes());
         this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));

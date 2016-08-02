@@ -2,12 +2,14 @@ package sample.models.playmodels;
 
 
 import javafx.scene.layout.Pane;
-import sample.constants.Constants;
-import sample.graphical.*;
+import sample.graphical.PlayerAnimatorImpl;
+import sample.graphical.PlayerRendererImpl;
 import sample.graphical.interfaces.PlayerAnimator;
 import sample.graphical.interfaces.PlayerRenderer;
 import sample.models.interfaces.Moveable;
 import sample.models.interfaces.Stayable;
+
+import static sample.constants.PlayStateConstants.*;
 
 public class Player extends Pane implements Moveable, Stayable {
 
@@ -38,15 +40,15 @@ public class Player extends Pane implements Moveable, Stayable {
 
     public void moveRight() {
         this.setMoving(true);
-        if (this.getTranslateX() < Constants.RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
-            this.setTranslateX(this.getTranslateX() + Constants.VELOCITY);
+        if (this.getTranslateX() < RIGHT_WALL_BOUNDARY) { //CHECK TO SEE IF RIGHT WALL IS REACHED
+            this.setTranslateX(this.getTranslateX() + VELOCITY);
         }
     }
 
     public void moveLeft() {
         this.setMoving(true);
-        if (this.getTranslateX() > Constants.LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
-            this.setTranslateX(this.getTranslateX() - Constants.VELOCITY);
+        if (this.getTranslateX() > LEFT_WALL_BOUNDARY) { //CHECK TO SEE IF LEFT WALL IS REACHED
+            this.setTranslateX(this.getTranslateX() - VELOCITY);
         }
     }
 
@@ -55,7 +57,7 @@ public class Player extends Pane implements Moveable, Stayable {
     }
 
     private void setInitialPosition() {
-        this.setTranslateX(Constants.DEFAULT_X_START_POSITION);
-        this.setTranslateY(Constants.DEFAULT_Y_START_POSITION);
+        this.setTranslateX(DEFAULT_X_START_POSITION);
+        this.setTranslateY(DEFAULT_Y_START_POSITION);
     }
 }

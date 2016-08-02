@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
 import sample.constants.Constants;
 
+import static sample.constants.PlayStateConstants.SYMBOLS;
+
 public class Symbol extends FallingObject {
 
     private String generatedSymbol;
@@ -19,7 +21,7 @@ public class Symbol extends FallingObject {
     protected void setFallingObject() {
         this.setGeneratedNum(this.getRandomNumber().nextInt(10) + 10);
 
-        this.generatedSymbol = String.valueOf(Constants.SYMBOLS.charAt(this.getRandomNumber().nextInt(6)));
+        this.generatedSymbol = String.valueOf(SYMBOLS.charAt(this.getRandomNumber().nextInt(6)));
 
         this.getTextLabel().textProperty().bind(new SimpleStringProperty(this.generatedSymbol));
     }

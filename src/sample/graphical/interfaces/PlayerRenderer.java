@@ -6,11 +6,4 @@ public interface PlayerRenderer extends Renderer {
 
     ImageView getPlayerImage();
 
-    int getOffsetX();
-
-    int getOffsetY();
-
-    int getWidth();
-
-    int getHeight();
 }

@@ -3,10 +3,11 @@ package sample.models.playmodels;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import sample.animations.FallTransition;
-import sample.constants.Constants;
 import sample.models.interfaces.Fallable;
 
 import java.util.Random;
+
+import static sample.constants.PlayStateConstants.NUMBER_ANIMATION_DROP_POINT;
 
 public abstract class FallingObject extends StackPane implements Fallable {
 
@@ -57,6 +58,6 @@ public abstract class FallingObject extends StackPane implements Fallable {
 
     private void setFallTransition() {
         this.fallTransition = new FallTransition(Math.random() * 900, -100);
-        this.fallTransition.useFallAnimation(this.textLabel, 10, Constants.NUMBER_ANIMATION_DROP_POINT);
+        this.fallTransition.useFallAnimation(this.textLabel, 10, NUMBER_ANIMATION_DROP_POINT);
     }
 }

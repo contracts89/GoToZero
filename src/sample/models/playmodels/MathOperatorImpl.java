@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import sample.constants.Constants;
 import sample.models.interfaces.MathOperator;
 
+import static sample.constants.PlayStateConstants.MATH_OPERATORS;
+
 public class MathOperatorImpl extends FallingObject implements MathOperator {
 
     private String mathOperator;
@@ -22,7 +24,7 @@ public class MathOperatorImpl extends FallingObject implements MathOperator {
     @Override
     protected void setFallingObject() {
 
-        this.mathOperator = String.valueOf(Constants.MATH_OPERATORS.charAt(this.getRandomNumber().nextInt(4)));
+        this.mathOperator = String.valueOf(MATH_OPERATORS.charAt(this.getRandomNumber().nextInt(4)));
         this.getTextLabel().textProperty().bind(new SimpleStringProperty(this.mathOperator));
     }
 }

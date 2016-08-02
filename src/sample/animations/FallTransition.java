@@ -26,9 +26,9 @@ public class FallTransition implements sample.models.interfaces.FallTransition {
         this.pathTransition.setAutoReverse(true);
     }
 
-    public void useFallAnimation(Node node, int duration, int droppoint) {
+    public void useFallAnimation(Node node, int duration, int dropPoint) {
         this.pathTransition.setNode(node);
-        this.pathAnimation.getElements().add(new VLineTo(droppoint)); // bottom stop line of the falling object
+        this.pathAnimation.getElements().add(new VLineTo(dropPoint)); // bottom stop line of the falling object
         this.pathTransition.setPath(this.pathAnimation);
         this.pathTransition.setDuration(Duration.seconds(duration)); //speed of  the falling object
         this.pathTransition.setCycleCount(Animation.INDEFINITE); // set cycle of the falling object to infinity
@@ -36,6 +36,6 @@ public class FallTransition implements sample.models.interfaces.FallTransition {
     }
 
     public PathTransition getPathTransition() {
-        return pathTransition;
+        return this.pathTransition;
     }
 }
