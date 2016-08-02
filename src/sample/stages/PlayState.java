@@ -98,17 +98,6 @@ public class PlayState extends AbstractStage {
                 this.score);
 
         this.pane.getChildren().remove(toBeRemoved);
-        // Game collission: intersection between falling numbers and Player
-//        this.collisionDetector.checkForCollisionWithNumbers(
-//                this.fallingSymbolsAndNumbers,
-//                this.player,
-//                this.pane,
-//                this.currentOperation,
-//                this.score);
-//        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators,
-//                this.player,
-//                this.pane,
-//                this);
     }
 
     private boolean checkForEnd() {
@@ -151,7 +140,7 @@ public class PlayState extends AbstractStage {
     private void showEndDialog() {
         try {
             this.gameTimer.stop();
-            clearFallingObjects();
+            this.clearFallingObjects();
             this.player.stayAtPos();
             if (score.get() == 0) {
                 drawObjectsAcquired();

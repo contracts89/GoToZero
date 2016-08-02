@@ -34,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CollsionDetectorImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CollsionDetectorImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/collisions/CollsionDetectorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="98" column="39" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
+            <state relative-caret-position="191">
+              <caret line="100" column="74" selection-start-line="100" selection-start-column="74" selection-end-line="100" selection-end-column="74" />
               <folding>
                 <element signature="e#609#610#0" expanded="true" />
                 <element signature="e#657#658#0" expanded="true" />
@@ -110,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayState.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlayState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/stages/PlayState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="158" column="50" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
+            <state relative-caret-position="1691">
+              <caret line="141" column="34" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
               <folding>
                 <element signature="method#setPaused#0;class#PlayState#0" expanded="false" />
                 <element signature="method#checkForEnd#0;class#PlayState#0" expanded="false" />
@@ -228,13 +228,13 @@
         <option value="$PROJECT_DIR$/src/sample/models/interfaces/ScoreHandler.java" />
         <option value="$PROJECT_DIR$/src/sample/models/playmodels/ScoreHandlerImpl.java" />
         <option value="$PROJECT_DIR$/src/sample/stages/WinDialog.java" />
-        <option value="$PROJECT_DIR$/src/sample/stages/PlayState.java" />
         <option value="$PROJECT_DIR$/src/sample/input/PlayerInputHandler.java" />
         <option value="$PROJECT_DIR$/src/sample/collisions/interfaces/CollisionDetector.java" />
         <option value="$PROJECT_DIR$/src/sample/controllers/ScoreHandlerImpl.java" />
         <option value="$PROJECT_DIR$/src/sample/controllers/ScoreHandler.java" />
         <option value="$PROJECT_DIR$/src/sample/controllers/interfaces/ScoreHandler.java" />
         <option value="$PROJECT_DIR$/src/sample/collisions/CollsionDetectorImpl.java" />
+        <option value="$PROJECT_DIR$/src/sample/stages/PlayState.java" />
       </list>
     </option>
   </component>
@@ -687,15 +687,15 @@
       <workItem from="1469998407703" duration="4000" />
       <workItem from="1470063668399" duration="2472000" />
       <workItem from="1470148162731" duration="2708000" />
-      <workItem from="1470154934324" duration="6522000" />
+      <workItem from="1470154934324" duration="6889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70501000" />
+    <option name="totallyTimeSpent" value="70868000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1245,21 +1245,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/stages/PlayState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="158" column="50" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
-          <folding>
-            <element signature="method#setPaused#0;class#PlayState#0" expanded="false" />
-            <element signature="method#checkForEnd#0;class#PlayState#0" expanded="false" />
-            <element signature="method#drawScoreAndCurrentOperation#0;class#PlayState#0" expanded="false" />
-            <element signature="method#drawThePlayScene#0;class#PlayState#0" expanded="false" />
-            <element signature="method#visualize#0;class#PlayState#0" expanded="false" />
-            <element signature="method#gameLoop#0;class#PlayState#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/controllers/ScoreHandlerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -1304,13 +1289,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/collisions/CollsionDetectorImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="98" column="39" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
+        <state relative-caret-position="191">
+          <caret line="100" column="74" selection-start-line="100" selection-start-column="74" selection-end-line="100" selection-end-column="74" />
           <folding>
             <element signature="e#609#610#0" expanded="true" />
             <element signature="e#657#658#0" expanded="true" />
             <element signature="e#3662#3663#0" expanded="true" />
             <element signature="e#3705#3706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/stages/PlayState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1691">
+          <caret line="141" column="34" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
+          <folding>
+            <element signature="method#setPaused#0;class#PlayState#0" expanded="false" />
+            <element signature="method#checkForEnd#0;class#PlayState#0" expanded="false" />
+            <element signature="method#drawScoreAndCurrentOperation#0;class#PlayState#0" expanded="false" />
+            <element signature="method#drawThePlayScene#0;class#PlayState#0" expanded="false" />
+            <element signature="method#visualize#0;class#PlayState#0" expanded="false" />
+            <element signature="method#gameLoop#0;class#PlayState#0" expanded="false" />
           </folding>
         </state>
       </provider>
