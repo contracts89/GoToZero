@@ -14,9 +14,10 @@ import javafx.stage.Stage;
 import sample.collisions.CollsionDetectorImpl;
 import sample.collisions.interfaces.CollisionDetector;
 import sample.constants.Constants;
+import sample.controllers.ScoreHandlerImpl;
 import sample.input.PlayerInputHandler;
 import sample.models.interfaces.Fallable;
-import sample.models.interfaces.MathOperator;
+import sample.controllers.interfaces.ScoreHandler;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
 
@@ -33,18 +34,15 @@ public class PlayState extends AbstractStage {
     private ImageView imageView;
     private Player player;
     private Pane pane;
-    private List<FallingObject> fallingSymbolsAndNumbers;
-    private List<MathOperatorImpl> mathOperators;
-    private FallingObject fallingObject;
+    private List<Fallable> fallables;
     private LongProperty score; // Set the starting Score (default is 128)
     private String currentOperation;
     private AnimationTimer gameTimer;
-    private AnimationTimer inputTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
     private boolean isPaused;
     private Label fallenObjectsAcquired;
-
+    private ScoreHandler scoreHandler;
 
     public PlayState(Stage stage, Scene scene) {
         super(stage, scene);
@@ -54,9 +52,9 @@ public class PlayState extends AbstractStage {
         this.score = new SimpleLongProperty(5);
         this.currentOperation = "Subtract";
         this.pane = new Pane();
-        this.fallingSymbolsAndNumbers = new ArrayList<>();
-        this.mathOperators = new ArrayList<>();
-        this.collisionDetector = new CollsionDetectorImpl();
+        this.fallables = new ArrayList<>();
+        this.scoreHandler = new ScoreHandlerImpl();
+        this.collisionDetector = new CollsionDetectorImpl(this.scoreHandler);
         this.fallenObjectsAcquired = new Label();
     }
 
@@ -69,12 +67,8 @@ public class PlayState extends AbstractStage {
         //System.out.println("Is Pused:" + isPaused); // use for debugging
     }
 
-    public List<MathOperatorImpl> getMathOperators() {
-        return mathOperators;
-    }
-
-    public List<FallingObject> getFallingSymbolsAndNumbers() {
-        return fallingSymbolsAndNumbers;
+    public List<Fallable> getFallingSymbolsAndNumbers() {
+        return fallables;
     }
 
     public AnimationTimer getGameTimer() {
@@ -87,26 +81,34 @@ public class PlayState extends AbstractStage {
 
     private void update() {
 
-        if (this.checkForEnd()) return; //If score is Zero || Infinity end dialog window is shown
-        if (this.isPaused()) return; // If the Game is Paused stop update.
-
+        if (this.checkForEnd() || this.isPaused) {
+            return; //If score is Zero || Infinity end dialog window is shown
+            // If the Game is Paused stop update.
+        }
         this.player.getAnimator().animate();
 
         this.generateFallingObject();
         this.drawScoreAndCurrentOperation();
         this.drawObjectsAcquired();
 
-        // Game collission: intersection between falling numbers and Player
-        this.collisionDetector.checkForCollisionWithNumbers(
-                this.fallingSymbolsAndNumbers,
+        FallingObject toBeRemoved = (FallingObject) this.collisionDetector.returnCollidedObject(
+                this.fallables,
                 this.player,
-                this.pane,
                 this.currentOperation,
                 this.score);
-        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators,
-                this.player,
-                this.pane,
-                this);
+
+        this.pane.getChildren().remove(toBeRemoved);
+        // Game collission: intersection between falling numbers and Player
+//        this.collisionDetector.checkForCollisionWithNumbers(
+//                this.fallingSymbolsAndNumbers,
+//                this.player,
+//                this.pane,
+//                this.currentOperation,
+//                this.score);
+//        this.collisionDetector.checkForCollisionWithOperators(this.mathOperators,
+//                this.player,
+//                this.pane,
+//                this);
     }
 
     private boolean checkForEnd() {
@@ -118,30 +120,31 @@ public class PlayState extends AbstractStage {
     }
 
     private void generateFallingObject() {
+        FallingObject fallingObject;
         if (System.nanoTime() % 60 == 0) {
             fallingObject = new Number();
-            fallingSymbolsAndNumbers.add(fallingObject);
+            fallables.add(fallingObject);
             pane.getChildren().add(fallingObject);
         }
         if (System.nanoTime() % 90 == 0) {
             fallingObject = new Symbol();
-            fallingSymbolsAndNumbers.add(fallingObject);
+            fallables.add(fallingObject);
             pane.getChildren().add(fallingObject);
         }
         if (System.nanoTime() % 120 == 0) {
             fallingObject = new MathOperatorImpl();
-            mathOperators.add((MathOperatorImpl) fallingObject);
+            fallables.add(fallingObject);
             pane.getChildren().add(fallingObject);
         }
     }
 
     private void clearFallingObjects() {
-        for (Fallable fallingObject : this.fallingSymbolsAndNumbers) {
+        for (Fallable fallingObject : this.fallables) {
             this.pane.getChildren().remove(fallingObject);
         }
-        for (MathOperator mathoperator : this.mathOperators) {
-            this.pane.getChildren().remove(mathoperator);
-        }
+//        for (MathOperator mathoperator : this.mathOperators) {
+//            this.pane.getChildren().remove(mathoperator);
+//        }
     }
 
 
@@ -151,8 +154,9 @@ public class PlayState extends AbstractStage {
             clearFallingObjects();
             this.player.stayAtPos();
             if (score.get() == 0) {
-                drawObjectsAcquired(); // draw the last taken object
-                new WinDialog(stage, scene).visualize(); // WIN
+                drawObjectsAcquired();
+                int result = this.collisionDetector.getCollidedObjectsCount();
+                new WinDialog(stage, scene, result).visualize(); // WIN
             } else {
                 drawScoreAndCurrentOperation();
                 new GameOverDialog(stage, scene).visualize(); //LOSS
@@ -163,7 +167,7 @@ public class PlayState extends AbstractStage {
     }
 
     private void drawObjectsAcquired() {
-        int currentCount = CollsionDetectorImpl.getCollidedObjects();
+        int currentCount = this.collisionDetector.getCollidedObjectsCount();
         this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
         this.fallenObjectsAcquired.setFont(Constants.GAME_FONT);
         this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
@@ -220,13 +224,13 @@ public class PlayState extends AbstractStage {
     }
 
     private void inputLoop(final Scene scene) {
-        this.inputTimer = new AnimationTimer() {
+        AnimationTimer inputTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 processInputInGame();
             }
         };
-        this.inputTimer.start();
+        inputTimer.start();
     }
 
     private void gameLoop() {

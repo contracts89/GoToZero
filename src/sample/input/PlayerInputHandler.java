@@ -3,11 +3,9 @@ package sample.input;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import sample.models.playmodels.FallingObject;
-import sample.models.playmodels.MathOperatorImpl;
+import sample.models.interfaces.Fallable;
 import sample.models.playmodels.Player;
 import sample.stages.PlayState;
-
 
 import java.util.HashMap;
 
@@ -54,12 +52,12 @@ public class PlayerInputHandler {
         playstate.getPlayer().getAnimator().stopAllAnimations();
 //        playstate.getPlayer().();
 
-        for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+        for (Fallable fallingObject : playstate.getFallingSymbolsAndNumbers()) {
             fallingObject.getFallTransition().getPathTransition().pause();
         }
-        for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
-            mathOperator.getFallTransition().getPathTransition().pause();
-        }
+//        for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
+//            mathOperator.getFallTransition().getPathTransition().pause();
+//        }
         playstate.setPaused(true);
     }
 
@@ -70,12 +68,12 @@ public class PlayerInputHandler {
             playstate.getGameTimer().start();
             this.player.getAnimator().animate();
             this.player.getAnimator().animateOnPlace();
-            for (FallingObject fallingObject : playstate.getFallingSymbolsAndNumbers()) {
+            for (Fallable fallingObject : playstate.getFallingSymbolsAndNumbers()) {
                 fallingObject.getFallTransition().getPathTransition().play();
             }
-            for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
-                mathOperator.getFallTransition().getPathTransition().play();
-            }
+//            for (MathOperatorImpl mathOperator : playstate.getMathOperators()) {
+//                mathOperator.getFallTransition().getPathTransition().play();
+//            }
         }
     }
 

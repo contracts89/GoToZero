@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import sample.collisions.CollsionDetectorImpl;
 import sample.output.HighscoreManager;
 
 import java.io.IOException;
@@ -18,13 +17,14 @@ public class WinDialog extends AbstractStage {
     private FXMLLoader loader;
     private Parent rootNode;
     private Label winResult;
-
-    public WinDialog(Stage stage, Scene scene) throws IOException {
+    private int result;
+    public WinDialog(Stage stage, Scene scene,int result) throws IOException {
         super(stage, scene);
         winStage = new Stage();
         this.fxmlFile = "../fxmlFiles/winDialog.fxml";
         this.loader = new FXMLLoader();
         this.rootNode = null;
+        this.result = result;
     }
 
 
@@ -37,7 +37,8 @@ public class WinDialog extends AbstractStage {
             //add total taken obects as result
             winResult = (Label) rootNode.lookup("#winResult");
             if (winResult!=null) {
-                winResult.setText(String.format("You Won!\nYou go to Zero with %d objects ", CollsionDetectorImpl.getCollidedObjects()));
+                winResult.setText(String.format("You Won!\nYou go to Zero with %d objects ",
+                        this.result));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class WinDialog extends AbstractStage {
         winStage.setResizable(true);
         winStage.show();
 
-        HighscoreManager.saveScore(CollsionDetectorImpl.getCollidedObjects());
+        HighscoreManager.saveScore(this.result);
     }
 
     public static void goToMenu() {
@@ -59,6 +60,5 @@ public class WinDialog extends AbstractStage {
 
     public static void playAgain() {
         new PlayState(stage, scene).visualize();
-        CollsionDetectorImpl.setCollidedObjects(0);
     }
 }
