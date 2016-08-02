@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import sample.models.interfaces.Fallable;
-import sample.models.playmodels.Player;
+import sample.models.playmodels.PlayerImpl;
 import sample.stages.PlayState;
 
 import java.util.HashMap;
@@ -13,9 +13,9 @@ public class PlayerInputHandler {
 
     private HashMap<KeyCode, Boolean> keys;
     private Scene scene;
-    private Player player;
+    private PlayerImpl player;
 
-    public PlayerInputHandler(Scene scene, Player player) {
+    public PlayerInputHandler(Scene scene, PlayerImpl player) {
         this.scene = scene;
         this.keys = new HashMap<>();
         this.player = player;

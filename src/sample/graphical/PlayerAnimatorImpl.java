@@ -1,10 +1,12 @@
 
 package sample.graphical;
+
 import javafx.util.Duration;
 import sample.animations.SpriteAnimation;
 import sample.graphical.interfaces.PlayerAnimator;
 import sample.graphical.interfaces.PlayerRenderer;
-import sample.models.playmodels.Player;
+import sample.models.interfaces.Player;
+
 import static sample.constants.PlayStateConstants.*;
 
 public class PlayerAnimatorImpl implements PlayerAnimator {
@@ -25,13 +27,15 @@ public class PlayerAnimatorImpl implements PlayerAnimator {
     public void animate() {
         if (this.player.isMoving()) {
             this.animationOnMove.play();
+        }else{
+            this.animationOnPlace.play();
         }
     }
 
     @Override
     public void animateOnPlace() {
         if (!this.player.isMoving()) {
-            this.animationOnPlace.play();
+
         }
     }
 

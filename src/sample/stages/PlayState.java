@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 import sample.collisions.CollsionDetectorImpl;
 import sample.collisions.interfaces.CollisionDetector;
 import sample.constants.Constants;
-import sample.controllers.MathOperation;
-import sample.controllers.OperatorSwitcherImpl;
+import sample.controllers.OperationSwitcherImpl;
 import sample.controllers.ScoreHandlerImpl;
-import sample.controllers.interfaces.OperatorSwitcher;
+import sample.controllers.interfaces.OperationSwitcher;
 import sample.controllers.interfaces.ScoreHandler;
 import sample.input.PlayerInputHandler;
 import sample.models.interfaces.Fallable;
+import sample.models.interfaces.Player;
 import sample.models.playmodels.*;
 import sample.models.playmodels.Number;
 
@@ -35,32 +35,30 @@ public class PlayState extends AbstractStage {
 
     private Image background;
     private ImageView imageView;
-    private Player player;
+    private PlayerImpl player;
     private Pane pane;
     private List<Fallable> fallables;
     private LongProperty score; // Set the starting Score (default is 128)
     //    private String currentOperation;
-    private MathOperation currentOperation;
     private AnimationTimer gameTimer;
     private PlayerInputHandler playerInputHandler;
     private CollisionDetector collisionDetector;
     private boolean isPaused;
     private Label fallenObjectsAcquired;
     private ScoreHandler scoreHandler;
-    private OperatorSwitcher operatorSwitcher;
+    private OperationSwitcher operationSwitcher;
 
     public PlayState(Stage stage, Scene scene) {
         super(stage, scene);
         this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.imageView = new ImageView(this.background);
-        this.player = new Player();
+        this.player = new PlayerImpl();
         this.score = new SimpleLongProperty(5);
-        this.currentOperation = MathOperation.SUBTRACT;
         this.pane = new Pane();
         this.fallables = new ArrayList<>();
         this.scoreHandler = new ScoreHandlerImpl();
-        this.operatorSwitcher = new OperatorSwitcherImpl();
-        this.collisionDetector = new CollsionDetectorImpl(this.scoreHandler, this.operatorSwitcher);
+        this.operationSwitcher = new OperationSwitcherImpl();
+        this.collisionDetector = new CollsionDetectorImpl(this.scoreHandler, this.operationSwitcher);
         this.fallenObjectsAcquired = new Label();
     }
 
@@ -81,10 +79,6 @@ public class PlayState extends AbstractStage {
         return gameTimer;
     }
 
-    public void setCurrentOperation(MathOperation currentOperation) {
-        this.currentOperation = currentOperation;
-    }
-
     private void update() {
 
         if (this.checkForEnd() || this.isPaused) {
@@ -99,9 +93,8 @@ public class PlayState extends AbstractStage {
         FallingObject toBeRemoved = (FallingObject) this.collisionDetector.returnCollidedObject(
                 this.fallables,
                 this.player,
-                this.currentOperation,
-                this.score,
-                this);
+                this.operationSwitcher.getMathOperation(),
+                this.score);
 
         this.pane.getChildren().remove(toBeRemoved);
     }
@@ -175,7 +168,7 @@ public class PlayState extends AbstractStage {
             Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
         }
         Constants.OPERATION_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
-                this.currentOperation)));
+                this.operationSwitcher.getMathOperation())));
     }
 
 

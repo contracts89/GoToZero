@@ -3,13 +3,12 @@ package sample.collisions;
 import javafx.beans.property.LongProperty;
 import sample.collisions.interfaces.CollisionDetector;
 import sample.controllers.MathOperation;
-import sample.controllers.interfaces.OperatorSwitcher;
+import sample.controllers.interfaces.OperationSwitcher;
 import sample.controllers.interfaces.ScoreHandler;
 import sample.models.interfaces.Fallable;
 import sample.models.interfaces.MathOperator;
 import sample.models.playmodels.FallingObject;
-import sample.models.playmodels.Player;
-import sample.stages.PlayState;
+import sample.models.playmodels.PlayerImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,12 +16,12 @@ import java.util.List;
 public class CollsionDetectorImpl implements CollisionDetector {
 
     private ScoreHandler scoreHandler;
-    private OperatorSwitcher operatorSwitcher;
+    private OperationSwitcher operationSwitcher;
     private int collidedObjects = 0;
 
-    public CollsionDetectorImpl(ScoreHandler scoreHandler, OperatorSwitcher operatorSwitcher) {
+    public CollsionDetectorImpl(ScoreHandler scoreHandler, OperationSwitcher operationSwitcher) {
         this.scoreHandler = scoreHandler;
-        this.operatorSwitcher = operatorSwitcher;
+        this.operationSwitcher = operationSwitcher;
     }
 
     @Override
@@ -32,15 +31,14 @@ public class CollsionDetectorImpl implements CollisionDetector {
 
     @Override
     public Fallable returnCollidedObject(List<Fallable> fallables,
-                                         Player player,
+                                         PlayerImpl player,
                                          MathOperation currentOperation,
-                                         LongProperty score,
-                                         PlayState playState) {
+                                         LongProperty score) {
         for (int index = 0; index < fallables.size(); index++) {
             FallingObject currentObject = (FallingObject) fallables.get(index);
             if (currentObject.getTextLabel().getBoundsInParent().intersects(player.getBoundsInParent())) {
                 if (currentObject instanceof MathOperator) {
-                    this.operatorSwitcher.switchOperator((MathOperator) currentObject, playState);
+                    this.operationSwitcher.switchOperator((MathOperator) currentObject);
                     return currentObject;
                 }
                 this.collidedObjects++;

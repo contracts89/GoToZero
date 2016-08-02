@@ -12,13 +12,14 @@ import java.io.IOException;
 
 public class WinDialog extends AbstractStage {
 
-    private static Stage winStage;
+    private static   Stage winStage;
     private String fxmlFile;
     private FXMLLoader loader;
     private Parent rootNode;
     private Label winResult;
     private int result;
-    public WinDialog(Stage stage, Scene scene,int result) throws IOException {
+
+    public WinDialog(Stage stage, Scene scene, int result) throws IOException {
         super(stage, scene);
         winStage = new Stage();
         this.fxmlFile = "../fxmlFiles/winDialog.fxml";
@@ -28,7 +29,6 @@ public class WinDialog extends AbstractStage {
     }
 
 
-
     @Override
     public void visualize() {
 
@@ -36,7 +36,7 @@ public class WinDialog extends AbstractStage {
             this.rootNode = loader.load(getClass().getResourceAsStream(this.fxmlFile));
             //add total taken obects as result
             winResult = (Label) rootNode.lookup("#winResult");
-            if (winResult!=null) {
+            if (winResult != null) {
                 winResult.setText(String.format("You Won!\nYou go to Zero with %d objects ",
                         this.result));
             }
@@ -53,12 +53,13 @@ public class WinDialog extends AbstractStage {
         HighscoreManager.saveScore(this.result);
     }
 
+
     public static void goToMenu() {
         winStage.close();
         stage.setScene(scene);
     }
 
-    public static void playAgain() {
+    public static   void playAgain() {
         new PlayState(stage, scene).visualize();
     }
 }
