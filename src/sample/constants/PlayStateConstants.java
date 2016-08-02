@@ -11,8 +11,6 @@ public class PlayStateConstants {
     public static final double DEFAULT_X_START_POSITION = 500;
 
     public static final int NUMBER_ANIMATION_DROP_POINT = 850;
-    public static final int CREDITS_ANIMATION_DROP_POINT = 430;
-
 
     public static final String SYMBOLS = "?!&^%$";
     public static final String MATH_OPERATORS = "+-*/";

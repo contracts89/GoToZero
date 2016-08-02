@@ -1,6 +1,6 @@
 package sample.models.interfaces;
 
-import sample.animations.FallTransition;
+import sample.animations.interfaces.FallTransition;
 
 public interface Fallable {
 
