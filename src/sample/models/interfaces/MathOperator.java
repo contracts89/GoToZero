@@ -1,5 +1,7 @@
 package sample.models.interfaces;
 
+import sample.controllers.MathOperation;
+
 public interface MathOperator {
-    String getMathOperator();
+    MathOperation getMathOperation();
 }

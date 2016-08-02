@@ -13,7 +13,7 @@ public class PlayStateConstants {
     public static final int NUMBER_ANIMATION_DROP_POINT = 850;
 
     public static final String SYMBOLS = "?!&^%$";
-    public static final String MATH_OPERATORS = "+-*/";
+    public static final char[] MATH_OPERATORS = {'+', '-', '*', '/'};
 
     public static final int PLAYER_SPRITE_WIDTH = 60;
     public static final int PLAYER_SPRITE_HEIGTH = 60;

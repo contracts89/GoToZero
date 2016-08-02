@@ -10,11 +10,11 @@ public class ScoreHandlerImpl implements ScoreHandler {
 
     @Override
     public void handleScore(Fallable fallable,
-                            String currentOperation,
+                            MathOperation currentOperation,
                             LongProperty score) {
             FallingObject fallableWithScore = (FallingObject) fallable;
             switch (currentOperation) {
-                case "Divide":
+                case DIVIDE:
                     //Catch the impossible operation Divide to Zero
                     try {
                         score.set(score.get() / fallableWithScore.getNumberScore());
@@ -22,13 +22,13 @@ public class ScoreHandlerImpl implements ScoreHandler {
                     } catch (ArithmeticException ex) {
                         score.set(999999999);
                     }
-                case "Add":
+                case ADD:
                     score.set(score.get() + fallableWithScore.getNumberScore());
                     break;
-                case "Multiply":
+                case MULTIPLY:
                     score.set(score.get() * fallableWithScore.getNumberScore());
                     break;
-                case "Subtract":
+                case SUBTRACT:
                     score.set(score.get() - fallableWithScore.getNumberScore());
                     break;
             }
