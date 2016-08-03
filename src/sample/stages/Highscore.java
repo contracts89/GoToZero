@@ -34,9 +34,9 @@ public class Highscore extends AbstractStage {
         root.setPrefSize(WIDTH,HEIGHT);
 
 
-
+Constants constants = new Constants();
         String highscoreText = new HighscoreManager().getScores();
-        this.highScoreText = Constants.displayHighScore(highscoreText);
+        this.highScoreText = constants.displayHighScore(highscoreText);
         this.backButton = new Options("Back button", Constants.backButton());
         this.backButton.getItem(0).setOnMousePressed(e -> stage.setScene(scene));
 

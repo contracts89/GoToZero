@@ -26,14 +26,14 @@ public class Constants implements TextCreator{
 //    public static final int CREDITS_ANIMATION_DROP_POINT = 430;
 //    public static final double DEFAULT_Y_START_POSITION = 540;
 //    public static final double DEFAULT_X_START_POSITION = 500;
-    public  final Font NUMBER_FONT;
-    public  final Font MENU_FONT;
-    public  final Font CREDIT_FONT;
-    public  final Font ABOUT_FONT;
-    public  final Text ABOUT_TEXT;
-    public  final Text CREDITS_BY;
-    public  final Font HELP_FONT;
-    public  final Text HELP_TEXT;
+   /* public  final Font NUMBER_FONT;
+   * public  final Font MENU_FONT;
+    *public  final Font CREDIT_FONT;
+    *public  final Font ABOUT_FONT;
+    *public  final Text ABOUT_TEXT;
+    *public  final Text CREDITS_BY;
+    *public  final Font HELP_FONT;
+    *\public  final Text HELP_TEXT;
 //    public static final int BOMB_VALUE = 0;
 //    public static final String BACKGROUND_PATH = "../resources/menuWallpaper.jpg";
 //    public static final String SYMBOLS = "?!&^%$";
@@ -57,37 +57,37 @@ public class Constants implements TextCreator{
     }
 
 
-    public static Node[] menuNodes() {
-        return new Node[]{
-                new Item("ONE PLAYER", "MENU"),
-                new Item("TWO PLAYERS", "MENU"),
-                new Item("HIGHSCORE", "MENU"),
-                new Item("HELP", "MENU"),
-                new Item("CREDITS", "MENU"),
-                new Item("EXIT", "MENU")
-        };
-    }
+//    public static Node[] menuNodes() {
+//        return new Node[]{
+//                new Item("ONE PLAYER", "MENU"),
+//                new Item("TWO PLAYERS", "MENU"),
+//                new Item("HIGHSCORE", "MENU"),
+//                new Item("HELP", "MENU"),
+//                new Item("CREDITS", "MENU"),
+//                new Item("EXIT", "MENU")
+//        };
+//    }
 
-    public static Node[] creditsText() {
-        {
-            Node[] arr = new Node[]{
-                    new Item("ABELINA GEORGIEVA", "CREDITS"),
-                    new Item("EYUB DJELIL", "CREDITS"),
-                    new Item("GEORGI GROZEV", "CREDITS"),
-                    new Item("KALOYAN NIKOV", "CREDITS"),
-                    new Item("LYUBOMIR GOYCHEV", "CREDITS"),
-                    new Item("NIKIFOR STOYNOV", "CREDITS"),
-                    new Item("PETAR NYAGOLOV", "CREDITS"),
-                    new Item("RADOSLAV DIMITROV", "CREDITS"),
-                    new Item("VIKTORIA SHTEREVA", "CREDITS"),
-                    new Item("TSVETELIN PANTEV", "CREDITS"),
-            };
-            for (Node node : arr) {
-                node.setDisable(true);
-            }
-            return arr;
-        }
-    }
+//    public static Node[] creditsText() {
+//        {
+//            Node[] arr = new Node[]{
+//                    new Item("ABELINA GEORGIEVA", "CREDITS"),
+//                    new Item("EYUB DJELIL", "CREDITS"),
+//                    new Item("GEORGI GROZEV", "CREDITS"),
+//                    new Item("KALOYAN NIKOV", "CREDITS"),
+//                    new Item("LYUBOMIR GOYCHEV", "CREDITS"),
+//                    new Item("NIKIFOR STOYNOV", "CREDITS"),
+//                    new Item("PETAR NYAGOLOV", "CREDITS"),
+//                    new Item("RADOSLAV DIMITROV", "CREDITS"),
+//                    new Item("VIKTORIA SHTEREVA", "CREDITS"),
+//                    new Item("TSVETELIN PANTEV", "CREDITS"),
+//            };
+//            for (Node node : arr) {
+//                node.setDisable(true);
+//            }
+//            return arr;
+//        }
+//    }
 
     public Text displayHighScore(String text) {
         Text highScoreText = new Text(text);

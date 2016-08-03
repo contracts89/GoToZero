@@ -21,6 +21,7 @@ public class CreditsStage extends AbstractStage {
     private Options developers;
     private Options backButton;
 
+
     public CreditsStage(Stage stage, Scene scene) {
         super(stage, scene);
         this.image = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
@@ -37,7 +38,7 @@ public class CreditsStage extends AbstractStage {
 
         Constants constants = new Constants();
 
-        this.developers = new Options("CreditsStage", Constants.creditsText());
+        this.developers = new Options("CreditsStage", OptionsCreator.creditsText());
         this.backButton = new Options("Back button", Constants.backButton());
 
         this.backButton.getItem(0).setOnMousePressed(e->stage.setScene(scene));

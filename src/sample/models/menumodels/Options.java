@@ -10,7 +10,8 @@ public class Options extends VBox {
         super(10, nodes);
         this.setMenuPosition(menu);
     }
-// All options for click: "Menu","Back button" and "Credits",and shows wher must they draw and
+// All options for click: "Menu","Back button" and "Credits",and shows where
+// must draw
 
     private void setMenuPosition(String menuType) {
         switch (menuType) {
