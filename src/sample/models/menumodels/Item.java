@@ -23,18 +23,19 @@ public class Item extends StackPane {
 
     public void setItemFont(String name, String purposeOfItem) {
         text = new Text(name);
+        Constants constants = new Constants();
         switch (purposeOfItem) {
             case "CREDITS":
-                text.setFont(Constants.CREDIT_FONT);
+                text.setFont(constants.getCREDIT_FONT());
                 text.setFill(Color.CRIMSON);
                 this.setEffect(new GaussianBlur(1));
                 break;
             case "MENU":
-                text.setFont(Constants.MENU_FONT);
+                text.setFont(constants.getMENU_FONT());
                 text.setSmooth(false);
                 break;
             case "HELP":
-                text.setFont(Constants.HELP_FONT);
+                text.setFont(constants.getHELP_FONT());
                 text.setFill(Color.INDIANRED);
                 this.setEffect(new Shadow(1,Color.DARKGREY));
                 break;

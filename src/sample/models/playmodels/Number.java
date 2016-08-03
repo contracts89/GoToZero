@@ -12,7 +12,8 @@ public class Number extends FallingObject {
     public Number() {
         super();
         this.setNumberScore(this.getGeneratedNum());
-        this.getTextLabel().setFont(Constants.NUMBER_FONT);
+        Constants constants = new Constants();
+        this.getTextLabel().setFont(constants.getNUMBER_FONT());
         this.getTextLabel().setTextFill(Color.WHITESMOKE);
     }
 

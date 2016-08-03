@@ -30,11 +30,13 @@ public class HelpStage extends AbstractStage {
 
         root.setPrefSize(WIDTH, HEIGHT);
 
+        Constants constants = new Constants();
+
         this.backButton = new Options("Back button", Constants.backButton());
 
         this.backButton.getItem(0).setOnMousePressed(e -> stage.setScene(scene));
 
-        root.getChildren().addAll(this.background, this.backButton, Constants.HELP_TEXT);
+        root.getChildren().addAll(this.background, this.backButton, constants.getHELP_TEXT());
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

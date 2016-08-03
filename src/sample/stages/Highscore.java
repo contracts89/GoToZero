@@ -32,6 +32,9 @@ public class Highscore extends AbstractStage {
         Pane root = new Pane();
 
         root.setPrefSize(WIDTH,HEIGHT);
+
+
+
         String highscoreText = new HighscoreManager().getScores();
         this.highScoreText = Constants.displayHighScore(highscoreText);
         this.backButton = new Options("Back button", Constants.backButton());

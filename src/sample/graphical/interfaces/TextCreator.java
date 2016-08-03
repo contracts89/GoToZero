@@ -6,5 +6,6 @@ public interface TextCreator {
 
     Text createText();
 
+
     //TODO
 }

@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import sample.graphical.interfaces.TextCreator;
 import sample.models.menumodels.Item;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class Constants {
+public class Constants implements TextCreator{
 
 //    public static final int WIDTH = 900;
 //    public static final int HEIGHT = 600;
@@ -25,23 +26,23 @@ public class Constants {
 //    public static final int CREDITS_ANIMATION_DROP_POINT = 430;
 //    public static final double DEFAULT_Y_START_POSITION = 540;
 //    public static final double DEFAULT_X_START_POSITION = 500;
-    public static final Font NUMBER_FONT;
-    public static final Font MENU_FONT;
-    public static final Font CREDIT_FONT;
-    public static final Font ABOUT_FONT;
-    public static final Text ABOUT_TEXT;
-    public static final Text CREDITS_BY;
-    public static final Font HELP_FONT;
-    public static final Text HELP_TEXT;
+    public  final Font NUMBER_FONT;
+    public  final Font MENU_FONT;
+    public  final Font CREDIT_FONT;
+    public  final Font ABOUT_FONT;
+    public  final Text ABOUT_TEXT;
+    public  final Text CREDITS_BY;
+    public  final Font HELP_FONT;
+    public  final Text HELP_TEXT;
 //    public static final int BOMB_VALUE = 0;
 //    public static final String BACKGROUND_PATH = "../resources/menuWallpaper.jpg";
 //    public static final String SYMBOLS = "?!&^%$";
 //    public static final String MATH_OPERATORS = "+-*/";
-    public static final Font GAME_FONT;
-    public static final Text SCORE_TEXT;
-    public static final Text OPERATION_TEXT;
+    public  final Font GAME_FONT;
+    public  final Text SCORE_TEXT;
+    public  final Text OPERATION_TEXT;
 
-    static {
+    public Constants() {
         GAME_FONT = Font.font("Consolas", FontWeight.SEMI_BOLD, 22);
         MENU_FONT = Font.font("", FontWeight.BOLD, 18);
         NUMBER_FONT = Font.font("Consolas", FontWeight.BLACK, 20);
@@ -54,6 +55,7 @@ public class Constants {
         SCORE_TEXT = createScoreAndOpText("score");
         OPERATION_TEXT = createScoreAndOpText("operation");
     }
+
 
     public static Node[] menuNodes() {
         return new Node[]{
@@ -87,43 +89,45 @@ public class Constants {
         }
     }
 
-    public static Text displayHighScore(String text) {
+    public Text displayHighScore(String text) {
         Text highScoreText = new Text(text);
         highScoreText.setTranslateX(60);
         highScoreText.setTranslateY(40);
         highScoreText.setFill(Color.ANTIQUEWHITE);
-        highScoreText.setFont(Constants.HELP_FONT);
+        highScoreText.setFont(HELP_FONT);
         highScoreText.setOpacity(1.5);
         return highScoreText;
     }
 
-    private static Text creditsByText() {
+    private Text creditsByText() {
         Text creditsBy = new Text("CREDITS BY =>\n\nTEAM ANCALOGON");
         creditsBy.setTranslateX(130);
         creditsBy.setTranslateY(250);
         creditsBy.setFill(Color.WHITESMOKE);
-        creditsBy.setFont(Constants.MENU_FONT);
+        creditsBy.setFont(MENU_FONT);
         creditsBy.setOpacity(5);
         return creditsBy;
     }
 
-    private static Text createAboutText() {
+
+
+    private Text createAboutText() {
         Text aboutText = new Text("GoToZero\n\nby Team Ancalogon \u00AE");
         aboutText.setTranslateX(60);
         aboutText.setTranslateY(500);
         aboutText.setFill(Color.DARKRED);
-        aboutText.setFont(Constants.ABOUT_FONT);
+        aboutText.setFont(ABOUT_FONT);
         aboutText.setOpacity(1.5);
         return aboutText;
     }
 
-    public static Text createHelpText() {
+    public Text createHelpText() {
         StringBuilder help = getFilePath();
         Text helpText = new Text(help.toString());
         helpText.setTranslateX(60);
         helpText.setTranslateY(40);
         helpText.setFill(Color.ANTIQUEWHITE);
-        helpText.setFont(Constants.HELP_FONT);
+        helpText.setFont(HELP_FONT);
         helpText.setOpacity(1.5);
         return helpText;
     }
@@ -144,9 +148,9 @@ public class Constants {
         return helpBuilder;
     }
 
-    private static Text createScoreAndOpText(String type) {
+    private Text createScoreAndOpText(String type) {
         Text tempText = new Text();
-        tempText.setFont(Constants.GAME_FONT);
+        tempText.setFont(GAME_FONT);
         if (type.equals("score")) {
             tempText.setY(20);
             tempText.setX(5);
@@ -162,5 +166,54 @@ public class Constants {
 
     public static Node backButton() {
         return new Item("BACK TO MENU", "MENU");
+    }
+
+    @Override
+    public Text createText() {
+        return null;
+    }
+
+    public Font getNUMBER_FONT() {
+        return this.NUMBER_FONT;
+    }
+
+    public Font getMENU_FONT() {
+        return this.MENU_FONT;
+    }
+
+    public Font getCREDIT_FONT() {
+        return this.CREDIT_FONT;
+    }
+
+    public Font getABOUT_FONT() {
+        return this.ABOUT_FONT;
+    }
+
+    public Text getCREDITS_BY() {
+        return this.CREDITS_BY;
+    }
+
+    public Font getHELP_FONT() {
+        return this.HELP_FONT;
+    }
+
+    public Text getHELP_TEXT() {
+        return this.HELP_TEXT;
+    }
+
+    public Text getSCORE_TEXT() {
+        return this.SCORE_TEXT;
+    }
+
+    public Text getOPERATION_TEXT() {
+        return this.OPERATION_TEXT;
+    }
+
+    public Font getGAME_FONT() {
+        return this.GAME_FONT;
+    }
+
+    public Text getABOUT_TEXT() {
+        return this.ABOUT_TEXT;
     }
 }

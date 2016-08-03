@@ -35,12 +35,14 @@ public class CreditsStage extends AbstractStage {
 
         root.setPrefSize(WIDTH, HEIGHT);
 
+        Constants constants = new Constants();
+
         this.developers = new Options("CreditsStage", Constants.creditsText());
         this.backButton = new Options("Back button", Constants.backButton());
 
         this.backButton.getItem(0).setOnMousePressed(e->stage.setScene(scene));
 
-        root.getChildren().addAll(this.background, this.developers, this.backButton,Constants.CREDITS_BY);
+        root.getChildren().addAll(this.background, this.developers, this.backButton,constants.getCREDITS_BY());
         this.creditsTransition.useFallAnimation(this.developers, 6, CREDITS_ANIMATION_DROP_POINT);
         Scene scene = new Scene(root);
         stage.setScene(scene);

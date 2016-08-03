@@ -12,7 +12,8 @@ public class MathOperatorImpl extends FallingObject implements MathOperator {
 
     public MathOperatorImpl() {
         super();
-        this.getTextLabel().setFont(Constants.NUMBER_FONT);
+        Constants constants = new Constants();
+        this.getTextLabel().setFont(constants.getNUMBER_FONT());
         this.getTextLabel().setTextFill(Color.RED);
     }
 

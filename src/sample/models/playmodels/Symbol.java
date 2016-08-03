@@ -11,8 +11,9 @@ public class Symbol extends FallingObject {
 
     public Symbol() {
         super();
+        Constants constants = new Constants();
         this.setNumberScore(this.getGeneratedNum());
-        this.getTextLabel().setFont(Constants.NUMBER_FONT);
+        this.getTextLabel().setFont(constants.getNUMBER_FONT());
         this.getTextLabel().setTextFill(Color.AQUAMARINE);
     }
 

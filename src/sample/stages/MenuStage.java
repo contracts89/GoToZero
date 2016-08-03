@@ -43,7 +43,8 @@ public class MenuStage extends Application {
         this.hBox = new HBox(15, contentFrame1, contentFrame2);
         this.hBox.setTranslateX(35);
         this.hBox.setTranslateY(20);
-        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox, Constants.ABOUT_TEXT);
+        Constants constants = new Constants();
+        root.getChildren().addAll(this.imageView, this.menuOptions, this.hBox, constants.getABOUT_TEXT());
         return root;
     }
 

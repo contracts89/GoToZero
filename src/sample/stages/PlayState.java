@@ -152,8 +152,9 @@ public class PlayState extends AbstractStage {
 
     private void drawObjectsAcquired() {
         int currentCount = this.collisionDetector.getCollidedObjectsCount();
+        Constants constants = new Constants();
         this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
-        this.fallenObjectsAcquired.setFont(Constants.GAME_FONT);
+        this.fallenObjectsAcquired.setFont(constants.getGAME_FONT());
         this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
         this.fallenObjectsAcquired.setTranslateX(5);
         this.fallenObjectsAcquired.setTranslateY(60);
@@ -162,23 +163,24 @@ public class PlayState extends AbstractStage {
 
     //draw the current Score on the scene
     private void drawScoreAndCurrentOperation() {
-        Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()), score));
+        Constants constants = new Constants();
+        constants.getSCORE_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()), score));
         //replace infinity score with String INFINITY
         if (this.score.get() == 999999999) {
-            Constants.SCORE_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
+            constants.getSCORE_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
         }
-        Constants.OPERATION_TEXT.textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
+        constants.getOPERATION_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
                 this.operationSwitcher.getMathOperation())));
     }
 
 
     private void drawThePlayScene() {
         this.pane.setPrefSize(WIDTH, HEIGHT); // set the scene dimensions
-
+Constants constants = new Constants();
         this.pane.getChildren()
                 .addAll(this.imageView,
-                        Constants.SCORE_TEXT,
-                        Constants.OPERATION_TEXT,
+                        constants.getSCORE_TEXT(),
+                        constants.getOPERATION_TEXT(),
                         this.fallenObjectsAcquired,
                         this.player); // add objects in the scene
     }
