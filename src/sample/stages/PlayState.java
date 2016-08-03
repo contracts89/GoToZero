@@ -1,16 +1,10 @@
 package sample.stages;
 
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.collisions.CollsionDetectorImpl;
 import sample.collisions.interfaces.CollisionDetector;
@@ -18,42 +12,38 @@ import sample.controllers.OperationSwitcherImpl;
 import sample.controllers.ScoreHandlerImpl;
 import sample.controllers.interfaces.OperationSwitcher;
 import sample.controllers.interfaces.ScoreHandler;
-import sample.input.PlayerInputHandler;
+import sample.graphical.PlayStateRenderer;
+import sample.graphical.interfaces.Renderer;
+import sample.input.PlayerHandlerImpl;
+import sample.input.interfaces.PlayerHandler;
 import sample.models.interfaces.Fallable;
 import sample.models.interfaces.Player;
-import sample.models.playmodels.*;
-import sample.models.playmodels.Number;
+import sample.models.playmodels.FallingObject;
+import sample.models.playmodels.PlayerImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static sample.constants.MenuConstants.*;
-
 
 public class PlayState extends AbstractStage {
 
-    private Image background;
-    private ImageView imageView;
+    private static final String FALLABLE_PATH = "sample.models.playmodels.";
+
     private PlayerImpl player;
     private Pane pane;
     private List<Fallable> fallables;
-    private LongProperty score; // Set the starting Score (default is 128)
-    //    private String currentOperation;
+    private LongProperty score;
     private AnimationTimer gameTimer;
-    private PlayerInputHandler playerInputHandler;
+    private PlayerHandler playerInputHandler;
     private CollisionDetector collisionDetector;
     private boolean isPaused;
-    private Label fallenObjectsAcquired;
     private ScoreHandler scoreHandler;
     private OperationSwitcher operationSwitcher;
-    private Text scoreText;
-    private Text operationText;
+    private Renderer playStateRenderer;
 
     public PlayState(Stage stage, Scene scene) throws ReflectiveOperationException {
         super(stage, scene);
-        this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
-        this.imageView = new ImageView(this.background);
         this.player = new PlayerImpl();
         this.score = new SimpleLongProperty(5);
         this.pane = new Pane();
@@ -61,71 +51,72 @@ public class PlayState extends AbstractStage {
         this.scoreHandler = new ScoreHandlerImpl();
         this.operationSwitcher = new OperationSwitcherImpl();
         this.collisionDetector = new CollsionDetectorImpl(this.scoreHandler, this.operationSwitcher);
-        this.fallenObjectsAcquired = new Label();
     }
 
     public boolean isPaused() {
-        return isPaused;
+        return this.isPaused;
     }
 
     public void setPaused(boolean paused) {
-        isPaused = paused;
-        //System.out.println("Is Pused:" + isPaused); // use for debugging
+        this.isPaused = paused;
     }
 
     public List<Fallable> getFallingSymbolsAndNumbers() {
-        return fallables;
+        return this.fallables;
     }
 
     public AnimationTimer getGameTimer() {
-        return gameTimer;
+        return this.gameTimer;
     }
 
     private void update() throws ReflectiveOperationException {
 
         if (this.checkForEnd() || this.isPaused) {
-            return;
+            return; // Pause or End of game
         }
         this.player.getAnimator().animate();
 
+        this.playStateRenderer.render();
         this.generateFallingObject();
-        this.drawScoreAndCurrentOperation();
-        this.drawObjectsAcquired();
 
-        FallingObject toBeRemoved = (FallingObject) this.collisionDetector.returnCollidedObject(
+        FallingObject collidedObject = (FallingObject) this.collisionDetector.returnCollidedObject(
                 this.fallables,
                 this.player,
                 this.operationSwitcher.getMathOperation(),
                 this.score);
 
-        this.pane.getChildren().remove(toBeRemoved);
+        this.pane.getChildren().remove(collidedObject);
     }
 
     private boolean checkForEnd() {
-        if (score.get() == 0 || score.get() == 999999999) {
+        if (this.score.get() == 0 || this.score.get() == 999999999) {
             showEndDialog();
             return true;
         }
         return false;
     }
 
-    private void generateFallingObject() {
-        FallingObject fallingObject;
+/*
+using reflection to generate falling objects
+*/
+    private void generateFallingObject() throws ReflectiveOperationException {
         if (System.nanoTime() % 60 == 0) {
-            fallingObject = new Number();
-            fallables.add(fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.generateFallable("Number");
         }
         if (System.nanoTime() % 90 == 0) {
-            fallingObject = new Symbol();
-            fallables.add(fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.generateFallable("Symbol");
         }
         if (System.nanoTime() % 120 == 0) {
-            fallingObject = new MathOperatorImpl();
-            fallables.add(fallingObject);
-            pane.getChildren().add(fallingObject);
+            this.generateFallable("MathOperatorImpl");
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void generateFallable(String type) throws ReflectiveOperationException {
+        Class<Fallable> fallableClass = (Class<Fallable>) Class.forName(FALLABLE_PATH + type);
+        FallingObject fallingObject = (FallingObject) fallableClass.getConstructor().newInstance();
+        this.fallables.add(fallingObject);
+        this.pane.getChildren().add(fallingObject);
     }
 
     private void clearFallingObjects() {
@@ -140,65 +131,25 @@ public class PlayState extends AbstractStage {
             this.clearFallingObjects();
             this.player.stayAtPos();
             if (score.get() == 0) {
-                drawObjectsAcquired();
+
                 int result = this.collisionDetector.getCollidedObjectsCount();
                 new WinDialog(stage, scene, result).visualize(); // WIN
             } else {
-                drawScoreAndCurrentOperation();
+
                 new GameOverDialog(stage, scene).visualize(); //LOSS
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
         }
     }
-
-    private void drawObjectsAcquired() {
-        int currentCount = this.collisionDetector.getCollidedObjectsCount();
-
-        this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
-        this.fallenObjectsAcquired.setFont(GAME_FONT);
-        this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
-        this.fallenObjectsAcquired.setTranslateX(5);
-        this.fallenObjectsAcquired.setTranslateY(60);
-        this.fallenObjectsAcquired.setOpacity(5);
-    }
-
-    //draw the current Score on the scene
-    private void drawScoreAndCurrentOperation() throws ReflectiveOperationException {
-
-        this.scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()),
-                score));
-        //replace infinity score with String INFINITY
-        if (this.score.get() == 999999999) {
-            this.scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
-        }
-        this.operationText.textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
-                this.operationSwitcher.getMathOperation())));
-    }
-
-
-    private void drawThePlayScene() throws ReflectiveOperationException {
-
-        this.scoreText = this.textCreator.createText("ScoreText");
-        this.operationText = this.textCreator.createText("OperationText");
-        this.pane.setPrefSize(WIDTH, HEIGHT); // set the scene dimensions
-
-        this.pane.getChildren()
-                .addAll(this.imageView,
-                        this.scoreText,
-                        this.operationText,
-                        this.fallenObjectsAcquired,
-                        this.player); // add objects in the scene
-    }
-
     @Override
     public void visualize() throws ReflectiveOperationException {
-        this.drawThePlayScene();
 
+        this.playStateRenderer = new PlayStateRenderer(this.collisionDetector, this.textCreator, this.pane
+                , this.player, this.score, this.operationSwitcher);
+        this.playStateRenderer.render();
         Scene scene = new Scene(this.pane);
-        this.playerInputHandler = new PlayerInputHandler(scene, this.player);
+        this.playerInputHandler = new PlayerHandlerImpl(scene, this.player);
         this.processInputInGame();
         this.gameLoop();
         this.gameTimer.start();
@@ -206,7 +157,6 @@ public class PlayState extends AbstractStage {
 
         stage.setScene(scene);
         stage.show();
-
     }
 
     private void processInputInGame() {

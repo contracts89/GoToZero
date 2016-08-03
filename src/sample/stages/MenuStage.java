@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 import sample.constants.MenuConstants;
 import sample.graphical.interfaces.TextCreator;
 import sample.graphical.TextCreatorImpl;
-import sample.input.MenuHandler;
+import sample.input.MenuHandlerImpl;
+import sample.input.interfaces.MenuHandler;
 import sample.models.menumodels.ContentFrame;
 import sample.models.menumodels.Options;
 
@@ -60,7 +61,7 @@ public class MenuStage extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.textCreator = new TextCreatorImpl();
         this.scene = new Scene(createContent());
-        this.menuHandler = new MenuHandler(scene, this.menuOptions);
+        this.menuHandler = new MenuHandlerImpl(scene, this.menuOptions);
         this.menuHandler.processMenuInput(primaryStage, this.scene);
         this.stage = primaryStage;
         this.stage.setScene(this.scene);

@@ -27,7 +27,7 @@ public abstract class AbstractText extends Text {
         this.initializeValues();
     }
 
-    private   void initializeValues() {
+    private void initializeValues() {
         this.setTranslateX(this.xPosition);
         this.setTranslateY(this.yPosition);
         this.setFill(this.paint);

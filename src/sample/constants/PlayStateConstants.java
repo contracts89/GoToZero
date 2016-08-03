@@ -13,8 +13,8 @@ public class PlayStateConstants {
     public static final int NUMBER_ANIMATION_DROP_POINT = 850;
 
     public static final String SYMBOLS = "?!&^%$";
-    public static final char[] MATH_OPERATORS = {'+', '-', '*', '/'};
 
+    public static final String PLAYSTATE_BACKGROUND_PATH = "../resources/background1.jpg";
     public static final int PLAYER_SPRITE_WIDTH = 60;
     public static final int PLAYER_SPRITE_HEIGTH = 60;
     public static final int PLAYER_SPRITE_COLUMNS = 8;
@@ -25,4 +25,6 @@ public class PlayStateConstants {
     public static final String PLAYER_SPRITE_IMAGE = "../resources/playerSprite.png";
     public static final int PLAYER_SPRITE_RENDERER_INITIAL_OFFSET_X = 0;
     public static final int PLAYER_SPRITE_RENDERER_INITIAL_OFFSET_Y = 120;
+
+
 }

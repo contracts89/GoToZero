@@ -16,7 +16,7 @@ public class PlayerImpl extends Pane implements Player {
     private PlayerRenderer playerRenderer;
     private PlayerAnimator playerAnimator;
 
-    public PlayerImpl() {
+    public PlayerImpl() throws ReflectiveOperationException {
         this.playerRenderer = new PlayerRendererImpl();
         this.playerRenderer.render();
         this.playerAnimator = new PlayerAnimatorImpl(this.playerRenderer,this);
