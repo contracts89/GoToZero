@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import sample.constants.Constants;
+import sample.constants.MenuConstants;
 
 public class ContentFrame extends StackPane {
 
@@ -28,11 +28,10 @@ public class ContentFrame extends StackPane {
     public static Node createMiddleContent() {
         String title = "KEEP RUNNING..";
         HBox letters = new HBox(0);
-        Constants constants = new Constants();
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
             Text letter = new Text(title.charAt(i) + "");
-            letter.setFont(constants.getMENU_FONT());
+            letter.setFont(MenuConstants.MENU_FONT);
             letter.setFill(Color.WHITE);
             letters.getChildren().add(letter);
 
@@ -50,11 +49,10 @@ public class ContentFrame extends StackPane {
     public static Node createRightContent() {
         String title = "GO TO ZER0 !";
         HBox letters = new HBox(0);
-        Constants constants = new Constants();
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
             Text letter = new Text(title.charAt(i) + "");
-            letter.setFont(constants.getMENU_FONT());
+            letter.setFont(MenuConstants.MENU_FONT);
             letter.setFill(Color.WHITE);
             letter.setOpacity(0);
             letters.getChildren().add(letter);

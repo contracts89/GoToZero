@@ -7,9 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sample.constants.Constants;
+import sample.constants.MenuConstants;
 import sample.models.menumodels.Options;
-import sample.output.HighscoreManager;
 
 import static sample.constants.MenuConstants.*;
 
@@ -28,16 +27,17 @@ public class Highscore extends AbstractStage {
     }
 
     @Override
-    public void visualize() {
+    public void visualize() throws ReflectiveOperationException {
         Pane root = new Pane();
 
-        root.setPrefSize(WIDTH,HEIGHT);
+        root.setPrefSize(WIDTH, HEIGHT);
 
 
-Constants constants = new Constants();
-        String highscoreText = new HighscoreManager().getScores();
-        this.highScoreText = constants.displayHighScore(highscoreText);
-        this.backButton = new Options("Back button", Constants.backButton());
+//        Constants constants = new Constants();
+//        String highscoreText = new HighscoreManager().getScores();
+//        this.highScoreText = constants.displayHighScore(highscoreText);
+        this.highScoreText = this.textCreator.createText("HighscoreText");
+        this.backButton = new Options("Back button", MenuConstants.backButton());
         this.backButton.getItem(0).setOnMousePressed(e -> stage.setScene(scene));
 
         root.getChildren().addAll(this.background, this.backButton, highScoreText);

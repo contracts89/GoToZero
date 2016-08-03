@@ -20,7 +20,7 @@ public class PlayerImpl extends Pane implements Player {
         this.playerRenderer = new PlayerRendererImpl();
         this.playerRenderer.render();
         this.playerAnimator = new PlayerAnimatorImpl(this.playerRenderer,this);
-        this.playerAnimator.animateOnPlace();
+        this.playerAnimator.animate();
         this.setInitialPosition();
         this.getChildren().addAll(this.playerRenderer.getPlayerImage());
     }

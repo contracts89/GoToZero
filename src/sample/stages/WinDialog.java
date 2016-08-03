@@ -59,7 +59,7 @@ public class WinDialog extends AbstractStage {
         stage.setScene(scene);
     }
 
-    public static   void playAgain() {
+    public static   void playAgain() throws ReflectiveOperationException {
         new PlayState(stage, scene).visualize();
     }
 }

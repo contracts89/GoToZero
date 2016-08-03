@@ -33,13 +33,6 @@ public class PlayerAnimatorImpl implements PlayerAnimator {
     }
 
     @Override
-    public void animateOnPlace() {
-        if (!this.player.isMoving()) {
-
-        }
-    }
-
-    @Override
     public void stopOnMoveAnimation() {
         this.animationOnMove.stop();
     }

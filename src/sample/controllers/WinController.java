@@ -23,8 +23,7 @@ public class WinController {
         this.backToMenu = new Button();
     }
 
-    public void playAgain(ActionEvent actionEvent) throws NoSuchMethodException, InvocationTargetException,
-            IllegalAccessException {
+    public void playAgain(ActionEvent actionEvent) throws ReflectiveOperationException {
         Stage stage = (Stage) playAgainButton.getScene().getWindow();
         stage.close();
         WinDialog.playAgain();

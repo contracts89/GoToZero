@@ -1,5 +1,5 @@
 package sample.stages.interfaces;
 
 public interface Visualizable {
-    void visualize();
+    void visualize() throws ReflectiveOperationException;
 }

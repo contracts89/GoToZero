@@ -1,8 +1,8 @@
 package sample.models.playmodels;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
-import sample.constants.Constants;
 
+import static sample.constants.MenuConstants.NUMBER_FONT;
 import static sample.constants.PlayStateConstants.SYMBOLS;
 
 public class Symbol extends FallingObject {
@@ -11,9 +11,8 @@ public class Symbol extends FallingObject {
 
     public Symbol() {
         super();
-        Constants constants = new Constants();
         this.setNumberScore(this.getGeneratedNum());
-        this.getTextLabel().setFont(constants.getNUMBER_FONT());
+        this.getTextLabel().setFont(NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.AQUAMARINE);
     }
 

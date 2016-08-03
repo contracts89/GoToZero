@@ -41,7 +41,7 @@ public class HighscoreManager {
         }
     }
 
-    public String getScores() {
+    public  static String getScores() {
         TreeSet<Integer> results = readScoreFromFile();
         int index = 1;
         StringBuilder sb = new StringBuilder();

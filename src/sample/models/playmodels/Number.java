@@ -3,8 +3,8 @@ package sample.models.playmodels;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
-import sample.constants.Constants;
 
+import static sample.constants.MenuConstants.NUMBER_FONT;
 import static sample.constants.PlayStateConstants.BOMB_VALUE;
 
 public class Number extends FallingObject {
@@ -12,8 +12,7 @@ public class Number extends FallingObject {
     public Number() {
         super();
         this.setNumberScore(this.getGeneratedNum());
-        Constants constants = new Constants();
-        this.getTextLabel().setFont(constants.getNUMBER_FONT());
+        this.getTextLabel().setFont(NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.WHITESMOKE);
     }
 

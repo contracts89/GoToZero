@@ -23,12 +23,44 @@ public class MenuHandler {
         return this.scene;
     }
 
-    public void processMenuInput(Stage stage, Scene scene) {
-        this.menu.getItem(0).setOnMousePressed(e-> new PlayState(stage,scene).visualize());
-        this.menu.getItem(1).setOnMousePressed(e -> new PlayState(stage,scene).visualize());
-        this.menu.getItem(2).setOnMousePressed(e -> new Highscore(stage,scene).visualize());
-        this.menu.getItem(3).setOnMousePressed(e-> new HelpStage(stage,scene).visualize());
-        this.menu.getItem(4).setOnMousePressed(e-> new CreditsStage(stage,scene).visualize());
-        this.menu.getItem(5).setOnMousePressed(e-> Platform.exit());
+    public void processMenuInput(Stage stage, Scene scene) throws ReflectiveOperationException {
+
+        this.menu.getItem(0).setOnMousePressed(e -> {
+            try {
+                new PlayState(stage, scene).visualize();
+            } catch (ReflectiveOperationException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.menu.getItem(1).setOnMousePressed(e -> {
+            try {
+                new PlayState(stage, scene).visualize();
+            } catch (ReflectiveOperationException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.menu.getItem(2).setOnMousePressed(e -> {
+            try {
+                new Highscore(stage, scene).visualize();
+            } catch (ReflectiveOperationException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.menu.getItem(3).setOnMousePressed(e -> {
+            try {
+                new HelpStage(stage, scene).visualize();
+            } catch (ReflectiveOperationException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.menu.getItem(4).setOnMousePressed(e -> {
+            try {
+                new CreditsStage(stage, scene).visualize();
+            } catch (ReflectiveOperationException e1) {
+                e1.printStackTrace();
+            }
+        });
+        this.menu.getItem(5).setOnMousePressed(e -> Platform.exit());
+
     }
 }

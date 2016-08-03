@@ -6,7 +6,10 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import sample.constants.Constants;
+import sample.constants.MenuConstants;
+
+import static sample.constants.MenuConstants.CREDIT_FONT;
+import static sample.constants.MenuConstants.HELP_FONT;
 
 public class Item extends StackPane {
 
@@ -23,19 +26,18 @@ public class Item extends StackPane {
 
     public void setItemFont(String name, String purposeOfItem) {
         text = new Text(name);
-        Constants constants = new Constants();
         switch (purposeOfItem) {
             case "CREDITS":
-                text.setFont(constants.getCREDIT_FONT());
+                text.setFont(CREDIT_FONT);
                 text.setFill(Color.CRIMSON);
                 this.setEffect(new GaussianBlur(1));
                 break;
             case "MENU":
-                text.setFont(constants.getMENU_FONT());
+                text.setFont(MenuConstants.MENU_FONT);
                 text.setSmooth(false);
                 break;
             case "HELP":
-                text.setFont(constants.getHELP_FONT());
+                text.setFont(HELP_FONT);
                 text.setFill(Color.INDIANRED);
                 this.setEffect(new Shadow(1,Color.DARKGREY));
                 break;

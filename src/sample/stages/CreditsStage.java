@@ -5,10 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.animations.FallTransitionImpl;
-import sample.constants.Constants;
 import sample.animations.interfaces.FallTransition;
+import sample.constants.MenuConstants;
 import sample.models.menumodels.Options;
 
 import static sample.constants.MenuConstants.*;
@@ -20,7 +21,7 @@ public class CreditsStage extends AbstractStage {
     private FallTransition creditsTransition;
     private Options developers;
     private Options backButton;
-
+    private Text creditText;
 
     public CreditsStage(Stage stage, Scene scene) {
         super(stage, scene);
@@ -31,19 +32,18 @@ public class CreditsStage extends AbstractStage {
     }
 
     @Override
-    public void visualize() {
+    public void visualize() throws ReflectiveOperationException {
         Pane root = new Pane();
 
         root.setPrefSize(WIDTH, HEIGHT);
 
-        Constants constants = new Constants();
 
         this.developers = new Options("CreditsStage", OptionsCreator.creditsText());
-        this.backButton = new Options("Back button", Constants.backButton());
+        this.backButton = new Options("Back button", MenuConstants.backButton());
 
         this.backButton.getItem(0).setOnMousePressed(e->stage.setScene(scene));
-
-        root.getChildren().addAll(this.background, this.developers, this.backButton,constants.getCREDITS_BY());
+        this.creditText = this.textCreator.createText("CreditText");
+        root.getChildren().addAll(this.background, this.developers, this.backButton,this.creditText);
         this.creditsTransition.useFallAnimation(this.developers, 6, CREDITS_ANIMATION_DROP_POINT);
         Scene scene = new Scene(root);
         stage.setScene(scene);

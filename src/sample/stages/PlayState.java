@@ -10,10 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.collisions.CollsionDetectorImpl;
 import sample.collisions.interfaces.CollisionDetector;
-import sample.constants.Constants;
 import sample.controllers.OperationSwitcherImpl;
 import sample.controllers.ScoreHandlerImpl;
 import sample.controllers.interfaces.OperationSwitcher;
@@ -47,8 +47,10 @@ public class PlayState extends AbstractStage {
     private Label fallenObjectsAcquired;
     private ScoreHandler scoreHandler;
     private OperationSwitcher operationSwitcher;
+    private Text scoreText;
+    private Text operationText;
 
-    public PlayState(Stage stage, Scene scene) {
+    public PlayState(Stage stage, Scene scene) throws ReflectiveOperationException {
         super(stage, scene);
         this.background = new Image(getClass().getResourceAsStream(BACKGROUND_PATH));
         this.imageView = new ImageView(this.background);
@@ -79,7 +81,7 @@ public class PlayState extends AbstractStage {
         return gameTimer;
     }
 
-    private void update() {
+    private void update() throws ReflectiveOperationException {
 
         if (this.checkForEnd() || this.isPaused) {
             return;
@@ -147,14 +149,16 @@ public class PlayState extends AbstractStage {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
         }
     }
 
     private void drawObjectsAcquired() {
         int currentCount = this.collisionDetector.getCollidedObjectsCount();
-        Constants constants = new Constants();
+
         this.fallenObjectsAcquired.setText(String.format("CURRENT COUNT: %d", currentCount));
-        this.fallenObjectsAcquired.setFont(constants.getGAME_FONT());
+        this.fallenObjectsAcquired.setFont(GAME_FONT);
         this.fallenObjectsAcquired.setTextFill(Color.YELLOW);
         this.fallenObjectsAcquired.setTranslateX(5);
         this.fallenObjectsAcquired.setTranslateY(60);
@@ -162,31 +166,35 @@ public class PlayState extends AbstractStage {
     }
 
     //draw the current Score on the scene
-    private void drawScoreAndCurrentOperation() {
-        Constants constants = new Constants();
-        constants.getSCORE_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()), score));
+    private void drawScoreAndCurrentOperation() throws ReflectiveOperationException {
+
+        this.scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: " + score.get()),
+                score));
         //replace infinity score with String INFINITY
         if (this.score.get() == 999999999) {
-            constants.getSCORE_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
+            this.scoreText.textProperty().bind(Bindings.createStringBinding(() -> ("SCORE: INFINITY...")));
         }
-        constants.getOPERATION_TEXT().textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
+        this.operationText.textProperty().bind(Bindings.createStringBinding(() -> ("CURRENT OPERATION: " +
                 this.operationSwitcher.getMathOperation())));
     }
 
 
-    private void drawThePlayScene() {
+    private void drawThePlayScene() throws ReflectiveOperationException {
+
+        this.scoreText = this.textCreator.createText("ScoreText");
+        this.operationText = this.textCreator.createText("OperationText");
         this.pane.setPrefSize(WIDTH, HEIGHT); // set the scene dimensions
-Constants constants = new Constants();
+
         this.pane.getChildren()
                 .addAll(this.imageView,
-                        constants.getSCORE_TEXT(),
-                        constants.getOPERATION_TEXT(),
+                        this.scoreText,
+                        this.operationText,
                         this.fallenObjectsAcquired,
                         this.player); // add objects in the scene
     }
 
     @Override
-    public void visualize() {
+    public void visualize() throws ReflectiveOperationException {
         this.drawThePlayScene();
 
         Scene scene = new Scene(this.pane);
@@ -223,7 +231,11 @@ Constants constants = new Constants();
         this.gameTimer = new AnimationTimer() {
             @Override
             public synchronized void handle(long now) {
-                update();
+                try {
+                    update();
+                } catch (ReflectiveOperationException e) {
+                    e.printStackTrace();
+                }
             }
         };
         this.gameTimer.start();

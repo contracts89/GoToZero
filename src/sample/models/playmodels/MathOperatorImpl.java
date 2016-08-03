@@ -2,9 +2,10 @@ package sample.models.playmodels;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.paint.Color;
-import sample.constants.Constants;
 import sample.controllers.MathOperation;
 import sample.models.interfaces.MathOperator;
+
+import static sample.constants.MenuConstants.NUMBER_FONT;
 
 public class MathOperatorImpl extends FallingObject implements MathOperator {
 
@@ -12,8 +13,7 @@ public class MathOperatorImpl extends FallingObject implements MathOperator {
 
     public MathOperatorImpl() {
         super();
-        Constants constants = new Constants();
-        this.getTextLabel().setFont(constants.getNUMBER_FONT());
+        this.getTextLabel().setFont(NUMBER_FONT);
         this.getTextLabel().setTextFill(Color.RED);
     }
 

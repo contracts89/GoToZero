@@ -67,7 +67,6 @@ public class PlayerInputHandler {
             playstate.setPaused(false);
             playstate.getGameTimer().start();
             this.player.getAnimator().animate();
-            this.player.getAnimator().animateOnPlace();
             for (Fallable fallingObject : playstate.getFallingSymbolsAndNumbers()) {
                 fallingObject.getFallTransition().getPathTransition().play();
             }
